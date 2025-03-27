@@ -99,7 +99,7 @@ export function LoginForm({ status, canResetPassword }: LoginProps) {
       </div>
       <div className="text-center text-sm">
         Vous n'avez pas de compte ?{" "}
-        <a href="#" className="underline underline-offset-4">
+        <a  href="#" className="underline underline-offset-4">
           S'inscrire
         </a>
       </div>
