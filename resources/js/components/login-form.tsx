@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {  useForm } from '@inertiajs/react';
+import {  Link, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 import InputError from '@/components/input-error';
@@ -99,9 +99,9 @@ export function LoginForm({ status, canResetPassword }: LoginProps) {
       </div>
       <div className="text-center text-sm">
         Vous n'avez pas de compte ?{" "}
-        <a href="#" className="underline underline-offset-4">
+        <Link href="/register" className="underline underline-offset-4">
           S'inscrire
-        </a>
+        </Link>
       </div>
       {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
     </form>
