@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 import InputError from '@/components/input-error';
@@ -132,9 +132,9 @@ const { data, setData, post, processing, errors, reset } = useForm<Required<Regi
       </div>
       <div className="text-center text-sm">
         Avez-vous déjà un compte?{" "}
-        <a href="#" className="underline underline-offset-4">
+        <Link href="/login" className="underline underline-offset-4">
         Se connecter
-        </a>
+        </Link>
       </div>
     </form>
   )
