@@ -8,8 +8,8 @@ Route::get('/', function () {
 })->name('home');
 
 // resources/js/pages/....tsx
-Route::get('/hello-world', function() {
-    return Inertia::render('hello/helloworld');
+Route::get('/demo', function() {
+    return Inertia::render('hello/demo');
 });
 
 
