@@ -4,16 +4,6 @@ const About1 = () => {
   return (
     <section className="py-32">
       <div className="container flex flex-col gap-28">
-        <div className="flex flex-col gap-7">
-          <h1 className="text-4xl font-semibold lg:text-7xl">
-            Bringing the power of software to everyone
-          </h1>
-          <p className="max-w-xl text-lg">
-            Stacker makes it easy to build customer portals, CRMs, internal
-            tools, and other business applications for your team. In minutes,
-            not months.
-          </p>
-        </div>
         <div className="grid gap-6 md:grid-cols-2">
           <img
             src="https://shadcnblocks.com/images/block/placeholder-1.svg"
@@ -31,9 +21,6 @@ const About1 = () => {
         </div>
         <div className="flex flex-col gap-6 md:gap-20">
           <div className="max-w-xl">
-            <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
-              We make creating software ridiculously easy
-            </h2>
             <p className="text-muted-foreground">
               We aim to help empower 1,000,000 teams to create their own
               software. Here is how we plan on doing it.

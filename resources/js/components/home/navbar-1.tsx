@@ -59,9 +59,9 @@ const Navbar1 = ({
     title: "Shadcnblocks.com",
   },
   menu = [
-    { title: "Home", url: "#" },
+    { title: "Acceuil", url: "#" },
     {
-      title: "Products",
+      title: "Cité scolaire",
       url: "#",
       items: [
         {
@@ -92,11 +92,11 @@ const Navbar1 = ({
       ],
     },
     {
-      title: "Resources",
+      title: "Scolarité",
       url: "#",
       items: [
         {
-          title: "Help Center",
+          title: "Scolarité",
           description: "Get all the answers you need right here",
           icon: <Zap className="size-5 shrink-0" />,
           url: "#",
@@ -122,7 +122,7 @@ const Navbar1 = ({
       ],
     },
     {
-      title: "Pricing",
+      title: "Orientation",
       url: "#",
     },
     {
