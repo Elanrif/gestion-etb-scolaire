@@ -7,6 +7,10 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/contact', function () {
+    return Inertia::render('contact');
+})->name('contact');
+
 // resources/js/pages/....tsx
 Route::get('/demo', function() {
     return Inertia::render('hello/demo');
