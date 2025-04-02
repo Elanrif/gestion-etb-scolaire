@@ -11,6 +11,10 @@ Route::get('/contact', function () {
     return Inertia::render('contact');
 })->name('contact');
 
+Route::get('/actuality', function () {
+    return Inertia::render('actuality-page');
+})->name('actuality');
+
 // resources/js/pages/....tsx
 Route::get('/demo', function() {
     return Inertia::render('hello/demo');
