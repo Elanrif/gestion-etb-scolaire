@@ -12,7 +12,7 @@ export default function HomeApp() {
                 {/* Hero Section avec image d'arrière-plan */}
                 <section className="relative w-full overflow-hidden py-20 md:py-32 lg:py-40">
                     <div className="absolute inset-0 z-0">
-                        <img src="/hero-background.jpg" alt="Campus du lycée" className="h-full w-full object-cover" />
+                        <img src="/images/image1.jpg" alt="Campus du lycée" className="h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/70" />
                     </div>
                     <div className="relative z-10 container px-4 md:px-6">
@@ -34,7 +34,7 @@ export default function HomeApp() {
                                         </Button>
                                     </Link>
                                     <Link href="/login">
-                                        <Button variant="outline" className="border-white text-white hover:bg-white/10">
+                                        <Button variant="outline" className="border-white hover:bg-white/80">
                                             Se connecter
                                         </Button>
                                     </Link>
@@ -86,7 +86,7 @@ export default function HomeApp() {
                             <Card className="group overflow-hidden border-none shadow-lg">
                                 <div className="relative h-60 overflow-hidden">
                                     <img
-                                        src="/news-1.jpg"
+                                        src="images/remise.jpg"
                                         alt="Remise des diplômes"
                                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
@@ -112,7 +112,7 @@ export default function HomeApp() {
                             <Card className="group overflow-hidden border-none shadow-lg">
                                 <div className="relative h-60 overflow-hidden">
                                     <img
-                                        src="/news-2.jpg"
+                                        src="/images/sport.jpg"
                                         alt="Compétition sportive"
                                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
@@ -138,7 +138,7 @@ export default function HomeApp() {
                             <Card className="group overflow-hidden border-none shadow-lg">
                                 <div className="relative h-60 overflow-hidden">
                                     <img
-                                        src="/news-3.jpg"
+                                        src="/images/projet.jpg"
                                         alt="Projet scientifique"
                                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
@@ -168,7 +168,7 @@ export default function HomeApp() {
                 {/* Section Formations avec image d'arrière-plan */}
                 <section className="relative w-full overflow-hidden py-20 md:py-32">
                     <div className="absolute inset-0 z-0">
-                        <img src="/formations-bg.jpg" alt="Salle de classe" className="h-full w-full object-cover" />
+                        <img src="/images/salle.jpg" alt="Salle de classe" className="h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-black/85" />
                     </div>
                     <div className="relative z-10 container px-4 md:px-6">
@@ -191,7 +191,7 @@ export default function HomeApp() {
                                 <h3 className="mb-2 text-xl font-bold text-white">Filière Générale</h3>
                                 <p className="mb-4 text-gray-300">
                                     Préparez-vous aux études supérieures avec nos spécialités variées : mathématiques, physique-chimie, SVT, sciences
-                                    économiques, humanités...
+                                    économiques, Agronomie ...
                                 </p>
                                 <Link href="#" className="inline-flex items-center text-sm font-medium text-orange-300 hover:text-white">
                                     Découvrir <ArrowRight className="ml-1 h-4 w-4" />
@@ -230,7 +230,7 @@ export default function HomeApp() {
                 {/* CTA Section avec image d'arrière-plan */}
                 <section className="relative w-full overflow-hidden py-20 md:py-32">
                     <div className="absolute inset-0 z-0">
-                        <img src="/cta-background.jpg" alt="Campus du lycée" className="h-full w-full object-cover" />
+                        <img src="/images/campus1.jpg" alt="Campus du lycée" className="h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-black/80" />
                     </div>
                     <div className="relative z-10 container px-4 md:px-6">
@@ -246,7 +246,7 @@ export default function HomeApp() {
                                     <Button className="bg-orange-500 text-white hover:bg-orange-600">S'inscrire</Button>
                                 </Link>
                                 <Link href="/contact">
-                                    <Button variant="outline" className="border-white text-white hover:bg-white/10">
+                                    <Button variant="outline" className="border-white hover:bg-white/80">
                                         Nous contacter
                                     </Button>
                                 </Link>
