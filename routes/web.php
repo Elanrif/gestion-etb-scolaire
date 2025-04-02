@@ -15,6 +15,10 @@ Route::get('/actuality', function () {
     return Inertia::render('actuality-page');
 })->name('actuality');
 
+Route::get('/formations', function () {
+    return Inertia::render('formations-page');
+})->name('formations');
+
 // resources/js/pages/....tsx
 Route::get('/demo', function() {
     return Inertia::render('hello/demo');
