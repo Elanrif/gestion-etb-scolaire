@@ -12,6 +12,7 @@ $routes = [
     'team' => 'team',
     'facilities' => 'facilities',
     'formations' => 'formations',
+    'dashboard' => 'dashboard',
 ];
 
 foreach ($routes as $name => $page) {
@@ -19,3 +20,7 @@ foreach ($routes as $name => $page) {
         return Inertia::render("ux/$page");
     })->name("{$name}.ux");
 }
+
+Route::get('/admin', function () {
+    return Inertia::render('admin/dashboard');
+})->name('admin.dashboard');
