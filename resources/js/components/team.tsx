@@ -1,28 +1,28 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import AppHomeLayout from '@/layouts/app/app-home-layout';
-import { Mail } from 'lucide-react';
+import { Facebook, Instagram, Mail, MessageCircle } from 'lucide-react';
 
-export default function Team() {
+export default function TeamPage() {
     const teamMembers = [
         {
             name: 'MARIAM Ibrahim',
             role: 'Proviseure',
-            image:'images/directrice.jpg',
+            image: 'images/directrice.jpg',
             description: "Directrice du lycée depuis 2018, Mme Dupont a plus de 20 ans d'expérience dans l'éducation nationale.",
             email: 'Mariam@lycee-saintexupery.fr',
         },
         {
             name: 'MOHAMED Nassur',
             role: 'Proviseur adjoint',
-           image:'images/adjoint.jpg',
+            image: 'images/adjoint.jpg',
             description: 'M. Martin supervise les programmes académiques et coordonne les équipes pédagogiques.',
             email: 'nassur@lycee-saintexupery.fr',
         },
         {
             name: 'MOINA HALIMA Ali ',
             role: "Conseillère principale d'éducation",
-            image:'images/conseil.jpg',
+            image: 'images/conseil.jpg',
             description: 'Mme Bernard veille au bien-être des élèves et assure le suivi éducatif au quotidien.',
             email: 'moina@lycee-saintexupery.fr',
         },
@@ -69,7 +69,7 @@ export default function Team() {
                 {/* Hero Section */}
                 <section className="relative w-full overflow-hidden py-20 md:py-28">
                     <div className="absolute inset-0 z-0">
-                        <img src="/images/pedagogie.jpg" alt="Équipe pédagogique" className="w-full object-cover aspect-[16/9]" />
+                        <img src="/team-hero.jpg" alt="Équipe pédagogique" className="h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-black/70" />
                     </div>
                     <div className="relative z-10 container px-4 md:px-6">
@@ -94,25 +94,45 @@ export default function Team() {
 
                         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                             {teamMembers.map((member, index) => (
-                                <Card key={index} className="overflow-hidden border-none shadow-lg">
-                                    <div className="relative aspect-square">
-                                        <img
-                                            src={member.image || `/placeholder.svg?height=300&width=300`}
-                                            alt={member.name}
-                                            className="h-full w-full object-cover"
-                                        />
+                                <Card key={index} className="flex h-full flex-col overflow-hidden border-none shadow-lg">
+                                    <div className="flex justify-center p-6 pb-0">
+                                        <div className="h-40 w-40 overflow-hidden rounded-full">
+                                            <img
+                                                src={member.image || `/placeholder.svg?height=300&width=300`}
+                                                alt={member.name}
+                                                className="h-full w-full object-cover"
+                                            />
+                                        </div>
                                     </div>
-                                    <CardContent className="p-6">
-                                        <h3 className="mb-1 text-xl font-bold">{member.name}</h3>
-                                        <p className="mb-3 font-medium text-orange-600">{member.role}</p>
-                                        <p className="mb-4 text-sm text-gray-600">{member.description}</p>
-                                        <Button
-                                            variant="outline"
-                                            className="flex w-full items-center justify-center gap-2 border-blue-200 text-blue-600 hover:bg-blue-50"
-                                        >
-                                            <Mail className="h-4 w-4" />
-                                            <span>Contacter</span>
-                                        </Button>
+                                    <CardContent className="flex flex-grow flex-col p-6">
+                                        <div className="mb-4 text-center">
+                                            <h3 className="mb-1 text-xl font-bold">{member.name}</h3>
+                                            <p className="font-medium text-orange-600">{member.role}</p>
+                                        </div>
+                                        <p className="flex-grow text-sm text-gray-600">{member.description}</p>
+                                        <div className="mt-6 border-t border-gray-100 pt-4">
+                                            <Button
+                                                variant="outline"
+                                                className="mb-3 flex w-full items-center justify-center gap-2 border-blue-200 text-blue-600 hover:bg-blue-50"
+                                            >
+                                                <Mail className="h-4 w-4" />
+                                                <span>Contacter</span>
+                                            </Button>
+                                            <div className="flex justify-center gap-4">
+                                                <a href="#" className="text-green-600 transition-colors hover:text-green-800">
+                                                    <MessageCircle className="h-5 w-5" />
+                                                    <span className="sr-only">WhatsApp</span>
+                                                </a>
+                                                <a href="#" className="text-blue-600 transition-colors hover:text-blue-800">
+                                                    <Facebook className="h-5 w-5" />
+                                                    <span className="sr-only">Messenger</span>
+                                                </a>
+                                                <a href="#" className="text-pink-600 transition-colors hover:text-pink-800">
+                                                    <Instagram className="h-5 w-5" />
+                                                    <span className="sr-only">Instagram</span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </CardContent>
                                 </Card>
                             ))}

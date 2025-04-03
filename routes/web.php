@@ -31,10 +31,9 @@ Route::get('/history', function () {
     return Inertia::render('history-page');
 })->name('history');
 
-// resources/js/pages/....tsx
-Route::get('/demo', function() {
-    return Inertia::render('hello/demo');
-});
+Route::get('/team', function () {
+    return Inertia::render('team-page');
+})->name('team');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
