@@ -25,29 +25,44 @@ export function SiteHeader() {
         {
             href: '#',
             label: "L'établissement",
-            active: url === 'about.ux',
+            active: url === 'about',
             hasSubmenu: true,
             submenu: [
-                { href: 'about.ux', label: 'Présentation' },
-                { href: 'team.ux', label: 'Équipe pédagogique' },
-                { href: 'facilities.ux', label: 'Nos installations' },
-                { href: 'history.ux', label: 'Histoire' },
+                { href: 'about', label: 'Présentation' },
+                { href: 'team', label: 'Équipe pédagogique' },
+                { href: 'installation', label: 'Nos installations' },
+                { href: 'history', label: 'Histoire' },
             ],
         },
         {
-            href: 'formations.ux',
+            href: 'formations',
             label: 'Formations',
-            active: url === 'formations.ux',
+            active: url === 'formations',
         },
         {
-            href: 'news.ux',
+            href: 'actuality',
             label: 'Actualités',
-            active: url === 'news.ux',
+            active: url === 'news',
         },
         {
-            href: 'contact.ux',
+            href: 'contact',
             label: 'Contact',
-            active: url === 'contact.ux',
+            active: url === 'contact',
+        },
+        {
+            href: 'installation',
+            label: 'instalation',
+            active: url === 'instalition',
+        },
+        {
+            href: 'about',
+            label: 'about',
+            active: url === 'about',
+        },
+        {
+            href: 'history',
+            label: 'history',
+            active: url === 'history',
         },
     ];
 
