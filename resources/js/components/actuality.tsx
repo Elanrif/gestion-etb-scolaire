@@ -24,7 +24,7 @@ export default function Actuality() {
             description: 'Notre équipe de basket remporte le championnat régional',
             excerpt:
                 'Après une saison exceptionnelle, notre équipe de basket a remporté la finale du championnat régional inter-lycées. Une fierté pour notre établissement !',
-            image: '/images/victoire.jpg',
+            image: '/images/trophée.jpg',
             date: '10 mai 2023',
             category: 'Sport',
         },
@@ -44,7 +44,7 @@ export default function Actuality() {
             description: 'Venez découvrir notre établissement le 18 mars',
             excerpt:
                 'Le Lycée Saint-Exupéry ouvre ses portes le samedi 18 mars de 9h à 17h. Une occasion unique de découvrir nos installations, de rencontrer nos équipes et de vous informer sur nos formations.',
-            image: '/images/journé.jpg',
+            image: '/images/porte-ouverte.jpg',
             date: '5 mars 2023',
             category: 'Événements',
         },
@@ -54,7 +54,7 @@ export default function Actuality() {
             description: 'Un expert de renommée internationale à la rencontre de nos élèves',
             excerpt:
                 "Dans le cadre de notre cycle de conférences, nous avons eu l'honneur d'accueillir le Professeur Martin, expert en intelligence artificielle, pour une présentation passionnante sur les enjeux et perspectives de cette technologie.",
-            image: '/images/journé.jpg',
+            image: '/images/conferenceIA.jpg',
             date: '15 février 2023',
             category: 'Conférences',
         },
@@ -64,7 +64,7 @@ export default function Actuality() {
             description: 'Les élèves de Première découvrent la capitale britannique',
             excerpt:
                 'Les élèves de Première de la section internationale britannique ont passé une semaine à Londres pour perfectionner leur anglais et découvrir la richesse culturelle de la capitale britannique.',
-            image: '/images/journé.jpg',
+            image: '/images/voyage-scolaire.jpg',
             date: '10 janvier 2023',
             category: 'Voyages',
         },
@@ -74,7 +74,7 @@ export default function Actuality() {
             description: 'Une représentation théâtrale exceptionnelle',
             excerpt:
                 "Les élèves de l'atelier théâtre ont présenté leur spectacle de fin d'année devant un public conquis. Une adaptation originale de 'Le Songe d'une nuit d'été' de Shakespeare.",
-            image: '/images/journé.jpg',
+            image: '/images/divers.jpg',
             date: '15 décembre 2022',
             category: 'Culture',
         },
@@ -84,7 +84,7 @@ export default function Actuality() {
             description: "Une semaine dédiée à l'avenir de nos élèves",
             excerpt:
                 "La semaine de l'orientation a permis à nos élèves de rencontrer des professionnels de divers secteurs et de découvrir les formations post-bac qui s'offrent à eux.",
-            image: '/images/journé.jpg',
+            image: '/images/orientation.jpg',
             date: '28 novembre 2022',
             category: 'Orientation',
         },
