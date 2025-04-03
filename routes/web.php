@@ -15,10 +15,9 @@ Route::get('/actuality', function () {
     return Inertia::render('actuality-page');
 })->name('actuality');
 
-Route::get('/team', function () {
-    return Inertia::render('team-page');
-})->name('team');
-
+Route::get('/installation', function () {
+    return Inertia::render('installation-page');
+})->name('installation');
 
 Route::get('/formations', function () {
     return Inertia::render('formations-page');
