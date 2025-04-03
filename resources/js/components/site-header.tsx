@@ -1,8 +1,7 @@
-'use client';
-
 import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, GraduationCap, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { route } from 'ziggy-js';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -17,38 +16,38 @@ export function SiteHeader() {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const routes = [
+    const links = [
         {
-            href: '/',
+            href: 'home',
             label: 'Accueil',
             active: url === '/',
         },
         {
             href: '#',
             label: "L'établissement",
-            active: url === '/about',
+            active: url === 'about.ux',
             hasSubmenu: true,
             submenu: [
-                { href: '/ux/about', label: 'Présentation' },
-                { href: '/ux/team', label: 'Équipe pédagogique' },
-                { href: '/ux/facilities', label: 'Nos installations' },
-                { href: '/ux/history', label: 'Histoire' },
+                { href: 'about.ux', label: 'Présentation' },
+                { href: 'team.ux', label: 'Équipe pédagogique' },
+                { href: 'facilities.ux', label: 'Nos installations' },
+                { href: 'history.ux', label: 'Histoire' },
             ],
         },
         {
-            href: '/ux/formations',
+            href: 'formations.ux',
             label: 'Formations',
-            active: url === '/formations',
+            active: url === 'formations.ux',
         },
         {
-            href: '/ux/news',
+            href: 'news.ux',
             label: 'Actualités',
-            active: url === '/news',
+            active: url === 'news.ux',
         },
         {
-            href: '/ux/contact',
+            href: 'contact.ux',
             label: 'Contact',
-            active: url === '/contact',
+            active: url === 'contact.ux',
         },
     ];
 
@@ -62,25 +61,25 @@ export function SiteHeader() {
                     <span className="text-xl font-bold text-black">Lycée Saint-Exupéry</span>
                 </Link>
                 <nav className="hidden gap-6 md:flex">
-                    {routes.map((route) =>
-                        route.hasSubmenu ? (
-                            <div key={route.label} className="group relative">
+                    {links.map((link) =>
+                        link.hasSubmenu ? (
+                            <div key={link.label} className="group relative">
                                 <button
                                     className={cn(
                                         'flex items-center gap-1 text-sm font-medium transition-colors hover:text-blue-600',
-                                        route.active ? 'text-blue-600' : 'text-gray-600',
+                                        link.active ? 'text-blue-600' : 'text-gray-600',
                                     )}
                                     onClick={() => setIsSubmenuOpen(!isSubmenuOpen)}
                                 >
-                                    {route.label}
+                                    {link.label}
                                     <ChevronDown className="h-4 w-4" />
                                 </button>
                                 <div className="invisible absolute top-full left-0 mt-2 w-48 rounded-md border bg-white opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
                                     <div className="p-2">
-                                        {route.submenu?.map((item) => (
+                                        {link.submenu?.map((item) => (
                                             <Link
                                                 key={item.href}
-                                                href={item.href}
+                                                href={route(item.href)}
                                                 className="block rounded-md px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600"
                                             >
                                                 {item.label}
@@ -91,14 +90,14 @@ export function SiteHeader() {
                             </div>
                         ) : (
                             <Link
-                                key={route.href}
-                                href={route.href}
+                                key={link.href}
+                                href={route(link.href)}
                                 className={cn(
                                     'text-sm font-medium transition-colors hover:text-blue-600',
-                                    route.active ? 'text-blue-600' : 'text-gray-600',
+                                    link.active ? 'text-blue-600' : 'text-gray-600',
                                 )}
                             >
-                                {route.label}
+                                {link.label}
                             </Link>
                         ),
                     )}
@@ -120,25 +119,25 @@ export function SiteHeader() {
             {isMenuOpen && (
                 <div className="container border-t py-4 md:hidden">
                     <nav className="flex flex-col space-y-4">
-                        {routes.map((route) =>
-                            route.hasSubmenu ? (
-                                <div key={route.label} className="space-y-2">
+                        {links.map((link) =>
+                            link.hasSubmenu ? (
+                                <div key={link.label} className="space-y-2">
                                     <button
                                         className={cn(
                                             'flex w-full items-center justify-between text-sm font-medium transition-colors hover:text-blue-600',
-                                            route.active ? 'text-blue-600' : 'text-gray-600',
+                                            link.active ? 'text-blue-600' : 'text-gray-600',
                                         )}
                                         onClick={() => setIsSubmenuOpen(!isSubmenuOpen)}
                                     >
-                                        {route.label}
+                                        {link.label}
                                         <ChevronDown className={cn('h-4 w-4 transition-transform', isSubmenuOpen && 'rotate-180')} />
                                     </button>
                                     {isSubmenuOpen && (
                                         <div className="space-y-2 border-l border-gray-200 pl-4">
-                                            {route.submenu?.map((item) => (
+                                            {link.submenu?.map((item) => (
                                                 <Link
                                                     key={item.href}
-                                                    href={item.href}
+                                                    href={route(item.href)}
                                                     className="block text-sm text-gray-600 hover:text-blue-600"
                                                     onClick={() => setIsMenuOpen(false)}
                                                 >
@@ -150,15 +149,15 @@ export function SiteHeader() {
                                 </div>
                             ) : (
                                 <Link
-                                    key={route.href}
-                                    href={route.href}
+                                    key={link.href}
+                                    href={link.href}
                                     className={cn(
                                         'text-sm font-medium transition-colors hover:text-blue-600',
-                                        route.active ? 'text-blue-600' : 'text-gray-600',
+                                        link.active ? 'text-blue-600' : 'text-gray-600',
                                     )}
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    {route.label}
+                                    {link.label}
                                 </Link>
                             ),
                         )}
