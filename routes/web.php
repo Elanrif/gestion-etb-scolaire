@@ -23,6 +23,10 @@ Route::get('/about', function () {
     return Inertia::render('about-page');
 })->name('about');
 
+Route::get('/history', function () {
+    return Inertia::render('history-page');
+})->name('history');
+
 // resources/js/pages/....tsx
 Route::get('/demo', function() {
     return Inertia::render('hello/demo');
