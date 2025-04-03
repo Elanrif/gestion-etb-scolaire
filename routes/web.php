@@ -11,6 +11,10 @@ Route::get('/contact', function () {
     return Inertia::render('contact');
 })->name('contact');
 
+Route::get('/actuality', function () {
+    return Inertia::render('actuality-page');
+})->name('actuality');
+
 Route::get('/formations', function () {
     return Inertia::render('formations-page');
 })->name('formations');
