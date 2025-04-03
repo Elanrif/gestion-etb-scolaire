@@ -76,7 +76,7 @@ export default function Installation() {
                     <div className="container px-4 md:px-6">
                         <div className="mx-auto mb-16 max-w-3xl text-center">
                             <div className="mb-4 inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-800">Notre campus</div>
-                            <h2 className="mb-4 text-3xl font-bold tracking-tighter">Des équipements de qualité pour une éducation d'excellence</h2>
+                            <h2 className="mb-4 text-3xl font-bold tracking-tighter">Desj équipements de qualité pour une éducation d'excellence</h2>
                             <p className="text-gray-600">
                                 Le Lycée Saint-Exupéry dispose d'installations modernes et adaptées pour offrir à nos élèves les meilleures conditions
                                 d'apprentissage et d'épanouissement.
