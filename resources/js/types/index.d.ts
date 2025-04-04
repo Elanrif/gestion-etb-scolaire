@@ -1,7 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
 
-
 export interface Auth {
     user: User;
 }
@@ -69,4 +68,25 @@ export interface Professor {
     level: string;
     birthday: number;
     [key: string]: unknown;
+}
+
+export interface Secretary {
+    user?: User;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    unique_id: string;
+    status: StagiaireStatus;
+    address: string;
+    experience_year: number;
+    responsability_notes: string;
+    birthday: string;
+    [key: string]: unknown;
+}
+
+export enum StagiaireStatus {
+    TITULAIRE = 'Titulaire',
+    STAGIAIRE = 'Stagiaire',
+    CONTRACTUEL = 'Contractuel',
 }
