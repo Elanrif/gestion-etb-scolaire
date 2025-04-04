@@ -58,4 +58,15 @@ export interface Student {
     full_name_parents: string;
     phone_parents: string;
     image_url: string;
+    [key: string]: unknown;
+}
+
+export interface Professor {
+    user: User;
+    fullname: string;
+    phone: string;
+    address: string;
+    level: string;
+    birthday: number;
+    [key: string]: unknown;
 }
