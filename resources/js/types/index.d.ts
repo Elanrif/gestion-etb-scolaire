@@ -40,3 +40,12 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Professor {
+    user: User;
+    fullname: string;
+    phone: string;
+    address: string;
+    level: string;
+    birthday: number;
+}
