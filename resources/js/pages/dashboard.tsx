@@ -1,8 +1,9 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
-
+import { type SharedData, type BreadcrumbItem } from '@/types';
+import { Head, usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -11,6 +12,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
+
+    const { flash } = usePage<SharedData>().props;
+
+    useEffect(() => {
+        
+        if (flash.success) {
+            toast.success(flash.success);
+        }
+
+    }, [flash.success]);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
