@@ -6,7 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 
 export function StudentForm() {
-        
     const classes = [
         { id: 'seconde-a', name: 'Seconde A' },
         { id: 'seconde-b', name: 'Seconde B' },
@@ -31,6 +30,39 @@ export function StudentForm() {
                         <Label htmlFor="lastName">Nom</Label>
                         <Input id="lastName" placeholder="Entrez votre nom" required />
                     </div>
+                    <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input id="email" name="email" type="email" placeholder="votre.email@exemple.com" required className="w-full" />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="password">Mot de passe</Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            name="password"
+                            required
+                            autoComplete="new-password"
+                            placeholder="Mot de passe"
+                            className="w-full"
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="password_confirmation">Confirmez le mot de passe</Label>
+                        <Input
+                            id="password_confirmation"
+                            type="password"
+                            name="password_confirmation"
+                            required
+                            autoComplete="new-password"
+                            placeholder="Confirmez le mot de passe"
+                            className="w-full"
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="phone">Téléphone</Label>
+                        <Input id="phone" placeholder="Entrez votre numéro de téléphone" />
+                    </div>
+
                     <div className="space-y-2">
                         <Label htmlFor="birthdate">Date de naissance</Label>
                         <Input id="birthdate" type="date" required />
@@ -47,14 +79,6 @@ export function StudentForm() {
                                 <SelectItem value="other">Autre</SelectItem>
                             </SelectContent>
                         </Select>
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="votre.email@exemple.com" required />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="phone">Téléphone</Label>
-                        <Input id="phone" placeholder="Entrez votre numéro de téléphone" />
                     </div>
                 </div>
             </div>
@@ -138,10 +162,7 @@ export function StudentForm() {
             </div>
 
             <div className="flex justify-start">
-                <button
-                    type="submit"
-                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
-                >
+                <button type="submit" className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50">
                     Enregistrer
                 </button>
             </div>

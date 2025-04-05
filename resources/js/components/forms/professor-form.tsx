@@ -25,6 +25,34 @@ export function ProfessorForm() {
                         <Label htmlFor="email">Email</Label>
                         <Input id="email" type="email" placeholder="votre.email@exemple.com" required />
                     </div>
+                    <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input id="email" name="email" type="email" placeholder="votre.email@exemple.com" required className="w-full" />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="password">Mot de passe</Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            name="password"
+                            required
+                            autoComplete="new-password"
+                            placeholder="Mot de passe"
+                            className="w-full"
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="password_confirmation">Confirmez le mot de passe</Label>
+                        <Input
+                            id="password_confirmation"
+                            type="password"
+                            name="password_confirmation"
+                            required
+                            autoComplete="new-password"
+                            placeholder="Confirmez le mot de passe"
+                            className="w-full"
+                        />
+                    </div>
                     <div className="space-y-2">
                         <Label htmlFor="phone">Téléphone</Label>
                         <Input id="phone" placeholder="Entrez votre numéro de téléphone" />

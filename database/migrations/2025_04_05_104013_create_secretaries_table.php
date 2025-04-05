@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number');
             $table->string('address');
-            $table->enum('status',['TITULAIRE','STAGIAIRE','CONTRACTUEL']);
+            $table->enum('status',['TITULAIRE','STAGIAIRE','CONTRACTUEL'])->default('TITULAIRE');
             $table->integer('experience_year');
             $table->string('responsability_notes')->nullable();
             $table->timestamp('birthday');

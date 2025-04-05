@@ -24,8 +24,8 @@ export interface Professor {
     fullname: string;
     phone: string;
     address: string;
-    level: string;
     birthday: number;
+    level: string;
     [key: string]: unknown;
 }
 

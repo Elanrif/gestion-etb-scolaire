@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Credential;
 
+use App\Enums\RoleUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSecretaryRequest;
 use App\Models\User;
@@ -24,14 +25,16 @@ class RegisterController extends Controller
      */
     public function storeSecretary(StoreSecretaryRequest $request): RedirectResponse
     {
+     
        /* Get validated data */
         $validated_data = $request->validated();
-
+       
         /* Create the user account */
         $user = User::create([
             'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
             'email' => $validated_data['email'],
             'password' => Hash::make($validated_data['password']),
+            'role' =>  RoleUser::SECRETARY->value,
         ]);
 
         /* Create secretary account */
