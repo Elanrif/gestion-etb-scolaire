@@ -19,7 +19,7 @@ export function StudentForm() {
     ];
 
     return (
-        <div className="space-y-6">
+        <form className="space-y-6">
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -136,6 +136,15 @@ export function StudentForm() {
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div className="flex justify-start">
+                <button
+                    type="submit"
+                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                >
+                    Enregistrer
+                </button>
+            </div>
+        </form>
     );
 }

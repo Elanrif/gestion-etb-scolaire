@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Make the relation with the secretary.
+     *
+     * @return secretary
+     */
+    public function secretary()
+    {
+        return $this->hasOne(Secretary::class);
+    }
 }

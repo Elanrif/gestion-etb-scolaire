@@ -5,11 +5,11 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-
+import { FormEventHandler } from 'react';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 import InputError from '../input-error';
 
 enum StagiaireStatus {
@@ -22,6 +22,8 @@ type Secretary = {
     first_name: string;
     last_name: string;
     email: string;
+    password: string;
+    password_confirmation: string;
     phone_number: string;
     unique_id: string;
     status: StagiaireStatus;
@@ -36,6 +38,8 @@ export function SecretaryForm() {
         first_name: '',
         last_name: '',
         email: '',
+        password: '',
+        password_confirmation: '',
         phone_number: '',
         unique_id: '',
         status: StagiaireStatus.TITULAIRE,
@@ -54,21 +58,22 @@ export function SecretaryForm() {
         setData(name, value);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        console.log('Submitting form with data:', data);
-        post('/admin/students', {
+        post(route('credentials.secretary'), {
             onSuccess: () => {
-                toast.success('Élève ajouté avec succès');
+                toast.success('Compte créer avec succès');
                 setIsSubmitting(false);
             },
-            onError: () => {
-                toast.error("Une erreur s'est produite lors de l'ajout de l'élève");
+            onError: (e) => {
+                console.log('handleSubmit error : ', e)
+                toast.error("Une erreur s'est produite");
                 setIsSubmitting(false);
             },
-            onFinish: () => reset(),
+            onFinish: () => reset('status'),
         });
+        console.log('Submitting form with data:', data);
     };
     
     return (
@@ -100,7 +105,7 @@ export function SecretaryForm() {
                         />
                         <InputError message={errors.last_name} />
                     </div>
-                    <div className="space-y-2">
+                    <div className="col-span-2 space-y-2">
                         <Label htmlFor="email">Email</Label>
                         <Input
                             id="email"
@@ -112,6 +117,42 @@ export function SecretaryForm() {
                             required
                         />
                         <InputError message={errors.email} />
+                    </div>
+                    <div className="space-y-2">
+                        <div className="flex items-center">
+                            <Label htmlFor="password">Mot de passe</Label>
+                        </div>
+                        <Input
+                            id="password"
+                            type="password"
+                            name="password"
+                            required
+                            tabIndex={3}
+                            autoComplete="new-password"
+                            value={data.password}
+                            onChange={handleChange}
+                            disabled={processing}
+                            placeholder="Password"
+                        />
+                        <InputError message={errors.password} />
+                    </div>
+                    <div className="space-y-2">
+                        <div className="flex items-center">
+                            <Label htmlFor="password_confirmation">Confirmez mot le de passe</Label>
+                        </div>
+                        <Input
+                            id="password_confirmation"
+                            type="password"
+                            name="password_confirmation"
+                            required
+                            tabIndex={4}
+                            autoComplete="new-password"
+                            value={data.password_confirmation}
+                            onChange={handleChange}
+                            disabled={processing}
+                            placeholder="Confirm password"
+                        />
+                        <InputError message={errors.password_confirmation} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="phone_number">Téléphone</Label>
@@ -207,6 +248,21 @@ export function SecretaryForm() {
                     Enregistrer
                 </button>
             </div>
+
+            {/* TOAST */}
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
         </form>
     );
 }

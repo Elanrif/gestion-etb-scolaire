@@ -86,7 +86,7 @@ export interface Secretary {
 }
 
 export enum StagiaireStatus {
-    TITULAIRE = 'Titulaire',
-    STAGIAIRE = 'Stagiaire',
-    CONTRACTUEL = 'Contractuel',
+    TITULAIRE = 'TITULAIRE',
+    STAGIAIRE = 'STAGIAIRE',
+    CONTRACTUEL = 'CONTRACTUEL',
 }
