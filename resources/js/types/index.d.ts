@@ -1,7 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
 
-
 export interface Auth {
     user: User;
 }
@@ -28,6 +27,12 @@ export interface SharedData {
     quote: { message: string; author: string };
     auth: Auth;
     ziggy: Config & { location: string };
+    flash: {
+        success: string ;
+        welcome: string ;
+        [key: string]: unknown;
+    }
+        ;
     [key: string]: unknown;
 }
 
@@ -40,33 +45,4 @@ export interface User {
     created_at: string;
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
-}
-
-export interface Student {
-    user: User;
-    first_name: string;
-    last_name: string;
-    gender: string;
-    matricule: number;
-    birthday: Date;
-    level: string;
-    class: string;
-    average: int;
-    number_of_absences: number;
-    email: string;
-    address: string;
-    full_name_parents: string;
-    phone_parents: string;
-    image_url: string;
-    [key: string]: unknown;
-}
-
-export interface Professor {
-    user: User;
-    fullname: string;
-    phone: string;
-    address: string;
-    level: string;
-    birthday: number;
-    [key: string]: unknown;
 }

@@ -13,7 +13,7 @@ type RegisterForm = {
   password: string;
   password_confirmation: string;
 };
-export function RegisterForm() {
+export function RegisterForm__() {
 
 const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
