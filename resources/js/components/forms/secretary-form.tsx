@@ -1,5 +1,3 @@
-'use client';
-
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -8,8 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { FormEventHandler } from 'react';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { useState } from 'react';
-import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { toast, } from 'react-toastify';
 import InputError from '../input-error';
 
 enum StagiaireStatus {
@@ -33,7 +30,6 @@ type Secretary = {
     birthday: string;
 }
 export function SecretaryForm() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const { data, setData, post, errors, processing, reset} = useForm<Required<Secretary>>({
         first_name: '',
         last_name: '',
@@ -60,20 +56,16 @@ export function SecretaryForm() {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
         post(route('credentials.secretary'), {
             onSuccess: () => {
                 toast.success('Compte créer avec succès');
-                setIsSubmitting(false);
             },
             onError: (e) => {
                 console.log('handleSubmit error : ', e)
                 toast.error("Une erreur s'est produite");
-                setIsSubmitting(false);
             },
             onFinish: () => reset('status'),
         });
-        console.log('Submitting form with data:', data);
     };
     
     return (
@@ -241,28 +233,13 @@ export function SecretaryForm() {
             <div className="flex justify-start">
                 <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={processing}
                     className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
                 >
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Enregistrer
                 </button>
             </div>
-
-            {/* TOAST */}
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-                transition={Bounce}
-            />
         </form>
     );
 }
