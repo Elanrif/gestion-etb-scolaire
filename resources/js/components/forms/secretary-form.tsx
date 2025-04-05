@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { FormEventHandler } from 'react';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { toast, } from 'react-toastify';
+import { toast } from 'react-toastify';
 import InputError from '../input-error';
 
 enum StagiaireStatus {
@@ -29,8 +29,9 @@ type Secretary = {
     responsability_notes: string;
     birthday: string;
 }
+
 export function SecretaryForm() {
-    const { data, setData, post, errors, processing, reset} = useForm<Required<Secretary>>({
+    const { data, setData, post, errors, processing, reset } = useForm<Required<Secretary>>({
         first_name: '',
         last_name: '',
         email: '',
@@ -58,10 +59,10 @@ export function SecretaryForm() {
         e.preventDefault();
         post(route('credentials.secretary'), {
             onSuccess: () => {
-                toast.success('Compte créer avec succès');
+                toast.success('Compte créé avec succès');
             },
             onError: (e) => {
-                console.log('handleSubmit error : ', e)
+                console.log('handleSubmit error : ', e);
                 toast.error("Une erreur s'est produite");
             },
             onFinish: () => reset('status'),
@@ -70,9 +71,9 @@ export function SecretaryForm() {
     
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                         <Label htmlFor="first_name">Prénom</Label>
                         <Input
@@ -82,6 +83,7 @@ export function SecretaryForm() {
                             onChange={handleChange}
                             placeholder="Entrez votre prénom"
                             required
+                            className="w-full"
                         />
                         <InputError message={errors.first_name} />
                     </div>
@@ -94,10 +96,11 @@ export function SecretaryForm() {
                             onChange={handleChange}
                             placeholder="Entrez votre nom"
                             required
+                            className="w-full"
                         />
                         <InputError message={errors.last_name} />
                     </div>
-                    <div className="col-span-2 space-y-2">
+                    <div className="sm:col-span-2 space-y-2">
                         <Label htmlFor="email">Email</Label>
                         <Input
                             id="email"
@@ -107,42 +110,39 @@ export function SecretaryForm() {
                             onChange={handleChange}
                             placeholder="votre.email@exemple.com"
                             required
+                            className="w-full"
                         />
                         <InputError message={errors.email} />
                     </div>
                     <div className="space-y-2">
-                        <div className="flex items-center">
-                            <Label htmlFor="password">Mot de passe</Label>
-                        </div>
+                        <Label htmlFor="password">Mot de passe</Label>
                         <Input
                             id="password"
                             type="password"
                             name="password"
                             required
-                            tabIndex={3}
                             autoComplete="new-password"
                             value={data.password}
                             onChange={handleChange}
                             disabled={processing}
-                            placeholder="Password"
+                            placeholder="Mot de passe"
+                            className="w-full"
                         />
                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
-                        <div className="flex items-center">
-                            <Label htmlFor="password_confirmation">Confirmez mot le de passe</Label>
-                        </div>
+                        <Label htmlFor="password_confirmation">Confirmez le mot de passe</Label>
                         <Input
                             id="password_confirmation"
                             type="password"
                             name="password_confirmation"
                             required
-                            tabIndex={4}
                             autoComplete="new-password"
                             value={data.password_confirmation}
                             onChange={handleChange}
                             disabled={processing}
-                            placeholder="Confirm password"
+                            placeholder="Confirmez le mot de passe"
+                            className="w-full"
                         />
                         <InputError message={errors.password_confirmation} />
                     </div>
@@ -155,17 +155,33 @@ export function SecretaryForm() {
                             onChange={handleChange}
                             placeholder="Entrez votre numéro de téléphone"
                             required
+                            className="w-full"
                         />
                         <InputError message={errors.phone_number} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="birthday">Date de naissance</Label>
-                        <Input id="birthday" name="birthday" type="date" value={data.birthday} onChange={handleChange} required />
+                        <Input 
+                            id="birthday" 
+                            name="birthday" 
+                            type="date" 
+                            value={data.birthday} 
+                            onChange={handleChange} 
+                            required 
+                            className="w-full"
+                        />
                         <InputError message={errors.birthday} />
                     </div>
-                    <div className="space-y-2">
+                    <div className="sm:col-span-2 space-y-2">
                         <Label htmlFor="address">Adresse</Label>
-                        <Input id="address" name="address" value={data.address} onChange={handleChange} placeholder="Entrez votre adresse" />
+                        <Input 
+                            id="address" 
+                            name="address" 
+                            value={data.address} 
+                            onChange={handleChange} 
+                            placeholder="Entrez votre adresse" 
+                            className="w-full"
+                        />
                         <InputError message={errors.address} />
                     </div>
                 </div>
@@ -173,9 +189,9 @@ export function SecretaryForm() {
 
             <Separator className="my-4" />
 
-            <div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations professionnelles</h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                         <Label htmlFor="unique_id">Numéro d'employé</Label>
                         <Input
@@ -185,13 +201,14 @@ export function SecretaryForm() {
                             onChange={handleChange}
                             placeholder="Entrez votre numéro d'employé"
                             required
+                            className="w-full"
                         />
                         <InputError message={errors.unique_id} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="status">Statut</Label>
                         <Select value={data.status} onValueChange={(value) => handleSelectChange('status', value)}>
-                            <SelectTrigger id="status">
+                            <SelectTrigger id="status" className="w-full">
                                 <SelectValue placeholder="Sélectionnez votre statut" />
                             </SelectTrigger>
                             <SelectContent>
@@ -213,10 +230,11 @@ export function SecretaryForm() {
                             value={data.experience_year.toString()}
                             onChange={handleChange}
                             placeholder="Nombre d'années"
+                            className="w-full"
                         />
                         <InputError message={errors.experience_year} />
                     </div>
-                    <div className="col-span-1 space-y-2 md:col-span-2">
+                    <div className="sm:col-span-2 space-y-2">
                         <Label htmlFor="responsability_notes">Responsabilités principales</Label>
                         <Textarea
                             id="responsability_notes"
@@ -224,7 +242,7 @@ export function SecretaryForm() {
                             value={data.responsability_notes}
                             onChange={handleChange}
                             placeholder="Décrivez vos principales responsabilités en tant que secrétaire général"
-                            className="min-h-[100px]"
+                            className="min-h-[100px] w-full"
                         />
                     </div>
                 </div>
@@ -234,7 +252,7 @@ export function SecretaryForm() {
                 <button
                     type="submit"
                     disabled={processing}
-                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                    className="flex items-center gap-2 rounded bg-indigo-600 px-6 py-2 text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors duration-200"
                 >
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Enregistrer
