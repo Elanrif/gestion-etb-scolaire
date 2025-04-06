@@ -23,6 +23,7 @@ type Professor = {
     experience_year: number;
     level_taught: string;
     additional_info: string;
+    address:string;
 }
 export function ProfessorForm() {
 
@@ -39,6 +40,7 @@ export function ProfessorForm() {
         experience_year: 0,
         level_taught: '',
         additional_info: '',
+        address:'',
         });
 
         const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -50,6 +52,22 @@ export function ProfessorForm() {
                 setData(name, value);
             };
         
+            const handleLevelChange = (level: string, checked: boolean) => {
+                const levels = data.level_taught ? data.level_taught.split(",") : [];
+              
+                let updatedLevels;
+                if (checked) {
+                  updatedLevels = [...levels, level];
+                } else {
+                  updatedLevels = levels.filter((item) => item !== level);
+                }
+              
+                // Supprime les doublons au cas où et met à jour le champ
+                const uniqueLevels = Array.from(new Set(updatedLevels));
+                setData("level_taught", uniqueLevels.join(","));
+              };
+
+              
             const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
                 e.preventDefault();
 
@@ -95,11 +113,29 @@ export function ProfessorForm() {
                          />
                           <InputError message={errors.last_name} />
                     </div>
-                    <div className="space-y-2 sm:col-span-2">
+                    <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" name="email" type="email" value={data.email}
-                            onChange={handleChange}placeholder="votre.email@exemple.com" required className="w-full" />
-                            <InputError message={errors.email} />
+                        <Input id="email" 
+                        name="email" 
+                        type="email" 
+                        value={data.email}
+                        onChange={handleChange}
+                        placeholder="votre.email@exemple.com" 
+                        required 
+                        className="w-full" />
+                        <InputError message={errors.email} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="address">address</Label>
+                        <Input id="address" 
+                        name="address"
+                        value={data.address}
+                        onChange={handleChange}
+                        placeholder="Entrez votre address" 
+                        required 
+                        className="w-full"
+                        />
+                        <InputError message={errors.first_name} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password">Mot de passe</Label>
@@ -108,7 +144,6 @@ export function ProfessorForm() {
                             type="password"
                             name="password"
                             required
-                            autoComplete="new-password"
                             value={data.password}
                             onChange={handleChange}
                             disabled={processing}
@@ -124,7 +159,6 @@ export function ProfessorForm() {
                             type="password"
                             name="password_confirmation"
                             required
-                            autoComplete="new-password"
                             value={data.password_confirmation}
                             onChange={handleChange}
                             disabled={processing}
@@ -143,7 +177,7 @@ export function ProfessorForm() {
                         className="w-full" />
                          <InputError message={errors.phone_number} />
                     </div>
-                </div>
+            </div>
             </div>
 
             <Separator className="my-4" />
@@ -199,32 +233,62 @@ export function ProfessorForm() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="experience_year">Années d'expérience</Label>
-                        <Input id="experience_year" type="number" min="0" value={data.experience_year.toString()}
-                            onChange={handleChange} placeholder="Nombre d'années"
+                        <Input 
+                            id="experience_year" 
+                            type="number" 
+                            min="0" 
+                            name="experience_year" 
+                            value={data.experience_year}
+                            onChange={handleChange} 
+                            placeholder="Nombre d'années"
                             className="w-full" />
                             <InputError message={errors.experience_year} />
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label>Niveaux enseignés</Label>
                         <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="seconde" />
-                                <Label htmlFor="seconde">Seconde</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="premiere" />
-                                <Label htmlFor="premiere">Première</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="terminale" />
-                                <Label htmlFor="terminale">Terminale</Label>
-                            </div>
-                        </div>
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                        id="seconde"
+                        checked={data.level_taught.includes("Seconde")}
+                        onCheckedChange={(checked) => {
+                            handleLevelChange("Seconde", checked === true);
+                        }}
+                        />
+                        <Label htmlFor="seconde">Seconde</Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                        id="premiere"
+                        checked={data.level_taught.includes("Première")}
+                        onCheckedChange={(checked) => {
+                            handleLevelChange("Première", checked === true);
+                        }}
+                        />
+                        <Label htmlFor="premiere">Première</Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                        id="terminale"
+                        checked={data.level_taught.includes("Terminale")}
+                        onCheckedChange={(checked) => {
+                            handleLevelChange("Terminale", checked === true);
+                        }}
+                        />
+                        <Label htmlFor="terminale">Terminale</Label>
+                    </div>
+                    </div>
+
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label htmlFor="additional_info">Informations complémentaires</Label>
                         <Textarea
-                            id="additionalInfo"
+                            id="additional_info"
+                            name="additional_info" 
+                            value={data.additional_info}
+                            onChange={handleChange} 
                             placeholder="Autres informations pertinentes (spécialités, responsabilités, etc.)"
                             className="min-h-[100px]"
                         />
