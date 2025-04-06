@@ -52,6 +52,22 @@ export function ProfessorForm() {
                 setData(name, value);
             };
         
+            const handleLevelChange = (level: string, checked: boolean) => {
+                const levels = data.level_taught ? data.level_taught.split(",") : [];
+              
+                let updatedLevels;
+                if (checked) {
+                  updatedLevels = [...levels, level];
+                } else {
+                  updatedLevels = levels.filter((item) => item !== level);
+                }
+              
+                // Supprime les doublons au cas où et met à jour le champ
+                const uniqueLevels = Array.from(new Set(updatedLevels));
+                setData("level_taught", uniqueLevels.join(","));
+              };
+
+              
             const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
                 e.preventDefault();
 
@@ -231,19 +247,40 @@ export function ProfessorForm() {
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label>Niveaux enseignés</Label>
                         <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="seconde" />
-                                <Label htmlFor="seconde">Seconde</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="premiere" />
-                                <Label htmlFor="premiere">Première</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="terminale" />
-                                <Label htmlFor="terminale">Terminale</Label>
-                            </div>
-                        </div>
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                        id="seconde"
+                        checked={data.level_taught.includes("Seconde")}
+                        onCheckedChange={(checked) => {
+                            handleLevelChange("Seconde", checked === true);
+                        }}
+                        />
+                        <Label htmlFor="seconde">Seconde</Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                        id="premiere"
+                        checked={data.level_taught.includes("Première")}
+                        onCheckedChange={(checked) => {
+                            handleLevelChange("Première", checked === true);
+                        }}
+                        />
+                        <Label htmlFor="premiere">Première</Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                        id="terminale"
+                        checked={data.level_taught.includes("Terminale")}
+                        onCheckedChange={(checked) => {
+                            handleLevelChange("Terminale", checked === true);
+                        }}
+                        />
+                        <Label htmlFor="terminale">Terminale</Label>
+                    </div>
+                    </div>
+
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label htmlFor="additional_info">Informations complémentaires</Label>
