@@ -17,10 +17,6 @@ type Students = {
     password: string;
     password_confirmation: string;
     phone_number: string;
-<<<<<<< HEAD
-=======
-    unique_id: string;
->>>>>>> main
     address: string;
     birthday: string;
     gender: string;
