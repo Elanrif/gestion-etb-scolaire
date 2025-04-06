@@ -17,7 +17,6 @@ type Students = {
     password: string;
     password_confirmation: string;
     phone_number: string;
-    unique_id: string;
     address: string;
     birthday: string;
     gender: string;
@@ -50,7 +49,6 @@ export function StudentForm() {
     password: '',
     password_confirmation: '',
     phone_number: '',
-    unique_id: '',
     address: '',
     birthday: '',
     gender: '',
@@ -110,12 +108,24 @@ export function StudentForm() {
                           onChange={handleChange}  
                         placeholder="Entrez votre nom" required />
                     </div>
-                    <div className="space-y-2 sm:col-span-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" name="email" 
-                         value={data.email} 
-                         onChange={handleChange} 
-                        type="email" placeholder="votre.email@exemple.com" required className="w-full" />
+                    <div>
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" name="email" 
+                        value={data.email} 
+                        onChange={handleChange} 
+                    type="email" placeholder="votre.email@exemple.com" required className="w-full" />
+                        </div>
+                    <div>
+                    <Label htmlFor="address">Adresse</Label>
+                    <Input 
+                        id="address" 
+                        name="address" 
+                        value={data.address} 
+                        onChange={handleChange} 
+                        placeholder="Entrez votre adresse" 
+                        className="w-full"
+                    />
+                    <InputError message={errors.address} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password">Mot de passe</Label>
@@ -130,7 +140,7 @@ export function StudentForm() {
                             placeholder="Mot de passe"
                             className="w-full"
                         />
-                         <InputError message={errors.unique_id} />
+                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
                         <Label className='mb-10' htmlFor="password_confirmation">Confirmez le mot de passe</Label>
@@ -145,7 +155,7 @@ export function StudentForm() {
                             placeholder="Confirmez le mot de passe"
                             className="w-full"
                         />
-                         <InputError message={errors.unique_id} />
+                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="phone_number">Téléphone</Label>
@@ -191,7 +201,7 @@ export function StudentForm() {
                         value={data.student_id} 
                         onChange={handleChange} 
                         required />
-                         <InputError message={errors.unique_id} />
+                         <InputError message={errors.student_id} />
                     </div>
                     <div className="space-y-2">
                         <Label className='mb-10' htmlFor="level"
@@ -237,7 +247,7 @@ export function StudentForm() {
                         value={data.guardian_first_name} 
                         onChange={handleChange} 
                         placeholder="Prénom du responsable légal" required />
-                         <InputError message={errors.unique_id} />
+                         <InputError message={errors.guardian_first_name} />
                     </div>
                     <div className="space-y-2">
                         <Label className='mb-10' htmlFor="guardian_last_name">Nom du responsable</Label>
@@ -246,7 +256,7 @@ export function StudentForm() {
                          value={data.guardian_last_name} 
                          onChange={handleChange} 
                         placeholder="Nom du responsable légal" required />
-                         <InputError message={errors.unique_id} />
+                         <InputError message={errors.guardian_last_name} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="guardian_email">Email du responsable</Label>
@@ -255,7 +265,7 @@ export function StudentForm() {
                          value={data.guardian_email} 
                          onChange={handleChange} 
                         placeholder="email.responsable@exemple.com" required />
-                         <InputError message={errors.unique_id} />
+                         <InputError message={errors.guardian_email} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="guardian_phone">Téléphone du responsable</Label>
@@ -264,7 +274,7 @@ export function StudentForm() {
                          value={data.guardian_phone} 
                          onChange={handleChange} 
                         placeholder="Numéro de téléphone du responsable" required />
-                         <InputError message={errors.unique_id} />
+                         <InputError message={errors.guardian_phone} />
                     </div>
                     <div className="space-y-2">
                         <Label className='mb-10' htmlFor="relationship">Lien de parenté</Label>
