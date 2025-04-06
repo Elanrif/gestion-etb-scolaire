@@ -1,33 +1,105 @@
-'use client';
-
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
+import { useForm } from '@inertiajs/react';
+import InputError from '../input-error';
+import { FormEventHandler } from 'react';
+import { toast } from 'react-toastify';
+import { LoaderCircle } from 'lucide-react';
 
+type Professor = {
+    first_name: string;
+    last_name: string; 
+    email: string;
+    password: string;
+    password_confirmation: string;
+    phone_number: string;
+    employee_number: string;
+    status: string;
+    discipline: string;
+    experience_year: number;
+    level_taught: string;
+    additional_info: string;
+}
 export function ProfessorForm() {
+
+    const { data, setData, post, errors, processing, reset } = useForm<Required<Professor>>({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password:'',
+        password_confirmation: '',
+        phone_number: '',
+        employee_number: '',
+        status: '',
+        discipline: '',
+        experience_year: 0,
+        level_taught: '',
+        additional_info: '',
+        });
+
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+                const { name, value } = e.target;
+                setData(name as keyof typeof data, value);
+            };
+        
+            const handleSelectChange = (name: keyof typeof data, value: string) => {
+                setData(name, value);
+            };
+        
+            const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
+                e.preventDefault();
+
+                console.log( data)
+                return;
+                post(route('credentials.secretary'), {
+                    onSuccess: () => {
+                        toast.success('Compte créé avec succès');
+                    },
+                    onError: (e) => {
+                        console.log('handleSubmit error : ', e);
+                        toast.error("Une erreur s'est produite");
+                    },
+                    onFinish: () => reset('password','password_confirmation'),
+                });
+            };
+
+
     return (
-        <form className="space-y-6">
-            <div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="firstName">Prénom</Label>
-                        <Input id="firstName" placeholder="Entrez votre prénom" required />
+                        <Label htmlFor="first_name">Prénom</Label>
+                        <Input id="first_name" 
+                        name="first_name"
+                        value={data.first_name}
+                        onChange={handleChange}
+                        placeholder="Entrez votre prénom" required 
+                        className="w-full"
+                        />
+                        <InputError message={errors.first_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="lastName">Nom</Label>
-                        <Input id="lastName" placeholder="Entrez votre nom" required />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="votre.email@exemple.com" required />
+                        <Label htmlFor="last_name">Nom</Label>
+                        <Input id="last_name" 
+                        name="last_name"
+                        value={data.last_name}
+                        onChange={handleChange}
+                        placeholder="Entrez votre nom" required
+                        className="w-full"
+                         />
+                          <InputError message={errors.last_name} />
                     </div>
                     <div className="space-y-2 sm:col-span-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" name="email" type="email" placeholder="votre.email@exemple.com" required className="w-full" />
+                        <Input id="email" name="email" type="email" value={data.email}
+                            onChange={handleChange}placeholder="votre.email@exemple.com" required className="w-full" />
+                            <InputError message={errors.email} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password">Mot de passe</Label>
@@ -37,9 +109,13 @@ export function ProfessorForm() {
                             name="password"
                             required
                             autoComplete="new-password"
+                            value={data.password}
+                            onChange={handleChange}
+                            disabled={processing}
                             placeholder="Mot de passe"
                             className="w-full"
                         />
+                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password_confirmation">Confirmez le mot de passe</Label>
@@ -49,13 +125,23 @@ export function ProfessorForm() {
                             name="password_confirmation"
                             required
                             autoComplete="new-password"
+                            value={data.password_confirmation}
+                            onChange={handleChange}
+                            disabled={processing}
                             placeholder="Confirmez le mot de passe"
                             className="w-full"
                         />
+                        <InputError message={errors.password_confirmation} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="phone">Téléphone</Label>
-                        <Input id="phone" placeholder="Entrez votre numéro de téléphone" />
+                        <Label htmlFor="phone_number">Téléphone</Label>
+                        <Input id="phone_number" 
+                         name="phone_number"
+                         value={data.phone_number}
+                         onChange={handleChange}
+                        placeholder="Entrez votre numéro de téléphone" required
+                        className="w-full" />
+                         <InputError message={errors.phone_number} />
                     </div>
                 </div>
             </div>
@@ -66,13 +152,18 @@ export function ProfessorForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations professionnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="employeeId">Numéro d'employé</Label>
-                        <Input id="employeeId" placeholder="Entrez votre numéro d'employé" required />
+                        <Label htmlFor="employee_number">Numéro d'employé</Label>
+                        <Input id="employee_number" 
+                        name="employee_number" 
+                        value={data.employee_number} 
+                        onChange={handleChange} 
+                        placeholder="Entrez votre numéro d'employé" required  className="w-full"/>
+                        <InputError message={errors.employee_number} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="status">Statut</Label>
-                        <Select>
-                            <SelectTrigger id="status">
+                        <Select value={data.status} onValueChange={(value) => handleSelectChange('status', value)}>
+                            <SelectTrigger id="status" className="w-full">
                                 <SelectValue placeholder="Sélectionnez votre statut" />
                             </SelectTrigger>
                             <SelectContent>
@@ -85,8 +176,8 @@ export function ProfessorForm() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="discipline">Discipline principale</Label>
-                        <Select>
-                            <SelectTrigger id="discipline">
+                        <Select value={data.discipline} onValueChange={(value) => handleSelectChange('discipline', value)}>
+                            <SelectTrigger id="discipline" className="w-full">
                                 <SelectValue placeholder="Sélectionnez votre discipline" />
                             </SelectTrigger>
                             <SelectContent>
@@ -107,8 +198,11 @@ export function ProfessorForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience">Années d'expérience</Label>
-                        <Input id="experience" type="number" min="0" placeholder="Nombre d'années" />
+                        <Label htmlFor="experience_year">Années d'expérience</Label>
+                        <Input id="experience_year" type="number" min="0" value={data.experience_year.toString()}
+                            onChange={handleChange} placeholder="Nombre d'années"
+                            className="w-full" />
+                            <InputError message={errors.experience_year} />
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label>Niveaux enseignés</Label>
@@ -128,7 +222,7 @@ export function ProfessorForm() {
                         </div>
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
-                        <Label htmlFor="additionalInfo">Informations complémentaires</Label>
+                        <Label htmlFor="additional_info">Informations complémentaires</Label>
                         <Textarea
                             id="additionalInfo"
                             placeholder="Autres informations pertinentes (spécialités, responsabilités, etc.)"
@@ -141,8 +235,10 @@ export function ProfessorForm() {
             <div className="flex justify-start">
                 <button
                     type="submit"
-                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                    disabled={processing}
+                    className="flex items-center gap-2 rounded bg-indigo-600 px-6 py-2 text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors duration-200"
                 >
+                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Enregistrer
                 </button>
             </div>
