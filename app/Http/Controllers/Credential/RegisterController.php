@@ -33,7 +33,10 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
             'email' => $validated_data['email'],
+            'address' => $validated_data['address'],
+            'phone_number' => $validated_data['phone_number'],
             'password' => Hash::make($validated_data['password']),
+            'birthday' => $validated_data['birthday'],
             'role' =>  RoleUser::SECRETARY->value,
         ]);
 
@@ -41,13 +44,9 @@ class RegisterController extends Controller
         $user->secretary()->create([
             'first_name' => $validated_data['first_name'],
             'last_name' => $validated_data['last_name'],
-            'email' => $validated_data['email'],
-            'phone_number' => $validated_data['phone_number'],
-            'address' => $validated_data['address'],
             'status' => $validated_data['status'],
             'experience_year' => $validated_data['experience_year'],
             'responsability_notes' => $validated_data['responsability_notes'],
-            'birthday' => $validated_data['birthday'],
         ]);
 
         event(new Registered($user));
