@@ -17,13 +17,9 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->string('address');
             $table->enum('status',['TITULAIRE','STAGIAIRE','CONTRACTUEL'])->default('TITULAIRE');
             $table->integer('experience_year');
             $table->string('responsability_notes')->nullable();
-            $table->timestamp('birthday');
             $table->timestamps();
         });
     }
