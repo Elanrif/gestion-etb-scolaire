@@ -22,7 +22,19 @@ class StoreProfessorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+           'first_name' =>'required|string|max:255',
+           'last_name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone_number' => 'required|string|max:255',
+            'employee_number' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
+            'discipline' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'experience_year' => 'required|integer|min:0|max:50',
+            'level_taught' => 'required|string|max:255',
+            'additional_info' => 'nullable|required|string|max:255',
+            'birthday' => 'required|date',
         ];
     }
 }

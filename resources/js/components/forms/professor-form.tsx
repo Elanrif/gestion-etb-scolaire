@@ -24,6 +24,7 @@ type Professor = {
     level_taught: string;
     additional_info: string;
     address:string;
+    birthday: string;
 }
 export function ProfessorForm() {
 
@@ -39,6 +40,7 @@ export function ProfessorForm() {
         discipline: '',
         experience_year: 0,
         level_taught: '',
+        birthday: '',
         additional_info: '',
         address:'',
         });
@@ -177,6 +179,19 @@ export function ProfessorForm() {
                         className="w-full" />
                          <InputError message={errors.phone_number} />
                     </div>
+                    <div className="space-y-2">
+                    <Label htmlFor="birthday">Date de naissance</Label>
+                    <Input 
+                        id="birthday" 
+                        name="birthday" 
+                        type="date" 
+                        value={data.birthday} 
+                        onChange={handleChange} 
+                        required 
+                        className="w-full"
+                    />
+                    <InputError message={errors.birthday} />
+                </div>
             </div>
             </div>
 
