@@ -73,12 +73,7 @@ export function StudentForm() {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(data)
-        return;
         post(route('credentials.students'), {
-            onSuccess: () => {
-                toast.success('Compte créé avec succès');
-            },
             onError: (e) => {
                 console.log('handleSubmit error : ', e);
                 toast.error("Une erreur s'est produite");
