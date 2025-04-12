@@ -6,6 +6,7 @@ use App\Enums\RoleUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSecretaryRequest;
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\StoreProfessorRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -94,6 +95,43 @@ class RegisterController extends Controller
             'guardian_last_name' => $validated_data['guardian_last_name'],
             'guardian_first_name' => $validated_data['guardian_first_name'],
             'matricule' => $validated_data['matricule'],
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        $request->session()->flash('success', 'Compte créer avec succès!');
+        return to_route('dashboard');
+    }
+
+    public function storeProfessor(StoreProfessorRequest $request): RedirectResponse
+    {
+     
+       /* Get validated data */
+        $validated_data = $request->validated();
+       
+        /* Create the user account */
+        $user = User::create([
+            'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
+            'email' => $validated_data['email'],
+            'address' => $validated_data['address'],
+            'phone_number' => $validated_data['phone_number'],
+            'password' => Hash::make($validated_data['password']),
+            'birthday' => $validated_data['birthday'],
+            'role' =>  RoleUser::PROFESSOR->value,
+        ]);
+
+        /* Create professor account */
+        $user->professor()->create([
+            'first_name' => $validated_data['first_name'],
+            'last_name' => $validated_data['last_name'],
+            'employee_number' => $validated_data['employee_number'],
+            'status' => $validated_data['status'],
+            'discipline' => $validated_data['discipline'],
+            'level_taught' => $validated_data['level_taught'],
+            'additional_info' => $validated_data['additional_info'],
+            'experience_year' => $validated_data['experience_year'],
         ]);
 
         event(new Registered($user));

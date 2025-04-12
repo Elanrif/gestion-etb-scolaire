@@ -16,5 +16,10 @@ Route::middleware('guest')->prefix('credentials')->group(function () {
         Route::post('register', [RegisterController::class, 'storeStudent']);
     });
     
+    /* Professor routes */
+    Route::prefix('professors')->name('credentials.professor')->group(function () {
+        //Route::get('register', [RegisteredUserController::class, 'create'])->name('.register');
+        Route::post('register', [RegisterController::class, 'storeProfessor']);
+    });
 
 });
