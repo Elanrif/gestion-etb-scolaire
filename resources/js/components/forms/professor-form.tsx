@@ -28,6 +28,7 @@ type Professor = {
 }
 export function ProfessorForm() {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, post, errors, processing, reset } = useForm<Required<Professor>>({
         first_name: '',
         last_name: '',
@@ -74,8 +75,7 @@ export function ProfessorForm() {
                 e.preventDefault();
 
                 console.log( data)
-                return;
-                post(route('credentials.secretary'), {
+                post(route('credentials.professor'), {
                     onSuccess: () => {
                         toast.success('Compte créé avec succès');
                     },
@@ -83,7 +83,7 @@ export function ProfessorForm() {
                         console.log('handleSubmit error : ', e);
                         toast.error("Une erreur s'est produite");
                     },
-                    onFinish: () => reset('password','password_confirmation'),
+                    onFinish: () => {},
                 });
             };
 

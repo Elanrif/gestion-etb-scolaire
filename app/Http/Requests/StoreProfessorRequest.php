@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
+use Illuminate\Validation\Rules;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class StoreProfessorRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class StoreProfessorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,6 +24,7 @@ class StoreProfessorRequest extends FormRequest
      */
     public function rules(): array
     {
+        Log::info('Professor rules : ', ['professor' => $this->all()]);
         return [
            'first_name' =>'required|string|max:255',
            'last_name' => 'required|string|max:255',
