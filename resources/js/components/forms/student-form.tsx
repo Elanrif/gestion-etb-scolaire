@@ -10,26 +10,28 @@ import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
 import InputError from '../input-error';
 
-type Students = {
-    first_name: string;
-    last_name: string;
+type user = {
     email: string;
     password: string;
+    birthday: string;
     password_confirmation: string;
     phone_number: string;
     address: string;
-    birthday: string;
-    gender: string;
-    student_id:string;
-    level:string;
-    class:string;
-    relationship:string;
-    guardian_phone:string;
-    guardian_email:string;
-    guardian_last_name:string;
-    guardian_first_name:string;
-
 }
+
+type Student = {
+    first_name: string;
+    last_name: string;
+    gender: string;
+    matricule:string;
+    class:string;
+    level:string;
+    relationship:string;
+    guardian_first_name:string;
+    guardian_last_name:string;
+    guardian_email:string;
+    guardian_phone_number:string;
+} & user
 
 const classes = [
     { id: 'seconde-a', name: 'Seconde A' },
@@ -42,7 +44,8 @@ const classes = [
     { id: 'terminale-l', name: 'Terminale L' },
 ];
 export function StudentForm() {
-    const { data, setData, post, errors, processing, reset } = useForm<Required<Students>>({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { data, setData, post, errors, processing, reset } = useForm<Required<Student>>({
     first_name: '',
     last_name: '',
     email: '',
@@ -52,14 +55,15 @@ export function StudentForm() {
     address: '',
     birthday: '',
     gender: '',
-    student_id:'',
     level:'',
     class:'',
     relationship:'',
-    guardian_phone:'',
+    guardian_phone_number:'',
     guardian_email:'',
     guardian_last_name:'',
     guardian_first_name:'',
+    matricule:'',
+   
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -78,7 +82,7 @@ export function StudentForm() {
                 console.log('handleSubmit error : ', e);
                 toast.error("Une erreur s'est produite");
             },
-            onFinish: () => reset('password'),
+            onFinish: () => {},
         });
     };
 
@@ -190,13 +194,13 @@ export function StudentForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations scolaires</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                        <Label className='mb-10'  htmlFor="student_id">Numéro d'élève</Label>
-                        <Input id="student_id" placeholder="Entrez votre numéro d'élève" 
-                        name='student_id'
-                        value={data.student_id} 
+                        <Label className='mb-10'  htmlFor="matricule">Numéro d'élève</Label>
+                        <Input id="matricule" placeholder="Entrez votre numéro d'élève" 
+                        name='matricule'
+                        value={data.matricule} 
                         onChange={handleChange} 
                         required />
-                         <InputError message={errors.student_id} />
+                         <InputError message={errors.matricule} />
                     </div>
                     <div className="space-y-2">
                         <Label className='mb-10' htmlFor="level"
@@ -263,13 +267,13 @@ export function StudentForm() {
                          <InputError message={errors.guardian_email} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="guardian_phone">Téléphone du responsable</Label>
-                        <Input id="guardian_phone" 
-                         name='guardian_phone'
-                         value={data.guardian_phone} 
+                        <Label htmlFor="guardian_phone_number">Téléphone du responsable</Label>
+                        <Input id="guardian_phone_number" 
+                         name='guardian_phone_number'
+                         value={data.guardian_phone_number} 
                          onChange={handleChange} 
                         placeholder="Numéro de téléphone du responsable" required />
-                         <InputError message={errors.guardian_phone} />
+                         <InputError message={errors.guardian_phone_number} />
                     </div>
                     <div className="space-y-2">
                         <Label className='mb-10' htmlFor="relationship">Lien de parenté</Label>

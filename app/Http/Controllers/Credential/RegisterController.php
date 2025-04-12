@@ -89,10 +89,11 @@ class RegisterController extends Controller
             'level' => $validated_data['level'],
             'class' => $validated_data['class'],
             'relationship' => $validated_data['relationship'],
-            'guardian_phone' => $validated_data['guardian_phone'],
+            'guardian_phone_number' => $validated_data['guardian_phone_number'],
             'guardian_email' => $validated_data['guardian_email'],
             'guardian_last_name' => $validated_data['guardian_last_name'],
             'guardian_first_name' => $validated_data['guardian_first_name'],
+            'matricule' => $validated_data['matricule'],
         ]);
 
         event(new Registered($user));
