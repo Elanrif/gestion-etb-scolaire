@@ -59,4 +59,24 @@ class User extends Authenticatable
     {
         return $this->hasOne(Secretary::class);
     }
+
+      /**
+     * Make the relation with the student .
+     *
+     * @return student
+     */
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    /**
+     * Make the relation with the professor.
+     *
+     * @return professor
+     */
+    public function professor()
+    {
+        return $this->hasOne(Professor::class);
+    }
 }

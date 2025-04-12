@@ -24,9 +24,11 @@ type Professor = {
     level_taught: string;
     additional_info: string;
     address:string;
+    birthday: string;
 }
 export function ProfessorForm() {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, post, errors, processing, reset } = useForm<Required<Professor>>({
         first_name: '',
         last_name: '',
@@ -39,6 +41,7 @@ export function ProfessorForm() {
         discipline: '',
         experience_year: 0,
         level_taught: '',
+        birthday: '',
         additional_info: '',
         address:'',
         });
@@ -72,8 +75,7 @@ export function ProfessorForm() {
                 e.preventDefault();
 
                 console.log( data)
-                return;
-                post(route('credentials.secretary'), {
+                post(route('credentials.professor'), {
                     onSuccess: () => {
                         toast.success('Compte créé avec succès');
                     },
@@ -81,7 +83,7 @@ export function ProfessorForm() {
                         console.log('handleSubmit error : ', e);
                         toast.error("Une erreur s'est produite");
                     },
-                    onFinish: () => reset('password','password_confirmation'),
+                    onFinish: () => {},
                 });
             };
 
@@ -177,6 +179,19 @@ export function ProfessorForm() {
                         className="w-full" />
                          <InputError message={errors.phone_number} />
                     </div>
+                    <div className="space-y-2">
+                    <Label htmlFor="birthday">Date de naissance</Label>
+                    <Input 
+                        id="birthday" 
+                        name="birthday" 
+                        type="date" 
+                        value={data.birthday} 
+                        onChange={handleChange} 
+                        required 
+                        className="w-full"
+                    />
+                    <InputError message={errors.birthday} />
+                </div>
             </div>
             </div>
 

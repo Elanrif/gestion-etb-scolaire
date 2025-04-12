@@ -4,28 +4,39 @@ export interface Student {
     user: User;
     first_name: string;
     last_name: string;
-    gender: string;
-    matricule: number;
-    birthday: Date;
-    level: string;
-    class: string;
-    average: int;
-    number_of_absences: number;
     email: string;
+    password: string;
+    password_confirmation: string;
+    phone_number: string;
     address: string;
-    full_name_parents: string;
-    phone_parents: string;
-    image_url: string;
+    birthday: string;
+    gender: string;
+    student_id:string;
+    level:string;
+    class:string;
+    relationship:string;
+    guardian_phone:string;
+    guardian_email:string;
+    guardian_last_name:string;
+    guardian_first_name:string;
     [key: string]: unknown;
 }
 
 export interface Professor {
     user: User;
-    fullname: string;
-    phone: string;
-    address: string;
-    birthday: number;
-    level: string;
+    first_name: string;
+    last_name: string; 
+    email: string;
+    password: string;
+    password_confirmation: string;
+    phone_number: string;
+    employee_number: string;
+    status: string;
+    discipline: string;
+    experience_year: number;
+    level_taught: string;
+    additional_info: string;
+    address:string;
     [key: string]: unknown;
 }
 
