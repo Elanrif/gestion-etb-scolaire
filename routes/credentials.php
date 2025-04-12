@@ -10,6 +10,12 @@ Route::middleware('guest')->prefix('credentials')->group(function () {
         Route::post('register', [RegisterController::class, 'storeSecretary']);
     });
 
+     /* Students routes */
+     Route::prefix('students')->name('credentials.students')->group(function () {
+        //Route::get('register', [RegisteredUserController::class, 'create'])->name('.register');
+        Route::post('register', [RegisterController::class, 'storeStudent']);
+    });
+    
     /* Professor routes */
     Route::prefix('professors')->name('credentials.professor')->group(function () {
         //Route::get('register', [RegisteredUserController::class, 'create'])->name('.register');
