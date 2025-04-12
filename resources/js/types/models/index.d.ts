@@ -21,11 +21,19 @@ export interface Student {
 
 export interface Professor {
     user: User;
-    fullname: string;
-    phone: string;
-    address: string;
-    birthday: number;
-    level: string;
+    first_name: string;
+    last_name: string; 
+    email: string;
+    password: string;
+    password_confirmation: string;
+    phone_number: string;
+    employee_number: string;
+    status: string;
+    discipline: string;
+    experience_year: number;
+    level_taught: string;
+    additional_info: string;
+    address:string;
     [key: string]: unknown;
 }
 
