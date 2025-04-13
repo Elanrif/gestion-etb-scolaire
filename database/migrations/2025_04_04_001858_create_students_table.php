@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender');
-            $table->longText('matricule');
+            $table->string('matricule')->unique();
             $table->string('class');
             $table->string('level');
             $table->string('relationship');
