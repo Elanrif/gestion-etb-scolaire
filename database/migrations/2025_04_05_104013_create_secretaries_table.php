@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('secratary_id')->unique();
             $table->enum('status',['TITULAIRE','STAGIAIRE','CONTRACTUEL'])->default('TITULAIRE');
             $table->integer('experience_year');
             $table->string('responsability_notes')->nullable();
