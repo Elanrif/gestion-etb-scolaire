@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Validation\Rules;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class StoreSecretaryRequest extends FormRequest
@@ -36,7 +37,7 @@ class StoreSecretaryRequest extends FormRequest
             'status' => 'required|string|max:255',
             'experience_year' => 'required|integer|min:0|max:50',
             'responsability_notes' => 'nullable|string|max:255',
-            'birthday' => 'required|date',
+            'birthday' => 'required|date|before_or_equal:' . Carbon::now()->subYears(12)->format('Y-m-d'),
         ];
     }
 
