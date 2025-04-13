@@ -15,20 +15,23 @@ enum StagiaireStatus {
     CONTRACTUEL = 'Contractuel',
 }
 
+type user = {
+    email: string;
+    password: string;
+    birthday: string;
+    password_confirmation: string;
+    phone_number: string;
+    address: string;
+};
+
 type Secretary = {
     first_name: string;
     last_name: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-    phone_number: string;
     unique_id: string;
     status: StagiaireStatus;
-    address: string;
     experience_year: number;
     responsability_notes: string;
-    birthday: string;
-}
+} & user
 
 export function SecretaryForm() {
     const { data, setData, post, errors, processing, reset } = useForm<Required<Secretary>>({
@@ -71,11 +74,13 @@ export function SecretaryForm() {
     
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="rounded-lg bg-white p-6 shadow-sm">
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="first_name">Prénom</Label>
+                        <Label htmlFor="first_name" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Prénom
+                        </Label>
                         <Input
                             id="first_name"
                             name="first_name"
@@ -88,7 +93,9 @@ export function SecretaryForm() {
                         <InputError message={errors.first_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="last_name">Nom</Label>
+                        <Label htmlFor="last_name" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Nom
+                        </Label>
                         <Input
                             id="last_name"
                             name="last_name"
@@ -100,8 +107,8 @@ export function SecretaryForm() {
                         />
                         <InputError message={errors.last_name} />
                     </div>
-                    <div className="sm:col-span-2 space-y-2">
-                        <Label htmlFor="email">Email</Label>
+                    <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="email" className="after:content-['*'] after:text-red-500 after:ms-1">Email</Label>
                         <Input
                             id="email"
                             name="email"
@@ -115,7 +122,7 @@ export function SecretaryForm() {
                         <InputError message={errors.email} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password">Mot de passe</Label>
+                        <Label htmlFor="password" className="after:content-['*'] after:text-red-500 after:ms-1">Mot de passe</Label>
                         <Input
                             id="password"
                             type="password"
@@ -131,7 +138,7 @@ export function SecretaryForm() {
                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password_confirmation">Confirmez le mot de passe</Label>
+                        <Label htmlFor="password_confirmation" className="after:content-['*'] after:text-red-500 after:ms-1">Confirmez le mot de passe</Label>
                         <Input
                             id="password_confirmation"
                             type="password"
@@ -147,7 +154,7 @@ export function SecretaryForm() {
                         <InputError message={errors.password_confirmation} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="phone_number">Téléphone</Label>
+                        <Label htmlFor="phone_number" className="after:content-['*'] after:text-red-500 after:ms-1">Téléphone</Label>
                         <Input
                             id="phone_number"
                             name="phone_number"
@@ -160,26 +167,18 @@ export function SecretaryForm() {
                         <InputError message={errors.phone_number} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="birthday">Date de naissance</Label>
-                        <Input 
-                            id="birthday" 
-                            name="birthday" 
-                            type="date" 
-                            value={data.birthday} 
-                            onChange={handleChange} 
-                            required 
-                            className="w-full"
-                        />
+                        <Label htmlFor="birthday" className="after:content-['*'] after:text-red-500 after:ms-1">Date de naissance</Label>
+                        <Input id="birthday" name="birthday" type="date" value={data.birthday} onChange={handleChange} required className="w-full" />
                         <InputError message={errors.birthday} />
                     </div>
-                    <div className="sm:col-span-2 space-y-2">
-                        <Label htmlFor="address">Adresse</Label>
-                        <Input 
-                            id="address" 
-                            name="address" 
-                            value={data.address} 
-                            onChange={handleChange} 
-                            placeholder="Entrez votre adresse" 
+                    <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="address" className="after:content-['*'] after:text-red-500 after:ms-1">Adresse</Label>
+                        <Input
+                            id="address"
+                            name="address"
+                            value={data.address}
+                            onChange={handleChange}
+                            placeholder="Entrez votre adresse"
                             className="w-full"
                         />
                         <InputError message={errors.address} />
@@ -189,11 +188,11 @@ export function SecretaryForm() {
 
             <Separator className="my-4" />
 
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="rounded-lg bg-white p-6 shadow-sm">
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations professionnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="unique_id">Numéro d'employé</Label>
+                        <Label htmlFor="unique_id" className="after:content-['*'] after:text-red-500 after:ms-1">Numéro d'employé</Label>
                         <Input
                             id="unique_id"
                             name="unique_id"
@@ -206,7 +205,7 @@ export function SecretaryForm() {
                         <InputError message={errors.unique_id} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="status">Statut</Label>
+                        <Label htmlFor="status" className="after:content-['*'] after:text-red-500 after:ms-1">Statut</Label>
                         <Select value={data.status} onValueChange={(value) => handleSelectChange('status', value)}>
                             <SelectTrigger id="status" className="w-full">
                                 <SelectValue placeholder="Sélectionnez votre statut" />
@@ -221,7 +220,7 @@ export function SecretaryForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience_year">Années d'expérience</Label>
+                        <Label htmlFor="experience_year" className="after:content-['*'] after:text-red-500 after:ms-1">Années d'expérience</Label>
                         <Input
                             id="experience_year"
                             name="experience_year"
@@ -234,7 +233,7 @@ export function SecretaryForm() {
                         />
                         <InputError message={errors.experience_year} />
                     </div>
-                    <div className="sm:col-span-2 space-y-2">
+                    <div className="space-y-2 sm:col-span-2">
                         <Label htmlFor="responsability_notes">Responsabilités principales</Label>
                         <Textarea
                             id="responsability_notes"
@@ -252,7 +251,7 @@ export function SecretaryForm() {
                 <button
                     type="submit"
                     disabled={processing}
-                    className="flex items-center gap-2 rounded bg-indigo-600 px-6 py-2 text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors duration-200"
+                    className="flex items-center gap-2 rounded bg-indigo-600 px-6 py-2 text-white transition-colors duration-200 hover:bg-indigo-700 disabled:opacity-50"
                 >
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Enregistrer
