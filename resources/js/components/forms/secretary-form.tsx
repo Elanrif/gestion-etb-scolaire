@@ -3,9 +3,9 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { toast } from 'react-toastify';
 import InputError from '../input-error';
 
@@ -34,6 +34,12 @@ type Secretary = {
 } & user
 
 export function SecretaryForm() {
+    const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
+    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
+
     const { data, setData, post, errors, processing, reset } = useForm<Required<Secretary>>({
         first_name: '',
         last_name: '',
@@ -48,6 +54,7 @@ export function SecretaryForm() {
         responsability_notes: '',
         birthday: '',
     });
+    
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -108,7 +115,9 @@ export function SecretaryForm() {
                         <InputError message={errors.last_name} />
                     </div>
                     <div className="space-y-2 sm:col-span-2">
-                        <Label htmlFor="email" className="after:content-['*'] after:text-red-500 after:ms-1">Email</Label>
+                        <Label htmlFor="email" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Email
+                        </Label>
                         <Input
                             id="email"
                             name="email"
@@ -122,39 +131,65 @@ export function SecretaryForm() {
                         <InputError message={errors.email} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password" className="after:content-['*'] after:text-red-500 after:ms-1">Mot de passe</Label>
-                        <Input
-                            id="password"
-                            type="password"
-                            name="password"
-                            required
-                            autoComplete="new-password"
-                            value={data.password}
-                            onChange={handleChange}
-                            disabled={processing}
-                            placeholder="Mot de passe"
-                            className="w-full"
-                        />
+                        <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Mot de passe
+                        </Label>
+                        <div className="relative">
+                            <Input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                name="password"
+                                required
+                                autoComplete="new-password"
+                                value={data.password}
+                                onChange={handleChange}
+                                disabled={processing}
+                                placeholder="Mot de passe"
+                                className="w-full"
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
+                        </div>
                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password_confirmation" className="after:content-['*'] after:text-red-500 after:ms-1">Confirmez le mot de passe</Label>
-                        <Input
-                            id="password_confirmation"
-                            type="password"
-                            name="password_confirmation"
-                            required
-                            autoComplete="new-password"
-                            value={data.password_confirmation}
-                            onChange={handleChange}
-                            disabled={processing}
-                            placeholder="Confirmez le mot de passe"
-                            className="w-full"
-                        />
+                        <Label htmlFor="password_confirmation" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Confirmez le mot de passe
+                        </Label>
+                        <div className="relative">
+                            <Input
+                                id="password_confirmation"
+                                type={showPasswordConfirmation ? 'text' : 'password'}
+                                name="password_confirmation"
+                                required
+                                autoComplete="new-password"
+                                value={data.password_confirmation}
+                                onChange={handleChange}
+                                disabled={processing}
+                                placeholder="Confirmez le mot de passe"
+                                className="w-full"
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordConfirmationVisibility}
+                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                tabIndex={-1}
+                            >
+                                {showPasswordConfirmation ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
+                        </div>
                         <InputError message={errors.password_confirmation} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="phone_number" className="after:content-['*'] after:text-red-500 after:ms-1">Téléphone</Label>
+                        <Label htmlFor="phone_number" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Téléphone
+                        </Label>
                         <Input
                             id="phone_number"
                             name="phone_number"
@@ -167,12 +202,16 @@ export function SecretaryForm() {
                         <InputError message={errors.phone_number} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="birthday" className="after:content-['*'] after:text-red-500 after:ms-1">Date de naissance</Label>
+                        <Label htmlFor="birthday" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Date de naissance
+                        </Label>
                         <Input id="birthday" name="birthday" type="date" value={data.birthday} onChange={handleChange} required className="w-full" />
                         <InputError message={errors.birthday} />
                     </div>
                     <div className="space-y-2 sm:col-span-2">
-                        <Label htmlFor="address" className="after:content-['*'] after:text-red-500 after:ms-1">Adresse</Label>
+                        <Label htmlFor="address" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Adresse
+                        </Label>
                         <Input
                             id="address"
                             name="address"
@@ -192,7 +231,9 @@ export function SecretaryForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations professionnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="unique_id" className="after:content-['*'] after:text-red-500 after:ms-1">Numéro d'employé</Label>
+                        <Label htmlFor="unique_id" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Numéro d'employé
+                        </Label>
                         <Input
                             id="unique_id"
                             name="unique_id"
@@ -205,7 +246,9 @@ export function SecretaryForm() {
                         <InputError message={errors.unique_id} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="status" className="after:content-['*'] after:text-red-500 after:ms-1">Statut</Label>
+                        <Label htmlFor="status" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Statut
+                        </Label>
                         <Select value={data.status} onValueChange={(value) => handleSelectChange('status', value)}>
                             <SelectTrigger id="status" className="w-full">
                                 <SelectValue placeholder="Sélectionnez votre statut" />
@@ -220,7 +263,9 @@ export function SecretaryForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience_year" className="after:content-['*'] after:text-red-500 after:ms-1">Années d'expérience</Label>
+                        <Label htmlFor="experience_year" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Années d'expérience
+                        </Label>
                         <Input
                             id="experience_year"
                             name="experience_year"
