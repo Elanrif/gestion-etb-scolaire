@@ -23,6 +23,7 @@ export default function RegistrationForm() {
             <CardContent className="pt-6">
                 <div className="mb-6">
                     <h3 className="mb-4 text-lg font-medium text-indigo-800">Je suis:</h3>
+                    <p className="before:mr-1 mb-2 text-sm text-slate-800 italic before:text-red-500 before:content-['*']">champs obligatoire</p>
                     <RadioGroup
                         value={role || ''}
                         onValueChange={(value) => setRole(value as 'student' | 'professor' | 'secretary')}
@@ -113,12 +114,12 @@ export default function RegistrationForm() {
 
             <CardFooter className="flex justify-center rounded-b-lg border-t border-gray-100 bg-gray-50">
                 <div>
-                <p className="text-center text-sm text-gray-600">
-                    Vous avez déjà un compte ?{' '}
-                    <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-800">
-                        Se connecter
-                    </Link>
-                </p>
+                    <p className="text-center text-sm text-gray-600">
+                        Vous avez déjà un compte ?{' '}
+                        <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-800">
+                            Se connecter
+                        </Link>
+                    </p>
                 </div>
             </CardFooter>
         </Card>
