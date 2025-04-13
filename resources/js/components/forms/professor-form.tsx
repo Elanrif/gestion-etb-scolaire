@@ -6,9 +6,9 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from '@inertiajs/react';
 import InputError from '../input-error';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { LoaderCircle } from 'lucide-react';
 
 type user = {
     email: string;
@@ -31,6 +31,12 @@ type Professor = {
 } & user
 
 export function ProfessorForm() {
+
+    const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
+    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, post, errors, processing, reset } = useForm<Required<Professor>>({
@@ -121,7 +127,8 @@ export function ProfessorForm() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="email" className="after:content-['*'] after:text-red-500 after:ms-1">Email</Label>
-                        <Input id="email" 
+                        <Input
+                        id="email" 
                         name="email" 
                         type="email" 
                         value={data.email}
@@ -144,33 +151,59 @@ export function ProfessorForm() {
                         <InputError message={errors.first_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password" className="after:content-['*'] after:text-red-500 after:ms-1">Mot de passe</Label>
-                        <Input
-                            id="password"
-                            type="password"
-                            name="password"
-                            required
-                            value={data.password}
-                            onChange={handleChange}
-                            disabled={processing}
-                            placeholder="Mot de passe"
-                            className="w-full"
-                        />
+                    <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Mot de passe
+                        </Label>
+                        <div className="relative">
+                            <Input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                name="password"
+                                required
+                                autoComplete="new-password"
+                                value={data.password}
+                                onChange={handleChange}
+                                disabled={processing}
+                                placeholder="Mot de passe"
+                                className="w-full"
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
+                        </div>
                          <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password_confirmation" className="after:content-['*'] after:text-red-500 after:ms-1">Confirmez le mot de passe</Label>
-                        <Input
-                            id="password_confirmation"
-                            type="password"
-                            name="password_confirmation"
-                            required
-                            value={data.password_confirmation}
-                            onChange={handleChange}
-                            disabled={processing}
-                            placeholder="Confirmez le mot de passe"
-                            className="w-full"
-                        />
+                    <Label htmlFor="password_confirmation" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Confirmez le mot de passe
+                        </Label>
+                        <div className="relative">
+                            <Input
+                                id="password_confirmation"
+                                type={showPasswordConfirmation ? 'text' : 'password'}
+                                name="password_confirmation"
+                                required
+                                autoComplete="new-password"
+                                value={data.password_confirmation}
+                                onChange={handleChange}
+                                disabled={processing}
+                                placeholder="Confirmez le mot de passe"
+                                className="w-full"
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordConfirmationVisibility}
+                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                tabIndex={-1}
+                            >
+                                {showPasswordConfirmation ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
+                        </div>
                         <InputError message={errors.password_confirmation} />
                     </div>
                     <div className="space-y-2">
