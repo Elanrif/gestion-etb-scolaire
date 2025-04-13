@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->longText('address');
-            $table->string('phone_number');
+            $table->string('phone_number')->unique();
+            $table->string('image_url')->nullable();
             $table->string('birthday');
             $table->enum('role', ['ADMIN', 'PROFESSOR','SECRETARY','STUDENT','USER'])->default('USER');
             $table->timestamp('email_verified_at')->nullable();
