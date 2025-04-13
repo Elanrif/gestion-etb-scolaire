@@ -32,7 +32,6 @@ class StoreSecretaryRequest extends FormRequest
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone_number' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'status' => 'required|string|max:255',
             'experience_year' => 'required|integer|min:0|max:50',
@@ -51,7 +50,9 @@ class StoreSecretaryRequest extends FormRequest
             'email' => 'adresse e-mail',
             'password' => 'mot de passe',
             'phone_number' => 'numéro de téléphone',
+            'address' => 'addresse',
             'experience_year' => 'années d\'expérience',
+            'responsability_notes' => 'responsabilité',
             'birthday' => 'date de naissance',
         ];
     }
@@ -74,7 +75,7 @@ class StoreSecretaryRequest extends FormRequest
             'experience_year.required' => 'Le nombre d\'années d\'expérience est obligatoire.',
             'experience_year.integer' => 'Le nombre d\'années d\'expérience doit être un entier.',
             'experience_year.max' => 'Le nombre d\'années d\'expérience ne doit pas dépasser 50.',
-            'birthday.before_or_equal' => 'La date de naissance doit indiquer un âge d\'au moins 12 ans.',
+            'birthday.before_or_equal' => 'La date de naissance doit indiquer un âge d\'au plus 12 ans.',
         ];
     }
 }
