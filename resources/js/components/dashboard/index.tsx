@@ -1,85 +1,90 @@
 import AdminLayout from '@/layouts/admin-layout';
 import { Link } from '@inertiajs/react';
-import { ArrowRight, BookOpen, GraduationCap, LineChart, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, BookText, ChevronRight, GraduationCap, LineChart, Plus, Users } from 'lucide-react';
+import { Card } from '../ui/card';
+import CardData from './card-data';
+import { Button } from '../ui/button';
+import { Badge } from '../ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 export default function Dashboard() {
+
+    // Données d'exemple pour les professeurs
+    const teachers = [
+        { id: 1, name: 'Martin Dupont', subject: 'Mathématiques', avatar: '', initials: 'MD' },
+        { id: 2, name: 'Sophie Martin', subject: 'Français', avatar: '', initials: 'SM' },
+        { id: 3, name: 'Jean Lefebvre', subject: 'Histoire-Géo', avatar: '', initials: 'JL' },
+    ];
+
+    // Données d'exemple pour les matières
+    const subjects = [
+        { id: 1, name: 'Mathématiques', teachers: 4, color: 'bg-green-100 text-green-600' },
+        { id: 2, name: 'Français', teachers: 3, color: 'bg-yellow-100 text-yellow-600' },
+        { id: 3, name: 'Histoire-Géo', teachers: 2, color: 'bg-red-100 text-red-600' },
+        { id: 4, name: 'Physique-Chimie', teachers: 2, color: 'bg-indigo-100 text-indigo-600' },
+    ];
     return (
-            <AdminLayout>
-                <div className="space-y-6">
+        <AdminLayout>
+            <div className="space-y-6">
                 <h1 className="text-2xl font-bold text-gray-900">Tableau de bord administratif</h1>
 
                 {/* Statistiques */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <div className="rounded-lg bg-white p-6 shadow">
-                        <div className="flex items-center">
-                            <div className="rounded-full bg-blue-100 p-3">
-                                <Users className="h-6 w-6 text-blue-600" />
-                            </div>
-                            <div className="ml-4">
-                                <h2 className="text-sm font-medium text-gray-500">Total Élèves</h2>
-                                <p className="text-2xl font-semibold text-gray-900">1,248</p>
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <div className="flex items-center justify-between text-sm">
-                                <span className="text-green-600">+2.5%</span>
-                                <span className="text-gray-500">Depuis le mois dernier</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="rounded-lg bg-white p-6 shadow">
-                        <div className="flex items-center">
-                            <div className="rounded-full bg-green-100 p-3">
-                                <BookOpen className="h-6 w-6 text-green-600" />
-                            </div>
-                            <div className="ml-4">
-                                <h2 className="text-sm font-medium text-gray-500">Total Cours</h2>
-                                <p className="text-2xl font-semibold text-gray-900">64</p>
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <div className="flex items-center justify-between text-sm">
-                                <span className="text-green-600">+4.2%</span>
-                                <span className="text-gray-500">Depuis le mois dernier</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="rounded-lg bg-white p-6 shadow">
-                        <div className="flex items-center">
-                            <div className="rounded-full bg-purple-100 p-3">
-                                <GraduationCap className="h-6 w-6 text-purple-600" />
-                            </div>
-                            <div className="ml-4">
-                                <h2 className="text-sm font-medium text-gray-500">Taux de réussite</h2>
-                                <p className="text-2xl font-semibold text-gray-900">92%</p>
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <div className="flex items-center justify-between text-sm">
-                                <span className="text-green-600">+1.2%</span>
-                                <span className="text-gray-500">Depuis le mois dernier</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="rounded-lg bg-white p-6 shadow">
-                        <div className="flex items-center">
-                            <div className="rounded-full bg-yellow-100 p-3">
-                                <LineChart className="h-6 w-6 text-yellow-600" />
-                            </div>
-                            <div className="ml-4">
-                                <h2 className="text-sm font-medium text-gray-500">Moyenne générale</h2>
-                                <p className="text-2xl font-semibold text-gray-900">14.2/20</p>
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <div className="flex items-center justify-between text-sm">
-                                <span className="text-green-600">+0.8</span>
-                                <span className="text-gray-500">Depuis le trimestre dernier</span>
-                            </div>
-                        </div>
-                    </div>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    <CardData
+                        title="Total Élèves"
+                        value={452}
+                        description="+5 depuis la semaine dernière"
+                        icon={<GraduationCap className="h-6 w-6 text-[#6366f1]" />}
+                        gradientFrom="#6366f1"
+                        gradientTo="#a78bfa"
+                    />
+                    <CardData
+                        title="Total Professeurs"
+                        value={38}
+                        description="+2 depuis le mois dernier"
+                        icon={<BookOpen className="h-6 w-6 text-[#ec4899]" />}
+                        gradientFrom="#ec4899"
+                        gradientTo="#f43f5e"
+                    />
+                    <CardData
+                        title="Classes"
+                        value={12}
+                        description="4 par niveau"
+                        icon={<Users className="h-6 w-6 text-[#10b981]" />}
+                        gradientFrom="#10b981"
+                        gradientTo="#059669"
+                    />
+                    <CardData
+                        title="Matières"
+                        value={24}
+                        description="Réparties sur tous les niveaux"
+                        icon={<BookText className="h-6 w-6 text-[#f59e0b]" />}
+                        gradientFrom="#f59e0b"
+                        gradientTo="#d97706"
+                    />
+                    <CardData
+                        title="Total Cours"
+                        value={64}
+                        description="Depuis le mois dernier"
+                        icon={<BookText className="h-6 w-6 text-[#f59e0b]" />}
+                        gradientFrom="#f19e12"
+                        gradientTo="#d93306"
+                    />
+                    <CardData
+                        title="Taux de réussite"
+                        value={'92%'}
+                        description="Réparties sur tous les niveaux"
+                        icon={<GraduationCap className="h-6 w-6 text-[#f59e0b]" />}
+                        gradientFrom="#f5000b"
+                        gradientTo="#d102706"
+                    />
+                    <CardData
+                        title="Moyenne générale"
+                        value={'14.2/20'}
+                        description="Depuis le trimestre dernier"
+                        icon={<LineChart className="h-6 w-6 text-[#f59e0b]" />}
+                        gradientFrom="#f51647e"
+                        gradientTo="#812706"
+                    />
                 </div>
 
                 {/* Résumé des notes */}
@@ -165,81 +170,86 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* Activité récente */}
-                <div className="rounded-lg bg-white p-6 shadow">
-                    <div className="mb-4 flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-gray-900">Activité récente</h2>
-                    </div>
-                    <div className="flow-root">
-                        <ul className="-mb-8">
-                            {[
-                                {
-                                    action: 'Note ajoutée',
-                                    details: 'Mathématiques - Terminale S',
-                                    user: 'M. Dupont',
-                                    time: 'Il y a 5 minutes',
-                                },
-                                {
-                                    action: 'Élève inscrit',
-                                    details: 'Julie Lambert - Seconde B',
-                                    user: 'Mme. Moreau',
-                                    time: 'Il y a 2 heures',
-                                },
-                                {
-                                    action: 'Cours modifié',
-                                    details: 'Physique-Chimie - Première S',
-                                    user: 'M. Leroy',
-                                    time: 'Il y a 3 heures',
-                                },
-                                {
-                                    action: 'Absence signalée',
-                                    details: 'Antoine Girard - Terminale L',
-                                    user: 'Mme. Petit',
-                                    time: 'Il y a 5 heures',
-                                },
-                                {
-                                    action: 'Document partagé',
-                                    details: 'Programme de révision - Terminale S',
-                                    user: 'M. Dupont',
-                                    time: 'Il y a 1 jour',
-                                },
-                            ].map((item, index, array) => (
-                                <li key={index}>
-                                    <div className="relative pb-8">
-                                        {index !== array.length - 1 ? (
-                                            <span className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                                        ) : null}
-                                        <div className="relative flex space-x-3">
-                                            <div>
-                                                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 ring-8 ring-white">
-                                                    <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                                                            clipRule="evenodd"
-                                                        />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                                                <div>
-                                                    <p className="text-sm text-gray-900">
-                                                        {item.action} <span className="font-medium text-gray-900">{item.details}</span>
-                                                    </p>
-                                                    <p className="text-sm text-gray-500">Par {item.user}</p>
-                                                </div>
-                                                <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                                                    <time>{item.time}</time>
-                                                </div>
+                {/* Deuxième ligne horizontale */}
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                    {/* Professeurs */}
+                    <div>
+                        <Card className="overflow-hidden border-0 shadow-md">
+                            <div className="border-b border-gray-100 bg-white p-4">
+                                <h2 className="text-lg font-semibold text-gray-800">Professeurs</h2>
+                                <p className="text-sm text-gray-500">Équipe pédagogique</p>
+                            </div>
+
+                            <div className="divide-y divide-gray-100">
+                                {teachers.map((teacher) => (
+                                    <div key={teacher.id} className="p-4 transition-colors hover:bg-gray-50">
+                                        <div className="flex items-center">
+                                            <Avatar className="h-10 w-10 border border-gray-200">
+                                                <AvatarImage src={teacher.avatar || '/placeholder.svg'} alt={teacher.name} />
+                                                <AvatarFallback className="bg-[#f0e7ff] text-[#8b5cf6]">{teacher.initials}</AvatarFallback>
+                                            </Avatar>
+                                            <div className="ml-3">
+                                                <p className="font-medium text-gray-800">{teacher.name}</p>
+                                                <p className="text-xs text-gray-500">{teacher.subject}</p>
                                             </div>
                                         </div>
                                     </div>
-                                </li>
-                            ))}
-                        </ul>
+                                ))}
+                            </div>
+
+                            <div className="border-t border-gray-100 bg-gray-50 p-4 text-center">
+                                <Button variant="link" className="text-[#6366f1] hover:text-[#4f46e5]">
+                                    Voir tous les professeurs
+                                    <ChevronRight className="ml-1 h-4 w-4" />
+                                </Button>
+                            </div>
+                        </Card>
+                    </div>
+
+                    {/* Matières */}
+                    <div className="lg:col-span-2">
+                        <Card className="overflow-hidden border-0 shadow-md">
+                            <div className="flex items-center justify-between border-b border-gray-100 bg-white p-4">
+                                <div>
+                                    <h2 className="text-lg font-semibold text-gray-800">Matières</h2>
+                                    <p className="text-sm text-gray-500">Aperçu des matières enseignées</p>
+                                </div>
+                                <Button size="sm" className="bg-[#6366f1] hover:bg-[#4f46e5]">
+                                    <Plus className="mr-1 h-4 w-4" />
+                                    Ajouter
+                                </Button>
+                            </div>
+
+                            <div className="grid grid-cols-1 divide-y divide-gray-100 md:grid-cols-2 md:divide-y-0">
+                                {subjects.map((subject) => (
+                                    <div
+                                        key={subject.id}
+                                        className="border-b border-gray-100 p-4 transition-colors hover:bg-gray-50 md:border-b-0 md:even:border-l"
+                                    >
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <p className="font-medium text-gray-800">{subject.name}</p>
+                                                <div className="mt-1 flex items-center">
+                                                    <BookOpen className="mr-1 h-3.5 w-3.5 text-gray-400" />
+                                                    <p className="text-xs text-gray-500">{subject.teachers} professeurs</p>
+                                                </div>
+                                            </div>
+                                            <Badge className={subject.color}>{subject.name.substring(0, 3)}</Badge>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="border-t border-gray-100 bg-gray-50 p-4 text-center">
+                                <Button variant="link" className="text-[#6366f1] hover:text-[#4f46e5]">
+                                    Voir toutes les matières
+                                    <ChevronRight className="ml-1 h-4 w-4" />
+                                </Button>
+                            </div>
+                        </Card>
                     </div>
                 </div>
             </div>
-            </AdminLayout>
+        </AdminLayout>
     );
 }
