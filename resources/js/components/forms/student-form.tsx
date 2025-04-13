@@ -4,11 +4,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import { FormEventHandler, useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { toast } from 'react-toastify';
 import InputError from '../input-error';
+
 
 type user = {
     email: string;
@@ -44,6 +45,12 @@ const classes = [
     { id: 'terminale-l', name: 'Terminale L' },
 ];
 export function StudentForm() {
+    const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
+    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, post, errors, processing, reset } = useForm<Required<Student>>({
     first_name: '',
@@ -103,6 +110,7 @@ export function StudentForm() {
                             placeholder="Entrez votre prénom"
                             required
                         />
+                         <InputError message={errors.first_name} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="last_name" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -116,6 +124,7 @@ export function StudentForm() {
                             placeholder="Entrez votre nom"
                             required
                         />
+                         <InputError message={errors.last_name} />
                     </div>
                     <div>
                         <Label htmlFor="email" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -131,6 +140,7 @@ export function StudentForm() {
                             required
                             className="w-full"
                         />
+                         <InputError message={errors.email} />
                     </div>
                     <div>
                         <Label htmlFor="address" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -150,34 +160,56 @@ export function StudentForm() {
                         <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Mot de passe
                         </Label>
+                        <div className="relative">
                         <Input
                             id="password"
-                            type="password"
+                            type={showPassword ?
+                            'text' :'password'}
                             name="password"
                             value={data.password}
                             onChange={handleChange}
-                            required
+                            disabled={processing}
                             autoComplete="new-password"
                             placeholder="Mot de passe"
                             className="w-full"
                         />
+                        <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
+                        </div>
                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password_confirmation" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Confirmez le mot de passe
                         </Label>
-                        <Input
-                            id="password_confirmation"
-                            type="password"
-                            name="password_confirmation"
-                            required
-                            value={data.password_confirmation}
-                            onChange={handleChange}
-                            autoComplete="new-password"
-                            placeholder="Confirmez le mot de passe"
-                            className="w-full"
-                        />
+                           <div className='relative'>
+                           <Input
+                                id="password_confirmation"
+                                type={showPasswordConfirmation ? 'text' : 'password'}
+                                name="password_confirmation"
+                                required
+                                autoComplete="new-password"
+                                value={data.password_confirmation}
+                                onChange={handleChange}
+                                disabled={processing}
+                                placeholder="Confirmez le mot de passe"
+                                className="w-full"
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordConfirmationVisibility}
+                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                tabIndex={-1}
+                            >
+                                {showPasswordConfirmation ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
+                           </div>
                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
@@ -191,13 +223,14 @@ export function StudentForm() {
                             onChange={handleChange}
                             placeholder="Entrez votre numéro de téléphone"
                         />
+                         <InputError message={errors.phone_number} />
                     </div>
-
                     <div className="space-y-2">
                         <Label htmlFor="birthday" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Date de naissance
                         </Label>
                         <Input id="birthday" type="date" required name="birthday" value={data.birthday} onChange={handleChange} />
+                         <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="gender" className="after:ms-1 after:text-red-500 after:content-['*']">
