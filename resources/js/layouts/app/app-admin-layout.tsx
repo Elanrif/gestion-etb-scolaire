@@ -71,51 +71,57 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
     const navigationItems = [
         {
             name: 'Tableau de bord',
-            href: '/admin/dashboard',
+            href: 'dashboard.home',
             icon: LayoutDashboard,
-            active: pathname === '/admin/dashboard',
+            active: pathname === '/dashboard/home',
+        },
+        {
+            name: 'Proffesseur',
+            href: 'dashboard.teachers',
+            icon: Users,
+            active: pathname.startsWith('/dashboard/teachers'),
         },
         {
             name: 'Élèves',
-            href: '/admin/students',
+            href: 'dashboard.students',
             icon: Users,
-            active: pathname.startsWith('/admin/students'),
+            active: pathname.startsWith('/dashboard/students'),
         },
         {
             name: 'Classes',
-            href: '/admin/classes',
+            href: 'dashboard.students',
             icon: School,
-            active: pathname.startsWith('/admin/classes'),
+            active: pathname.startsWith('/dashboard/classes'),
         },
         {
             name: 'Cours',
-            href: '/admin/courses',
+            href: 'dashboard.students',
             icon: BookOpen,
-            active: pathname.startsWith('/admin/courses'),
+            active: pathname.startsWith('/dashboard/courses'),
         },
         {
             name: 'Notes',
-            href: '/admin/grades',
+            href: 'dashboard.students',
             icon: FileText,
-            active: pathname.startsWith('/admin/grades'),
+            active: pathname.startsWith('/dashboard/grades'),
         },
         {
             name: 'Emploi du temps',
-            href: '/admin/schedule',
+            href: 'dashboard.students',
             icon: Calendar,
-            active: pathname.startsWith('/admin/schedule'),
+            active: pathname.startsWith('/dashboard/schedule'),
         },
         {
             name: 'Statistiques',
-            href: '/admin/statistics',
+            href: 'dashboard.students',
             icon: BarChart3,
-            active: pathname.startsWith('/admin/statistics'),
+            active: pathname.startsWith('/dashboard/statistics'),
         },
         {
             name: 'Paramètres',
-            href: '/admin/settings',
+            href: 'dashboard.students',
             icon: Settings,
-            active: pathname.startsWith('/admin/settings'),
+            active: pathname.startsWith('/dashboard/settings'),
         },
     ];
 
@@ -147,7 +153,7 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
                     {navigationItems.map((item) => (
                         <Link
                             key={item.name}
-                            href={item.href}
+                            href={route(item.href)}
                             className={cn(
                                 'flex items-center rounded-md px-3 py-2 transition-colors',
                                 item.active ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100',

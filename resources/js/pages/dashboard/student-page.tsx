@@ -1,6 +1,6 @@
 import Student from '@/components/dashboard/student';
 
-export default function StudentsPage() {
+export default function StudentPage() {
 
 
     return (
