@@ -47,6 +47,7 @@ class RegisterController extends Controller
             'first_name' => $validated_data['first_name'],
             'last_name' => $validated_data['last_name'],
             'status' => $validated_data['status'],
+            'secratary_id' => $validated_data['secratary_id'],
             'experience_year' => $validated_data['experience_year'],
             'responsability_notes' => $validated_data['responsability_notes'],
         ]);

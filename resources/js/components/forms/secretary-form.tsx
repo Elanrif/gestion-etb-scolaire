@@ -27,7 +27,7 @@ type user = {
 type Secretary = {
     first_name: string;
     last_name: string;
-    unique_id: string;
+    secratary_id: string;
     status: StagiaireStatus;
     experience_year: number;
     responsability_notes: string;
@@ -47,7 +47,7 @@ export function SecretaryForm() {
         password: '',
         password_confirmation: '',
         phone_number: '',
-        unique_id: '',
+        secratary_id: '',
         status: StagiaireStatus.TITULAIRE,
         address: '',
         experience_year: 0,
@@ -231,19 +231,19 @@ export function SecretaryForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations professionnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="unique_id" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="secratary_id" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Numéro d'employé
                         </Label>
                         <Input
-                            id="unique_id"
-                            name="unique_id"
-                            value={data.unique_id}
+                            id="secratary_id"
+                            name="secratary_id"
+                            value={data.secratary_id}
                             onChange={handleChange}
                             placeholder="Entrez votre numéro d'employé"
                             required
                             className="w-full"
                         />
-                        <InputError message={errors.unique_id} />
+                        <InputError message={errors.secratary_id} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="status" className="after:ms-1 after:text-red-500 after:content-['*']">

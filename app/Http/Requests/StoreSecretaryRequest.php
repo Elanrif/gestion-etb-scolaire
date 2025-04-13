@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Secretary;
 use App\Models\User;
 use Illuminate\Validation\Rules;
 use Illuminate\Foundation\Http\FormRequest;
@@ -31,8 +32,9 @@ class StoreSecretaryRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone_number' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255|unique:'.User::class,
             'address' => 'required|string|max:255',
+            'secratary_id' => 'required|string|max:255|unique:'.Secretary::class,
             'status' => 'required|string|max:255',
             'experience_year' => 'required|integer|min:0|max:50',
             'responsability_notes' => 'nullable|string|max:255',
@@ -51,6 +53,7 @@ class StoreSecretaryRequest extends FormRequest
             'password' => 'mot de passe',
             'phone_number' => 'numéro de téléphone',
             'address' => 'addresse',
+            'secratary_id' => 'identifiant du secrétaire',
             'experience_year' => 'années d\'expérience',
             'responsability_notes' => 'responsabilité',
             'birthday' => 'date de naissance',
@@ -67,9 +70,12 @@ class StoreSecretaryRequest extends FormRequest
             'email.required' => 'L\'adresse e-mail est obligatoire.',
             'email.email' => 'L\'adresse e-mail n\'est pas valide.',
             'email.unique' => 'Cet e-mail est déjà utilisé.',
+            'secratary_id.required' => 'L\'identifiant du secrétaire est obligatoire.',
+            'secratary_id.unique' => 'Cet identifiant est déjà utilisé.',
             'password.required' => 'Le mot de passe est obligatoire.',
             'password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
             'phone_number.required' => 'Le numéro de téléphone est obligatoire.',
+            'phone_number.unique' => 'Le numéro de téléphone est déjà utilisé.',
             'address.required' => 'L\'adresse est obligatoire.',
             'status.required' => 'Le statut est obligatoire.',
             'experience_year.required' => 'Le nombre d\'années d\'expérience est obligatoire.',
