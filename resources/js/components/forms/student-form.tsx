@@ -87,94 +87,122 @@ export function StudentForm() {
     };
 
     return (
-        <form  onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                        <Label className='pb-20' htmlFor="first_name">Prénom</Label>
-                        <Input id="first_name" 
-                           name="first_name" 
-                           value={data.first_name} 
-                           onChange={handleChange} 
-                        placeholder="Entrez votre prénom" required />
+                        <Label htmlFor="first_name" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Prénom
+                        </Label>
+                        <Input
+                            id="first_name"
+                            name="first_name"
+                            value={data.first_name}
+                            onChange={handleChange}
+                            placeholder="Entrez votre prénom"
+                            required
+                        />
                     </div>
                     <div className="space-y-2">
-                        <Label className='mb-10' htmlFor="last_name">Nom</Label>
-                        <Input id="last_name"
-                          name="last_name" 
-                          value={data.last_name} 
-                          onChange={handleChange}  
-                        placeholder="Entrez votre nom" required />
+                        <Label htmlFor="last_name" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Nom
+                        </Label>
+                        <Input
+                            id="last_name"
+                            name="last_name"
+                            value={data.last_name}
+                            onChange={handleChange}
+                            placeholder="Entrez votre nom"
+                            required
+                        />
                     </div>
                     <div>
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" name="email" 
-                        value={data.email} 
-                        onChange={handleChange} 
-                    type="email" placeholder="votre.email@exemple.com" required className="w-full" />
-                        </div>
+                        <Label htmlFor="email" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Email
+                        </Label>
+                        <Input
+                            id="email"
+                            name="email"
+                            value={data.email}
+                            onChange={handleChange}
+                            type="email"
+                            placeholder="votre.email@exemple.com"
+                            required
+                            className="w-full"
+                        />
+                    </div>
                     <div>
-                    <Label htmlFor="address">Adresse</Label>
-                    <Input 
-                        id="address" 
-                        name="address" 
-                        value={data.address} 
-                        onChange={handleChange} 
-                        placeholder="Entrez votre adresse" 
-                        className="w-full"
-                    />
-                    <InputError message={errors.address} />
+                        <Label htmlFor="address" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Adresse
+                        </Label>
+                        <Input
+                            id="address"
+                            name="address"
+                            value={data.address}
+                            onChange={handleChange}
+                            placeholder="Entrez votre adresse"
+                            className="w-full"
+                        />
+                        <InputError message={errors.address} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password">Mot de passe</Label>
+                        <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Mot de passe
+                        </Label>
                         <Input
                             id="password"
                             type="password"
                             name="password"
-                            value={data.password} 
-                            onChange={handleChange} 
+                            value={data.password}
+                            onChange={handleChange}
                             required
                             autoComplete="new-password"
                             placeholder="Mot de passe"
                             className="w-full"
                         />
-                         <InputError message={errors.password} />
+                        <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
-                        <Label className='mb-10' htmlFor="password_confirmation">Confirmez le mot de passe</Label>
+                        <Label htmlFor="password_confirmation" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Confirmez le mot de passe
+                        </Label>
                         <Input
                             id="password_confirmation"
                             type="password"
                             name="password_confirmation"
                             required
-                            value={data.password_confirmation} 
-                            onChange={handleChange} 
+                            value={data.password_confirmation}
+                            onChange={handleChange}
                             autoComplete="new-password"
                             placeholder="Confirmez le mot de passe"
                             className="w-full"
                         />
-                         <InputError message={errors.password} />
+                        <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="phone_number">Téléphone</Label>
-                        <Input id="phone_number" 
-                        name='phone_number'
-                        value={data.phone_number} 
-                        onChange={handleChange} 
-                        placeholder="Entrez votre numéro de téléphone" />
+                        <Label htmlFor="phone_number" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Téléphone
+                        </Label>
+                        <Input
+                            id="phone_number"
+                            name="phone_number"
+                            value={data.phone_number}
+                            onChange={handleChange}
+                            placeholder="Entrez votre numéro de téléphone"
+                        />
                     </div>
 
                     <div className="space-y-2">
-                        <Label className='mb-10' htmlFor="birthday">Date de naissance</Label>
-                        <Input id="birthday" type="date" required 
-                        name='birthday'
-                        value={data.birthday} 
-                        onChange={handleChange} 
-                        />
+                        <Label htmlFor="birthday" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Date de naissance
+                        </Label>
+                        <Input id="birthday" type="date" required name="birthday" value={data.birthday} onChange={handleChange} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="gender">Genre</Label>
+                        <Label htmlFor="gender" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Genre
+                        </Label>
                         <Select value={data.gender} onValueChange={(value) => handleSelectChange('gender', value)}>
                             <SelectTrigger id="gender">
                                 <SelectValue placeholder="Sélectionnez votre genre" />
@@ -194,18 +222,24 @@ export function StudentForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations scolaires</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                        <Label className='mb-10'  htmlFor="matricule">Numéro d'élève</Label>
-                        <Input id="matricule" placeholder="Entrez votre numéro d'élève" 
-                        name='matricule'
-                        value={data.matricule} 
-                        onChange={handleChange} 
-                        required />
-                         <InputError message={errors.matricule} />
+                        <Label htmlFor="matricule" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Matricule
+                        </Label>
+                        <Input
+                            id="matricule"
+                            placeholder="Entrez votre numéro d'élève"
+                            name="matricule"
+                            value={data.matricule}
+                            onChange={handleChange}
+                            required
+                        />
+                        <InputError message={errors.matricule} />
                     </div>
                     <div className="space-y-2">
-                        <Label className='mb-10' htmlFor="level"
-                        >Niveau</Label>
-                        <Select   value={data.level} onValueChange={(value) => handleSelectChange('level', value)}>
+                        <Label htmlFor="level" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Niveau
+                        </Label>
+                        <Select value={data.level} onValueChange={(value) => handleSelectChange('level', value)}>
                             <SelectTrigger id="level">
                                 <SelectValue placeholder="Sélectionnez votre niveau" />
                             </SelectTrigger>
@@ -217,8 +251,10 @@ export function StudentForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="class">Classe</Label>
-                        <Select  value={data.class} onValueChange={(value) => handleSelectChange('class', value)}>
+                        <Label htmlFor="class" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Classe
+                        </Label>
+                        <Select value={data.class} onValueChange={(value) => handleSelectChange('class', value)}>
                             <SelectTrigger id="class">
                                 <SelectValue placeholder="Sélectionnez votre classe" />
                             </SelectTrigger>
@@ -240,46 +276,68 @@ export function StudentForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Responsable légal</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                        <Label className='mb-10' htmlFor="guardian_first_name">Prénom du responsable</Label>
-                        <Input id="guardian_first_name" 
-                        name='guardian_first_name'
-                        value={data.guardian_first_name} 
-                        onChange={handleChange} 
-                        placeholder="Prénom du responsable légal" required />
-                         <InputError message={errors.guardian_first_name} />
+                        <Label htmlFor="guardian_first_name" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Prénom du responsable
+                        </Label>
+                        <Input
+                            id="guardian_first_name"
+                            name="guardian_first_name"
+                            value={data.guardian_first_name}
+                            onChange={handleChange}
+                            placeholder="Prénom du responsable légal"
+                            required
+                        />
+                        <InputError message={errors.guardian_first_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label className='mb-10' htmlFor="guardian_last_name">Nom du responsable</Label>
-                        <Input id="guardian_last_name"
-                         name='guardian_last_name'
-                         value={data.guardian_last_name} 
-                         onChange={handleChange} 
-                        placeholder="Nom du responsable légal" required />
-                         <InputError message={errors.guardian_last_name} />
+                        <Label htmlFor="guardian_last_name" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Nom du responsable
+                        </Label>
+                        <Input
+                            id="guardian_last_name"
+                            name="guardian_last_name"
+                            value={data.guardian_last_name}
+                            onChange={handleChange}
+                            placeholder="Nom du responsable légal"
+                            required
+                        />
+                        <InputError message={errors.guardian_last_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="guardian_email">Email du responsable</Label>
-                        <Input id="guardian_email" type="email" 
-                         name='guardian_email'
-                         value={data.guardian_email} 
-                         onChange={handleChange} 
-                        placeholder="email.responsable@exemple.com" required />
-                         <InputError message={errors.guardian_email} />
+                        <Label htmlFor="guardian_email" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Email du responsable
+                        </Label>
+                        <Input
+                            id="guardian_email"
+                            type="email"
+                            name="guardian_email"
+                            value={data.guardian_email}
+                            onChange={handleChange}
+                            placeholder="email.responsable@exemple.com"
+                            required
+                        />
+                        <InputError message={errors.guardian_email} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="guardian_phone_number">Téléphone du responsable</Label>
-                        <Input id="guardian_phone_number" 
-                         name='guardian_phone_number'
-                         value={data.guardian_phone_number} 
-                         onChange={handleChange} 
-                        placeholder="Numéro de téléphone du responsable" required />
-                         <InputError message={errors.guardian_phone_number} />
+                        <Label htmlFor="guardian_phone_number" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Téléphone du responsable
+                        </Label>
+                        <Input
+                            id="guardian_phone_number"
+                            name="guardian_phone_number"
+                            value={data.guardian_phone_number}
+                            onChange={handleChange}
+                            placeholder="Numéro de téléphone du responsable"
+                            required
+                        />
+                        <InputError message={errors.guardian_phone_number} />
                     </div>
                     <div className="space-y-2">
-                        <Label className='mb-10' htmlFor="relationship">Lien de parenté</Label>
+                        <Label htmlFor="relationship" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Lien de parenté
+                        </Label>
                         <Select value={data.relationship} onValueChange={(value) => handleSelectChange('relationship', value)}>
-                            <SelectTrigger id="relationship"
-                            className='w-full'>
+                            <SelectTrigger id="relationship" className="w-full">
                                 <SelectValue placeholder="Sélectionnez le lien de parenté" />
                             </SelectTrigger>
                             <SelectContent>
@@ -294,11 +352,12 @@ export function StudentForm() {
             </div>
 
             <div className="flex justify-start">
-                <button type="submit"
-                 disabled={processing}
-                className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50">
-
-{processing && <LoaderCircle className="h-4 w-4 animate-spin" />}    
+                <button
+                    type="submit"
+                    disabled={processing}
+                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                >
+                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Enregistrer
                 </button>
             </div>
