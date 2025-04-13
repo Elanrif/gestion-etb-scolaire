@@ -6,9 +6,9 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from '@inertiajs/react';
 import InputError from '../input-error';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { LoaderCircle } from 'lucide-react';
 
 type user = {
     email: string;
