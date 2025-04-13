@@ -10,22 +10,26 @@ import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
 import { LoaderCircle } from 'lucide-react';
 
-type Professor = {
-    first_name: string;
-    last_name: string; 
+type user = {
     email: string;
     password: string;
+    birthday: string;
     password_confirmation: string;
     phone_number: string;
+    address: string;
+};
+
+type Professor = {
+    first_name: string;
+    last_name: string;
     employee_number: string;
     status: string;
     discipline: string;
     experience_year: number;
     level_taught: string;
     additional_info: string;
-    address:string;
-    birthday: string;
-}
+} & user
+
 export function ProfessorForm() {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -94,7 +98,7 @@ export function ProfessorForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="first_name">Prénom</Label>
+                        <Label htmlFor="first_name" className="after:content-['*'] after:text-red-500 after:ms-1">Prénom</Label>
                         <Input id="first_name" 
                         name="first_name"
                         value={data.first_name}
@@ -105,7 +109,7 @@ export function ProfessorForm() {
                         <InputError message={errors.first_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="last_name">Nom</Label>
+                        <Label htmlFor="last_name" className="after:content-['*'] after:text-red-500 after:ms-1">Nom</Label>
                         <Input id="last_name" 
                         name="last_name"
                         value={data.last_name}
@@ -116,7 +120,7 @@ export function ProfessorForm() {
                           <InputError message={errors.last_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email" className="after:content-['*'] after:text-red-500 after:ms-1">Email</Label>
                         <Input id="email" 
                         name="email" 
                         type="email" 
@@ -128,7 +132,7 @@ export function ProfessorForm() {
                         <InputError message={errors.email} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="address">address</Label>
+                        <Label htmlFor="address" className="after:content-['*'] after:text-red-500 after:ms-1">Addresse</Label>
                         <Input id="address" 
                         name="address"
                         value={data.address}
@@ -140,7 +144,7 @@ export function ProfessorForm() {
                         <InputError message={errors.first_name} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password">Mot de passe</Label>
+                        <Label htmlFor="password" className="after:content-['*'] after:text-red-500 after:ms-1">Mot de passe</Label>
                         <Input
                             id="password"
                             type="password"
@@ -155,7 +159,7 @@ export function ProfessorForm() {
                          <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password_confirmation">Confirmez le mot de passe</Label>
+                        <Label htmlFor="password_confirmation" className="after:content-['*'] after:text-red-500 after:ms-1">Confirmez le mot de passe</Label>
                         <Input
                             id="password_confirmation"
                             type="password"
@@ -170,7 +174,7 @@ export function ProfessorForm() {
                         <InputError message={errors.password_confirmation} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="phone_number">Téléphone</Label>
+                        <Label htmlFor="phone_number" className="after:content-['*'] after:text-red-500 after:ms-1">Téléphone</Label>
                         <Input id="phone_number" 
                          name="phone_number"
                          value={data.phone_number}
@@ -180,7 +184,7 @@ export function ProfessorForm() {
                          <InputError message={errors.phone_number} />
                     </div>
                     <div className="space-y-2">
-                    <Label htmlFor="birthday">Date de naissance</Label>
+                    <Label htmlFor="birthday" className="after:content-['*'] after:text-red-500 after:ms-1">Date de naissance</Label>
                     <Input 
                         id="birthday" 
                         name="birthday" 
@@ -201,7 +205,7 @@ export function ProfessorForm() {
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations professionnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="employee_number">Numéro d'employé</Label>
+                        <Label htmlFor="employee_number" className="after:content-['*'] after:text-red-500 after:ms-1">Numéro d'employé</Label>
                         <Input id="employee_number" 
                         name="employee_number" 
                         value={data.employee_number} 
@@ -210,7 +214,7 @@ export function ProfessorForm() {
                         <InputError message={errors.employee_number} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="status">Statut</Label>
+                        <Label htmlFor="status" className="after:content-['*'] after:text-red-500 after:ms-1">Statut</Label>
                         <Select value={data.status} onValueChange={(value) => handleSelectChange('status', value)}>
                             <SelectTrigger id="status" className="w-full">
                                 <SelectValue placeholder="Sélectionnez votre statut" />
@@ -224,7 +228,7 @@ export function ProfessorForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="discipline">Discipline principale</Label>
+                        <Label htmlFor="discipline" className="after:content-['*'] after:text-red-500 after:ms-1">Discipline principale</Label>
                         <Select value={data.discipline} onValueChange={(value) => handleSelectChange('discipline', value)}>
                             <SelectTrigger id="discipline" className="w-full">
                                 <SelectValue placeholder="Sélectionnez votre discipline" />
@@ -247,7 +251,7 @@ export function ProfessorForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience_year">Années d'expérience</Label>
+                        <Label htmlFor="experience_year" className="after:content-['*'] after:text-red-500 after:ms-1">Années d'expérience</Label>
                         <Input 
                             id="experience_year" 
                             type="number" 
@@ -260,7 +264,7 @@ export function ProfessorForm() {
                             <InputError message={errors.experience_year} />
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
-                        <Label>Niveaux enseignés</Label>
+                        <Label className="after:content-['*'] after:text-red-500 after:ms-1">Niveaux enseignés</Label>
                         <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
                     <div className="flex items-center space-x-2">
                         <Checkbox
