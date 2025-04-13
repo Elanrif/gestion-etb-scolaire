@@ -10,4 +10,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         return Inertia::render('dashboard/index');
     })->name('home');
 
+     Route::get('/students', function () {
+        return Inertia::render('dashboard/students-page');
+    })->name('students');
+
 });
