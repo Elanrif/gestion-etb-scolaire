@@ -36,4 +36,9 @@ class Professor extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function matieres(): HasMany
+    {
+        return $this->hasMany(Matiere::class);
+    }
 }
