@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Classe extends Model
 {
@@ -14,11 +14,11 @@ class Classe extends Model
      */
     protected $guarded = [];
 
-    /**
-     * Get the student that owns the comment.
+     /**
+     * The roles that belong to the user.
      */
-    public function students(): HasMany
+    public function students(): BelongsToMany
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsToMany(Student::class);
     }
 }
