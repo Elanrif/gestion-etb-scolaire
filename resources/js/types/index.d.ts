@@ -41,11 +41,15 @@ export interface User {
     name: string;
     email: string;
     role: UserRole;
+    password: string;
+    birthday: string;
+    phone_number: string;
+    address: string;
     avatar?: string;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
+    [key: string]: unknown;
 }
 
 export enum UserRole {

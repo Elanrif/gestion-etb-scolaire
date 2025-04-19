@@ -22,22 +22,17 @@ export interface Student {
     [key: string]: unknown;
 }
 
-export interface Professor {
+type Professor = {
+    id: string;
     user: User;
     first_name: string;
-    last_name: string; 
-    email: string;
-    password: string;
-    password_confirmation: string;
-    phone_number: string;
+    last_name: string;
     employee_number: string;
     status: string;
     discipline: string;
     experience_year: number;
     level_taught: string;
     additional_info: string;
-    address:string;
-    [key: string]: unknown;
 }
 
 export interface Secretary {
