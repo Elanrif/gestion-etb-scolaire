@@ -5,35 +5,31 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Professor } from '@/types/models';
+import { Classe, Professor } from '@/types/models';
 import { useForm } from '@inertiajs/react';
 import type React from 'react';
 import { useEffect } from 'react';
 
-interface Classe {
-    id: string;
-    name: string;
-    professorId: string;
-    createdAt: string;
-    updatedAt: string;
-    [key: string]: string;
-}
 
 interface EditClassDialogProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     classe: Classe;
     professors: Professor[];
-    onSubmit: (data: Classe) => void;
+    onSubmit: (data: Pick<Classe, 'id' | 'name' | 'professorId'>) => void;
+}
+
+interface ClasseForm {
+    id: string;
+    name: string;
+    professorId: string;
 }
 
 export default function EditClassDialog({ open, onOpenChange, classe, professors, onSubmit }: EditClassDialogProps) {
-    const { data, setData, errors, processing, reset } = useForm<Classe>({
+    const { data, setData, errors, processing, reset } = useForm<Required<ClasseForm>>({
         id: classe.id,
         name: classe.name,
         professorId: classe.professorId,
-        createdAt: classe.createdAt,
-        updatedAt: classe.updatedAt,
     });
 
     // Mettre à jour les données du formulaire lorsque la classe sélectionnée change
@@ -42,15 +38,12 @@ export default function EditClassDialog({ open, onOpenChange, classe, professors
             id: classe.id,
             name: classe.name,
             professorId: classe.professorId,
-            createdAt: classe.createdAt,
-            updatedAt: classe.updatedAt,
         });
     }, [classe, setData]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Utiliser les données du formulaire pour soumettre
         onSubmit(data);
     };
 

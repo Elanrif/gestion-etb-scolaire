@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateClasseRequest;
 use App\Models\Classe;
 use App\Models\Professor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class ClasseController extends Controller
@@ -16,9 +17,11 @@ class ClasseController extends Controller
      */
     public function index()
     {
-        $classes = Classe::all();
-        $professors = Professor::all();
-        return Inertia::render('dashboard/classe-page',['classes' => $classes,  'professors'=> $professors]);
+        $classes = Classe::with('professors')->get();
+        $professors = Professor::with('user')->get();
+        Log::info($classes);
+        return Inertia::render('dashboard/classe-page',
+        ['classes' => $classes,  'professors'=> $professors]);
     }
 
     /**

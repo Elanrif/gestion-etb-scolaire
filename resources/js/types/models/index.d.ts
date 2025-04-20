@@ -33,6 +33,17 @@ type Professor = {
     experience_year: number;
     level_taught: string;
     additional_info: string;
+    [key: string]: string | User;
+};
+
+interface Classe {
+    id: string;
+    name: string;
+    professorId: string;
+    professors: Professor[];
+    created_at: string;
+    updated_at: string;
+    [key: string]: string | Professor[];
 }
 
 export interface Secretary {

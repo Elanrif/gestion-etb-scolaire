@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Professor } from '@/types/models';
+import { Classe, Professor } from '@/types/models';
 import { usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
@@ -15,16 +15,6 @@ import EditClassDialog from './edit-class-dialog';
 
 dayjs.extend(relativeTime);
 dayjs.locale('fr');
-
-// Type pour une classe
-interface Classe {
-    id: string;
-    name: string;
-    professorId: string;
-    createdAt: string;
-    updatedAt: string;
-    [key: string]: string;
-}
 
 interface PageProps {
     professors: Professor[];
@@ -53,7 +43,7 @@ export default function ClasseList() {
         setAddDialogOpen(false);
     };
 
-    const editClass = (updatedClass: Classe) => {
+    const editClass = (data: Pick<Classe, 'id' | 'name' | 'professorId'>) => {
         //function
         setEditDialogOpen(false);
     };
@@ -62,10 +52,6 @@ export default function ClasseList() {
         setDeleteDialogOpen(false);
     };
 
-    // Fonction pour obtenir les informations d'un professeur par son ID
-    const getProfessorById = (id: string): Professor | undefined => {
-        return professors.find((prof) => prof.id === id);
-    };
 
     return (
         <div className="container mx-auto py-8">
@@ -82,8 +68,7 @@ export default function ClasseList() {
                 <TableHeader>
                     <TableRow>
                         <TableHead>Nom de la classe</TableHead>
-                        <TableHead>Professeur principal</TableHead>
-                        <TableHead>Email</TableHead>
+                        <TableHead>Nbre de professeur</TableHead>
                         <TableHead>Date de création</TableHead>
                         <TableHead>Dernière modification</TableHead>
                         <TableHead className="text-right">Actions</TableHead>
@@ -91,12 +76,11 @@ export default function ClasseList() {
                 </TableHeader>
                 <TableBody>
                     {classes.map((classe) => {
-                        const professor = getProfessorById(classe.professorId);
+                        
                         return (
                             <TableRow key={classe.id}>
                                 <TableCell className="font-medium">{classe.name}</TableCell>
-                                <TableCell>{professor?.first_name || 'Non assigné'}</TableCell>
-                                <TableCell>{professor?.user?.email || 'N/A'}</TableCell>
+                                <TableCell>{classe.professors.length || 'aucun'}</TableCell>
                                 <TableCell>{dayjs(classe.created_at).format('dddd D MMMM YYYY [à] H[h]mm')}</TableCell>
                                 <TableCell>{dayjs(classe.updated_at).format('dddd D MMMM YYYY [à] H[h]mm')}</TableCell>
                                 <TableCell className="text-right">
@@ -130,7 +114,11 @@ export default function ClasseList() {
             </Table>
 
             {/* Dialogue pour ajouter une classe */}
-            <AddClassDialog open={addDialogOpen} onOpenChange={setAddDialogOpen} onSubmit={addClass} professors={professors} />
+            <AddClassDialog 
+            open={addDialogOpen} 
+            onOpenChange={setAddDialogOpen} 
+            onSubmit={addClass} 
+            professors={professors} />
 
             {/* Dialogue pour modifier une classe */}
             {selectedClass && (
