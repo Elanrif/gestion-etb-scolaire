@@ -10,15 +10,32 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { Classe } from '@/types/models';
+import { router } from '@inertiajs/react';
+import { toast } from 'react-toastify';
 
 interface DeleteConfirmDialogProps {
     open: boolean;
+    data: Classe;
     onOpenChange: (open: boolean) => void;
     className: string;
-    onConfirm: () => void;
 }
 
-export default function DeleteConfirmDialog({ open, onOpenChange, className, onConfirm }: DeleteConfirmDialogProps) {
+
+
+export default function DeleteConfirmDialog({ open, onOpenChange, data, className }: DeleteConfirmDialogProps) {
+    
+    const handleDelete = async() => {
+           try {
+               await router.delete(route('dashboard.classes.destroy', data.id));
+               toast.success('Classe supprimée avec succès !');
+               onOpenChange(false); // Ferme le dialogue après suppression
+           } catch (error) {
+               toast.error('Échec de la suppression');
+               console.error('Erreur lors de la suppression:', error);
+           }
+    };
+
     return (
         <AlertDialog open={open} onOpenChange={onOpenChange}>
             <AlertDialogContent>
@@ -30,7 +47,7 @@ export default function DeleteConfirmDialog({ open, onOpenChange, className, onC
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Annuler</AlertDialogCancel>
-                    <AlertDialogAction onClick={onConfirm} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                    <AlertDialogAction onClick={handleDelete} className="bg-destructive hover:bg-destructive/90 text-white">
                         Supprimer
                     </AlertDialogAction>
                 </AlertDialogFooter>

@@ -15,6 +15,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         return Inertia::render('dashboard/teacher-page');
     })->name('teachers');
 
-    Route::get('/classes', [ClasseController::class, 'index'])->name('classes');
+    Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
+    Route::post('/classes', [ClasseController::class, 'store'])->name('classes.store');
+    Route::delete('/classes/{classe}', [ClasseController::class, 'destroy'])->name('classes.destroy');
 
 });

@@ -6,7 +6,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode;}) 
     return (
         <AppHomeLayout>
             {children}
-            {/* TOAST */}
+            {/* display Toast */}
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

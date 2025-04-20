@@ -5,29 +5,21 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Professor } from '@/types/models';
+import { Classe, Professor } from '@/types/models';
 import { useForm } from '@inertiajs/react';
 import type React from 'react';
+import { toast } from 'react-toastify';
 
-interface ClasseFormData {
-    name: string;
-    professorId: string;
-    [key: string]: string | undefined;
-
-    /*
-    [key: string]: string | undefined ( string | undefined -- car classeFormData contient que des string ou bien optionnel), Ça permet à la librairie de lire/modifier n'importe quel champ du formulaire par son nom (ex: data['nom']), tout en gardant la sécurité de TypeScript. 
-    */
-}
+type ClasseForm = Pick<Classe, 'name' | 'professorId'>;
 
 interface AddClassDialogProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     professors: Professor[];
-    onSubmit: (data: ClasseFormData) => void;
 }
 
-export default function AddClassDialog({ open, onOpenChange, professors, onSubmit }: AddClassDialogProps) {
-    const { data, setData, errors, processing, reset } = useForm<ClasseFormData>({
+export default function AddClassDialog({ open, onOpenChange, professors }: AddClassDialogProps) {
+    const { data, setData, post, errors, processing, reset } = useForm<ClasseForm>({
         name: '',
         professorId: '',
     });
@@ -36,10 +28,20 @@ export default function AddClassDialog({ open, onOpenChange, professors, onSubmi
         e.preventDefault();
 
         // Utiliser les données du formulaire pour soumettre
-        onSubmit(data);
+        post(route('dashboard.classes.store'), {
+                    onSuccess: () => {
+                        toast.success('Succès !');
+                    },
+                    onError: (e) => {
+                        console.log('handleSubmit error : ', e);
+                        toast.error("Une erreur s'est produite");
+                    },
+                    onFinish: () => {},
+                });
 
         // Réinitialiser le formulaire après soumission
         reset();
+        onOpenChange(false);
     };
 
     // Réinitialiser le formulaire quand le dialogue se ferme
@@ -73,7 +75,7 @@ export default function AddClassDialog({ open, onOpenChange, professors, onSubmi
                                 <SelectContent>
                                     {professors.map((professor) => (
                                         <SelectItem key={professor.id} value={professor.id}>
-                                            {professor.first_name} {professor.user?.email}
+                                            {professor.first_name} {professor.last_name}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>

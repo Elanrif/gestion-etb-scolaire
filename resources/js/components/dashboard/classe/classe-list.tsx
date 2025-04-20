@@ -22,11 +22,6 @@ interface PageProps {
     [key: string]: Professor[] | Classe[]; // Signature d'index requise
 }
 
-// Type pour les données du formulaire d'ajout
-interface ClasseFormData {
-    name: string;
-    professorId: string;
-}
 
 export default function ClasseList() {
     const { classes, professors } = usePage<PageProps>().props;
@@ -36,22 +31,6 @@ export default function ClasseList() {
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [selectedClass, setSelectedClass] = useState<Classe | null>(null);
-
-    // Fonctions pour gérer les classes
-    const addClass = (formData: ClasseFormData) => {
-        //fonction ajouter classes
-        setAddDialogOpen(false);
-    };
-
-    const editClass = (data: Pick<Classe, 'id' | 'name' | 'professorId'>) => {
-        //function
-        setEditDialogOpen(false);
-    };
-
-    const deleteClass = (id: string) => {
-        setDeleteDialogOpen(false);
-    };
-
 
     return (
         <div className="container mx-auto py-8">
@@ -81,7 +60,7 @@ export default function ClasseList() {
                             <TableRow key={classe.id}>
                                 <TableCell className="font-medium">{classe.name}</TableCell>
                                 <TableCell>{classe.professors.length || 'aucun'}</TableCell>
-                                <TableCell>{dayjs(classe.created_at).format('dddd D MMMM YYYY [à] H[h]mm')}</TableCell>
+                                <TableCell>{dayjs(classe.created_at).format('YYYY-MM-DD [à] HH:mm:ss')}</TableCell>
                                 <TableCell>{dayjs(classe.updated_at).format('dddd D MMMM YYYY [à] H[h]mm')}</TableCell>
                                 <TableCell className="text-right">
                                     <div className="flex justify-end gap-2">
@@ -116,8 +95,7 @@ export default function ClasseList() {
             {/* Dialogue pour ajouter une classe */}
             <AddClassDialog 
             open={addDialogOpen} 
-            onOpenChange={setAddDialogOpen} 
-            onSubmit={addClass} 
+            onOpenChange={setAddDialogOpen}
             professors={professors} />
 
             {/* Dialogue pour modifier une classe */}
@@ -126,7 +104,6 @@ export default function ClasseList() {
                     open={editDialogOpen}
                     onOpenChange={setEditDialogOpen}
                     classe={selectedClass}
-                    onSubmit={editClass}
                     professors={professors}
                 />
             )}
@@ -135,9 +112,9 @@ export default function ClasseList() {
             {selectedClass && (
                 <DeleteConfirmDialog
                     open={deleteDialogOpen}
+                    data={selectedClass}
                     onOpenChange={setDeleteDialogOpen}
                     className={selectedClass.name}
-                    onConfirm={() => deleteClass(selectedClass.id)}
                 />
             )}
         </div>

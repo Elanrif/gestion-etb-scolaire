@@ -11,7 +11,7 @@ class StoreClasseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,30 @@ class StoreClasseRequest extends FormRequest
      */
     public function rules(): array
     {
+              return [
+            'name' => 'required|string|max:255',
+            'professorId' => 'nullable|string|max:255|exists:professors,id',
+        ];
+    }
+
+    /* Custom attributes names */
+
+    public function attributes(): array
+    {
         return [
-            //
+            'name' => 'nom',
+            'professorId' => 'ID professeur',
+        ];
+    }
+
+
+    /* Custom messages */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le prénom est obligatoire.',
+            'professorId.exists' => 'Aucun professeur n\'a été trouvé.',
+           
         ];
     }
 }

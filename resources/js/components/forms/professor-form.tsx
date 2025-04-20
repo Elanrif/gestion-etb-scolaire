@@ -28,7 +28,9 @@ type Professor = {
     experience_year: number;
     level_taught: string;
     additional_info: string;
-} & User;
+};
+
+type ProfessorForm = Professor & User;
 
 export function ProfessorForm() {
     const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
@@ -38,7 +40,7 @@ export function ProfessorForm() {
     const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<Required<Professor>>({
+    const { data, setData, post, errors, processing, reset } = useForm<Required<ProfessorForm>>({
         first_name: '',
         last_name: '',
         email: '',
@@ -82,7 +84,6 @@ export function ProfessorForm() {
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(data);
         post(route('credentials.professor'), {
             onSuccess: () => {
                 toast.success('Compte créé avec succès');

@@ -46,9 +46,9 @@ export interface User {
     phone_number: string;
     address: string;
     avatar?: string;
-    email_verified_at: string | null;
-    created_at: string;
-    updated_at: string;
+    email_verified_at?: string | null;
+    created_at?: string;
+    updated_at?: string;
     [key: string]: unknown;
 }
 

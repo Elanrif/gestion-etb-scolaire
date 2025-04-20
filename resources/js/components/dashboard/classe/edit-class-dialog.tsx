@@ -16,16 +16,11 @@ interface EditClassDialogProps {
     onOpenChange: (open: boolean) => void;
     classe: Classe;
     professors: Professor[];
-    onSubmit: (data: Pick<Classe, 'id' | 'name' | 'professorId'>) => void;
 }
 
-interface ClasseForm {
-    id: string;
-    name: string;
-    professorId: string;
-}
+type ClasseForm = Pick<Classe, 'id' | 'name' | 'professorId'>
 
-export default function EditClassDialog({ open, onOpenChange, classe, professors, onSubmit }: EditClassDialogProps) {
+export default function EditClassDialog({ open, onOpenChange, classe, professors }: EditClassDialogProps) {
     const { data, setData, errors, processing, reset } = useForm<Required<ClasseForm>>({
         id: classe.id,
         name: classe.name,
@@ -43,8 +38,6 @@ export default function EditClassDialog({ open, onOpenChange, classe, professors
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        onSubmit(data);
     };
 
     // Réinitialiser le formulaire quand le dialogue se ferme
@@ -78,7 +71,7 @@ export default function EditClassDialog({ open, onOpenChange, classe, professors
                                 <SelectContent>
                                     {professors.map((professor) => (
                                         <SelectItem key={professor.id} value={professor.id}>
-                                            {professor.first_name} ({professor.user.email})
+                                            {professor.first_name} {professor.last_name}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
