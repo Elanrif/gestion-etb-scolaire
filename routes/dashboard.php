@@ -17,6 +17,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
     Route::post('/classes', [ClasseController::class, 'store'])->name('classes.store');
+    Route::put('/classes/{classe}', [ClasseController::class, 'update'])->name('classes.update');
     Route::delete('/classes/{classe}', [ClasseController::class, 'destroy'])->name('classes.destroy');
 
 });

@@ -70,7 +70,7 @@ export default function EditClassDialog({ open, onOpenChange, classe, professors
                                 </SelectTrigger>
                                 <SelectContent>
                                     {professors.map((professor) => (
-                                        <SelectItem key={professor.id} value={professor.id}>
+                                        <SelectItem key={professor.id} value={professor.id.toString()}>
                                             {professor.first_name} {professor.last_name}
                                         </SelectItem>
                                     ))}

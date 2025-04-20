@@ -74,7 +74,7 @@ export default function AddClassDialog({ open, onOpenChange, professors }: AddCl
                                 </SelectTrigger>
                                 <SelectContent>
                                     {professors.map((professor) => (
-                                        <SelectItem key={professor.id} value={professor.id}>
+                                        <SelectItem key={professor.id} value={professor.id.toString()}>
                                             {professor.first_name} {professor.last_name}
                                         </SelectItem>
                                     ))}

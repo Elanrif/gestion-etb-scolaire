@@ -58,7 +58,16 @@ class ClasseController extends Controller
      */
     public function update(UpdateClasseRequest $request, Classe $classe)
     {
-        //
+        /* Get validated data */
+        $validated_data = $request->validated();
+
+        $classe->name = $validated_data['name'];
+
+        if(isset($validated_data['professorId'])){
+          $classe->professors()->attach($validated_data['professorId']);
+        }
+      
+        return to_route('dashboard.classes.index');
     }
 
     /**
@@ -67,6 +76,7 @@ class ClasseController extends Controller
     public function destroy(Classe $classe): RedirectResponse
     {
         Log::info('delete classe');
+        $classe->professors()->detach();
         $classe->delete();
         return to_route('dashboard.classes.index');
     }
