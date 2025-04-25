@@ -1,14 +1,14 @@
 'use client';
 
+import MultiSelectDropdown, { Option } from '@/components/multi-select';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Classe, Professor } from '@/types/models';
 import { useForm } from '@inertiajs/react';
 import type React from 'react';
-import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 
 interface EditClassDialogProps {
@@ -18,26 +18,35 @@ interface EditClassDialogProps {
     professors: Professor[];
 }
 
-type ClasseForm = Pick<Classe, 'id' | 'name' | 'professorId'>
+type ClasseForm = {
+    id: string;
+    name: string;
+    profIds: Array<string>;
+};
 
 export default function EditClassDialog({ open, onOpenChange, classe, professors }: EditClassDialogProps) {
-    const { data, setData, errors, processing, reset } = useForm<Required<ClasseForm>>({
+    const { data, setData, put, errors, processing, reset } = useForm<ClasseForm>({
         id: classe.id,
         name: classe.name,
-        professorId: classe.professorId,
+        profIds: [],
     });
-
-    // Mettre à jour les données du formulaire lorsque la classe sélectionnée change
-    useEffect(() => {
-        setData({
-            id: classe.id,
-            name: classe.name,
-            professorId: classe.professorId,
-        });
-    }, [classe, setData]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+    
+        put(route('dashboard.classes.update',classe.id), {
+            onSuccess: () => {
+                toast.success('Succès !');
+            },
+            onError: (e) => {
+                console.log('handleSubmit error : ', e);
+                toast.error("Une erreur s'est produite");
+            },
+            onFinish: () => {},
+        });
+
+        reset();
+        onOpenChange(false);
     };
 
     // Réinitialiser le formulaire quand le dialogue se ferme
@@ -47,6 +56,16 @@ export default function EditClassDialog({ open, onOpenChange, classe, professors
         }
         onOpenChange(open);
     };
+
+    const mapProfessors: Option[] = professors.map((professor) => ({
+        value: professor.id.toString(), // Convertir l'ID en string comme demandé
+        label: `${professor.first_name} ${professor.last_name}`,
+    }));
+
+     const mapSelectedProfs: Option[] = classe.professors.map((professor) => ({
+         value: professor.id.toString(), // Convertir l'ID en string comme demandé
+         label: `${professor.first_name} ${professor.last_name}`,
+     }));
 
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -62,21 +81,18 @@ export default function EditClassDialog({ open, onOpenChange, classe, professors
                             <Input id="edit-name" value={data.name} onChange={(e) => setData('name', e.target.value)} />
                             {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
                         </div>
+
+                        {/*  MULTI SELECT */}
                         <div className="grid gap-2">
-                            <Label htmlFor="edit-professor">Professeur principal</Label>
-                            <Select onValueChange={(value) => setData('professorId', value)} value={data.professorId}>
-                                <SelectTrigger id="edit-professor">
-                                    <SelectValue placeholder="Sélectionner un professeur" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {professors.map((professor) => (
-                                        <SelectItem key={professor.id} value={professor.id.toString()}>
-                                            {professor.first_name} {professor.last_name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            {errors.professorId && <p className="text-sm text-red-500">{errors.professorId}</p>}
+                            <Label>Professeurs</Label>
+                            <MultiSelectDropdown
+                                placeholder="Options"
+                                options={mapProfessors}
+                                setData={setData}
+                                defaultSelected={mapSelectedProfs}
+                                onChange={(selected) => console.log('Selected options:', selected)}
+                            />
+                            {errors.profIds && <p className="text-sm text-red-500">{errors.profIds}</p>}
                         </div>
                     </div>
                     <DialogFooter>

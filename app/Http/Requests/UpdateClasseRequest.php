@@ -14,7 +14,7 @@ class UpdateClasseRequest extends FormRequest
         return true;
     }
 
-     /**
+        /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -23,7 +23,8 @@ class UpdateClasseRequest extends FormRequest
     {
             return [
             'name' => 'required|string|max:255',
-            'professorId' => 'nullable|string|max:255|exists:professors,id',
+            'profIds' => 'nullable|array',
+            'profIds.*' => 'integer|exists:professors,id',
         ];
     }
 
@@ -33,7 +34,7 @@ class UpdateClasseRequest extends FormRequest
     {
         return [
             'name' => 'nom',
-            'professorId' => 'ID professeur',
+            'profIds' => 'ID professeurs',
         ];
     }
 
@@ -43,7 +44,8 @@ class UpdateClasseRequest extends FormRequest
     {
         return [
             'name.required' => 'Le prénom est obligatoire.',
-            'professorId.exists' => 'Aucun professeur n\'a été trouvé.',
+            'name.array' => 'Il manque le tableau.',
+            'professorId.exists' => 'Vérifier les informations des professeurs.',
            
         ];
     }

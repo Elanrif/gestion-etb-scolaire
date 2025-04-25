@@ -38,10 +38,9 @@ class ClasseController extends Controller
             'name' => $validated_data['name']
         ]);
 
-        if(isset($validated_data['professorId'])){
-          $classe->professors()->attach($validated_data['professorId']);
+        if(isset($validated_data['profIds'])){
+          $classe->professors()->attach($validated_data['profIds']);
         }
-      
         return to_route('dashboard.classes.index');
     }
 
@@ -57,16 +56,17 @@ class ClasseController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateClasseRequest $request, Classe $classe)
-    {
+    {              
         /* Get validated data */
         $validated_data = $request->validated();
 
-        $classe->name = $validated_data['name'];
+        $classe->update([
+            'name' => $validated_data['name']
+        ]);
 
-        if(isset($validated_data['professorId'])){
-          $classe->professors()->attach($validated_data['professorId']);
-        }
-      
+        $classe->professors()->sync($validated_data['profIds']) ?? [];
+
+        Log::info("data: ", $classe->toArray());
         return to_route('dashboard.classes.index');
     }
 

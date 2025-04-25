@@ -19,25 +19,17 @@ interface MultiSelectDropdownProps {
     placeholder?: string;
     options?: Option[];
     defaultSelected?: Option[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setData: any;
     onChange?: (selected: Option[]) => void;
 }
 
 export default function MultiSelectDropdown({
-    placeholder = 'Select options',
-    options = [
-        { value: 'option1', label: 'Option 1' },
-        { value: 'option2', label: 'Option 2' },
-        { value: 'option3', label: 'Option 3' },
-        { value: 'option4', label: 'Option 4' },
-        { value: 'option5', label: 'Option 5' },
-        { value: 'option6', label: 'Option 6' },
-        { value: 'option7', label: 'Option 7' },
-        { value: 'option8', label: 'Option 8' },
-        { value: 'option9', label: 'Option 9' },
-        { value: 'option10', label: 'Option 10' },
-    ],
+    placeholder = 'Options',
+    options = [],
     defaultSelected = [],
     onChange,
+    setData,
 }: MultiSelectDropdownProps) {
     const [selectedOptions, setSelectedOptions] = useState<Option[]>(defaultSelected);
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -49,13 +41,18 @@ export default function MultiSelectDropdown({
             ? selectedOptions.filter((o) => o.value !== option.value)
             : [...selectedOptions, option];
 
+        const mapOptions = newSelectedOptions.map((newOption) => Number(newOption.value));
         setSelectedOptions(newSelectedOptions);
+        setData('profIds', mapOptions);
         onChange?.(newSelectedOptions);
     };
 
     const handleRemoveOption = (option: Option): void => {
         const newSelectedOptions = selectedOptions.filter((o) => o.value !== option.value);
+
+        const mapOptions = newSelectedOptions.map((newOption) => Number(newOption.value));
         setSelectedOptions(newSelectedOptions);
+        setData('profIds', mapOptions);
         onChange?.(newSelectedOptions);
     };
 
@@ -103,7 +100,7 @@ export default function MultiSelectDropdown({
             </div>
             {selectedOptions.length > 0 && (
                 <div className="flex flex-col gap-2">
-                    <div className="font-medium">Selected options:</div>
+                    <div className="font-medium">Options selectionnées :</div>
                     <div className="flex flex-wrap gap-2">
                         {selectedOptions.map((option) => (
                             <div

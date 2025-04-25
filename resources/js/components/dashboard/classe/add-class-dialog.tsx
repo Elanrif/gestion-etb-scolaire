@@ -5,13 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Classe, Professor } from '@/types/models';
+import { Professor } from '@/types/models';
 import { useForm } from '@inertiajs/react';
 import type React from 'react';
 import { toast } from 'react-toastify';
 
-type ClasseForm = Pick<Classe, 'name' | 'professorId'>;
+type ClasseForm = {
+    name: string;
+    profIds: Array<string>;
+};
 
 interface AddClassDialogProps {
     open: boolean;
@@ -19,17 +21,15 @@ interface AddClassDialogProps {
     professors: Professor[];
 }
 
-
 export default function AddClassDialog({ open, onOpenChange, professors }: AddClassDialogProps) {
     const { data, setData, post, errors, processing, reset } = useForm<ClasseForm>({
         name: '',
-        professorId: '',
+        profIds: [],
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Utiliser les données du formulaire pour soumettre
         post(route('dashboard.classes.store'), {
             onSuccess: () => {
                 toast.success('Succès !');
@@ -41,7 +41,6 @@ export default function AddClassDialog({ open, onOpenChange, professors }: AddCl
             onFinish: () => {},
         });
 
-        // Réinitialiser le formulaire après soumission
         reset();
         onOpenChange(false);
     };
@@ -59,7 +58,6 @@ export default function AddClassDialog({ open, onOpenChange, professors }: AddCl
         label: `${professor.first_name} ${professor.last_name}`,
     }));
 
-    console.log(professors)
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogContent className="sm:max-w-[425px]">
@@ -74,32 +72,17 @@ export default function AddClassDialog({ open, onOpenChange, professors }: AddCl
                             <Input id="name" value={data.name} onChange={(e) => setData('name', e.target.value)} placeholder="Ex: Terminale S" />
                             {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
                         </div>
-                        {/* SELECT NORMAL */}
-                        <div className="grid gap-2">
-                            <Label htmlFor="professor">Professeur principal</Label>
-                            <Select onValueChange={(value) => setData('professorId', value)} value={data.professorId}>
-                                <SelectTrigger id="professor">
-                                    <SelectValue placeholder="Sélectionner un professeur" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {professors.map((professor) => (
-                                        <SelectItem key={professor.id} value={professor.id.toString()}>
-                                            {professor.first_name} {professor.last_name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            {errors.professorId && <p className="text-sm text-red-500">{errors.professorId}</p>}
-                        </div>
 
                         {/*  MULTI SELECT */}
                         <div className="grid gap-2">
-                            <Label>Select frameworks</Label>
+                            <Label>Professeurs</Label>
                             <MultiSelectDropdown
-                                placeholder="Select options"
+                                placeholder="Options"
                                 options={mapProfessors}
+                                setData={setData}
                                 onChange={(selected) => console.log('Selected options:', selected)}
                             />
+                            {errors.profIds && <p className="text-sm text-red-500">{errors.profIds}</p>}
                         </div>
                     </div>
                     <DialogFooter>
