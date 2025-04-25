@@ -66,7 +66,6 @@ class ClasseController extends Controller
 
         $classe->professors()->sync($validated_data['profIds']) ?? [];
 
-        Log::info("data: ", $classe->toArray());
         return to_route('dashboard.classes.index');
     }
 
