@@ -1,0 +1,122 @@
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Classe, Professor } from '@/types/models';
+import { usePage } from '@inertiajs/react';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { Pencil, PlusIcon, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import AddClassDialog from './add-class-dialog';
+import DeleteConfirmDialog from './delete-confirm-dialog';
+import EditClassDialog from './edit-class-dialog';
+
+dayjs.extend(relativeTime);
+dayjs.locale('fr');
+
+interface PageProps {
+    professors: Professor[];
+    classes: Classe[];
+    [key: string]: Professor[] | Classe[]; // Signature d'index requise
+}
+
+
+export default function ClasseList() {
+    const { classes, professors } = usePage<PageProps>().props;
+
+    // États pour les dialogues
+    const [addDialogOpen, setAddDialogOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [selectedClass, setSelectedClass] = useState<Classe | null>(null);
+
+    return (
+        <div className="container mx-auto py-8">
+            <div className="mb-6 flex items-center justify-between">
+                <h1 className="text-2xl font-bold">Classes du Lycée</h1>
+                <Button onClick={() => setAddDialogOpen(true)}>
+                    <PlusIcon className="mr-2 h-4 w-4" />
+                    Ajouter une classe
+                </Button>
+            </div>
+
+            <Table>
+                <TableCaption>Liste des classes du lycée</TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Nom de la classe</TableHead>
+                        <TableHead>Nbre de professeur</TableHead>
+                        <TableHead>Date de création</TableHead>
+                        <TableHead>Dernière modification</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {classes.map((classe) => {
+                        
+                        return (
+                            <TableRow key={classe.id}>
+                                <TableCell className="font-medium">{classe.name}</TableCell>
+                                <TableCell>{classe.professors.length || 'aucun'}</TableCell>
+                                <TableCell>{dayjs(classe.created_at).format('YYYY-MM-DD [à] HH:mm:ss')}</TableCell>
+                                <TableCell>{dayjs(classe.updated_at).format('dddd D MMMM YYYY [à] H[h]mm')}</TableCell>
+                                <TableCell className="text-right">
+                                    <div className="flex justify-end gap-2">
+                                        <Button
+                                            variant="outline"
+                                            size="icon"
+                                            onClick={() => {
+                                                setSelectedClass(classe);
+                                                setEditDialogOpen(true);
+                                            }}
+                                        >
+                                            <Pencil className="h-4 w-4" />
+                                        </Button>
+                                        <Button
+                                            variant="destructive"
+                                            size="icon"
+                                            onClick={() => {
+                                                setSelectedClass(classe);
+                                                setDeleteDialogOpen(true);
+                                            }}
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+            </Table>
+
+            {/* Dialogue pour ajouter une classe */}
+            <AddClassDialog 
+            open={addDialogOpen} 
+            onOpenChange={setAddDialogOpen}
+            professors={professors} />
+
+            {/* Dialogue pour modifier une classe */}
+            {selectedClass && (
+                <EditClassDialog
+                    open={editDialogOpen}
+                    onOpenChange={setEditDialogOpen}
+                    classe={selectedClass}
+                    professors={professors}
+                />
+            )}
+
+            {/* Dialogue de confirmation de suppression */}
+            {selectedClass && (
+                <DeleteConfirmDialog
+                    open={deleteDialogOpen}
+                    data={selectedClass}
+                    onOpenChange={setDeleteDialogOpen}
+                    className={selectedClass.name}
+                />
+            )}
+        </div>
+    );
+}

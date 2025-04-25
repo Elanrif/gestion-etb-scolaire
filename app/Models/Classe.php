@@ -21,4 +21,12 @@ class Classe extends Model
     {
         return $this->belongsToMany(Student::class);
     }
+
+     /**
+     * The users that belong to the role.
+     */
+    public function professors(): BelongsToMany
+    {
+        return $this->belongsToMany(Professor::class);
+    }
 }
