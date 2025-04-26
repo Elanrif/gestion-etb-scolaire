@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\ProfessorController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,5 +20,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::post('/classes', [ClasseController::class, 'store'])->name('classes.store');
     Route::put('/classes/{classe}', [ClasseController::class, 'update'])->name('classes.update');
     Route::delete('/classes/{classe}', [ClasseController::class, 'destroy'])->name('classes.destroy');
+
+    Route::get('/professors', [ProfessorController::class, 'index'])->name('professors.index');
+    Route::post('/professors', [ProfessorController::class, 'store'])->name('professors.store');
+    Route::put('/professors/{professor}', [ProfessorController::class, 'update'])->name('professors.update');
+    Route::delete('/professors/{professor}', [ProfessorController::class, 'destroy'])->name('professors.destroy');
 
 });

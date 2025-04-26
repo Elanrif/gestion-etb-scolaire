@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Professor;
 use App\Http\Requests\StoreProfessorRequest;
 use App\Http\Requests\UpdateProfessorRequest;
+use Inertia\Inertia;
 
 class ProfessorController extends Controller
 {
@@ -13,7 +14,9 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        //
+        $professors = Professor::with('classes','matieres')->orderBy('id', 'DESC')->get();
+        return Inertia::render('dashboard/professor/professor-page',['professors'=> $professors]);
+
     }
 
     /**
