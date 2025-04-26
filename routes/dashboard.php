@@ -15,6 +15,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         return Inertia::render('dashboard/teacher-page');
     })->name('teachers');
 
+    Route::get('/students', function () {
+        return Inertia::render('dashboard/students/student-page');
+    })->name('students');
+
     Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
     Route::post('/classes', [ClasseController::class, 'store'])->name('classes.store');
     Route::put('/classes/{classe}', [ClasseController::class, 'update'])->name('classes.update');
