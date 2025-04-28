@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleUser;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class StudentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+   * Display a listing of the resource.
      */
     public function index()
     {
-        $students = Student::with('professors')->orderBy('id', 'DESC')->get();
+        $students = Student::with('classe')->orderBy('id', 'DESC')->get();
         //Log::info($students);
-        return Inertia::render('dashboard/students/student-page',
-        ['students' => $students,]);
+        return Inertia::render('dashboard/students/student-index-page',
+        ['students' => $students]);
     }
 
     /**
@@ -25,15 +30,44 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('dashboard/students/student-create-form-page',);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStudentRequest $request)
+    public function store(StoreStudentRequest $request): RedirectResponse
     {
-        //
+         /* Get validated data */
+         $validated_data = $request->validated();
+       
+         /* Create the user account */
+         $user = User::create([
+             'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
+             'email' => $validated_data['email'],
+             'address' => $validated_data['address'],
+             'phone_number' => $validated_data['phone_number'],
+             'password' => Hash::make($validated_data['password']),
+             'birthday' => $validated_data['birthday'],
+             'role' =>  RoleUser::STUDENT->value,
+         ]);
+ 
+         /* Create student account */
+         $user->student()->create([
+             'first_name' => $validated_data['first_name'],
+             'last_name' => $validated_data['last_name'],
+             'gender' => $validated_data['gender'],
+             'level' => $validated_data['level'],
+             'class' => $validated_data['class'],
+             'relationship' => $validated_data['relationship'],
+             'guardian_phone_number' => $validated_data['guardian_phone_number'],
+             'guardian_email' => $validated_data['guardian_email'],
+             'guardian_last_name' => $validated_data['guardian_last_name'],
+             'guardian_first_name' => $validated_data['guardian_first_name'],
+             'matricule' => $validated_data['matricule'],
+         ]);
+ 
+         return to_route('dashboard.students.index');
     }
 
     /**
@@ -49,7 +83,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $student_ = Student::with('user')->find($student->id);
+        return Inertia::render('dashboard/students/student-edit-form-page',
+        ['student'=> $student_]);
     }
 
     /**

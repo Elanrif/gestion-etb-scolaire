@@ -1,4 +1,5 @@
-import { Student } from '@/pages/dashboard/students/student-page';
+import { Student } from '@/pages/dashboard/students/student-index-page';
+import { Link } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -7,10 +8,9 @@ interface StudentTableProps {
     onViewStudent: (student: Student) => void;
     onEditStudent: (student: Student) => void;
     onDeleteStudent: (studentId: string) => void;
-    onAddStudent: () => void;
 }
 
-const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, onEditStudent, onDeleteStudent, onAddStudent }) => {
+const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, onEditStudent, onDeleteStudent }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
@@ -33,13 +33,13 @@ const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, on
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
                 <h1 className="text-2xl font-bold text-gray-900">Liste des Étudiants</h1>
-                <button
-                    onClick={onAddStudent}
+                <Link
+                    href={route('dashboard.students.create')}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <UserPlus className="mr-2 h-5 w-5" />
                     Ajouter un étudiant
-                </button>
+                </Link>
             </div>
 
             <div className="mb-6 flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">

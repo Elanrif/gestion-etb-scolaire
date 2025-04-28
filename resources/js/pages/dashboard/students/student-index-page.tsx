@@ -105,7 +105,7 @@ export interface Student {
     guardian_email: string;
 }
 
-export default function StudentPage() {
+export default function StudentIndexPage() {
     const [students, setStudents] = useState<Student[]>(initialStudents);
     const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -133,11 +133,6 @@ export default function StudentPage() {
         }
     };
 
-    const handleAddStudent = () => {
-        // In a real application, this would open a form to add a new student
-        console.log('Add new student');
-    };
-
     const handleBackToList = () => {
         setSelectedStudent(null);
     };
@@ -161,7 +156,6 @@ export default function StudentPage() {
                             onViewStudent={handleViewStudent}
                             onEditStudent={handleEditStudent}
                             onDeleteStudent={handleDeleteConfirmation}
-                            onAddStudent={handleAddStudent}
                         />
                     )}
                 </main>

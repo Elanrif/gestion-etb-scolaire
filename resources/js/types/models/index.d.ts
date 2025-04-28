@@ -1,6 +1,7 @@
 import { User } from "..";
 
 export interface Student {
+    id: number;
     user: User;
     first_name: string;
     last_name: string;
@@ -11,11 +12,11 @@ export interface Student {
     address: string;
     birthday: string;
     gender: string;
-    student_id:string;
+    matricule:string;
     level:string;
     class:string;
     relationship:string;
-    guardian_phone:string;
+    guardian_phone_number:string;
     guardian_email:string;
     guardian_last_name:string;
     guardian_first_name:string;
