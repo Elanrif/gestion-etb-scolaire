@@ -19,7 +19,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with('classe')->orderBy('id', 'DESC')->get();
+        $students = Student::with(['classe','user'])->orderBy('id', 'DESC')->get();
         //Log::info($students);
         return Inertia::render('dashboard/students/student-index-page',
         ['students' => $students]);
@@ -93,7 +93,7 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+       
     }
 
     /**
@@ -101,6 +101,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return to_route('dashboard.students.index'); 
     }
 }

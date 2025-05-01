@@ -7,7 +7,6 @@ import { Separator } from '@/components/ui/separator';
 import { FormEventHandler } from 'react';
 import { router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { toast } from 'react-toastify';
 import InputError from '@/components/input-error';
 import { Student } from '@/types/models';
 import { StudentForm } from '@/types/models/forms';

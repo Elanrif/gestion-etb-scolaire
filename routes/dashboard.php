@@ -17,7 +17,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     })->name('teachers');
 
 
-
+    /* CLASS */
     Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
     Route::post('/classes', [ClasseController::class, 'store'])->name('classes.store');
     Route::put('/classes/{classe}', [ClasseController::class, 'update'])->name('classes.update');
@@ -28,4 +28,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
     Route::post('/students', [StudentController::class, 'store'])->name('students.store');
     Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
+    Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
+    Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destory');
 });

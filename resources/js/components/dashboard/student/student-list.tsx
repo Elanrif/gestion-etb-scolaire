@@ -1,4 +1,4 @@
-import { Student } from '@/pages/dashboard/students/student-index-page';
+import { Student } from '@/types/models';
 import { Link } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
 import React, { useState } from 'react';
@@ -6,11 +6,10 @@ import React, { useState } from 'react';
 interface StudentTableProps {
     students: Student[];
     onViewStudent: (student: Student) => void;
-    onEditStudent: (student: Student) => void;
-    onDeleteStudent: (studentId: string) => void;
+    onDeleteStudent: (studentId: number) => void;
 }
 
-const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, onEditStudent, onDeleteStudent }) => {
+const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onDeleteStudent }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
@@ -21,8 +20,7 @@ const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, on
     const filteredStudents = students.filter((student) => {
         const matchesSearch =
             student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            student.student_id.toLowerCase().includes(searchTerm.toLowerCase());
+            student.last_name.toLowerCase().includes(searchTerm.toLowerCase())
 
         const matchesClass = selectedClass ? student.class === selectedClass : true;
 
@@ -110,9 +108,9 @@ const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, on
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
                                 {filteredStudents.length > 0 ? (
-                                    filteredStudents.map((student) => (
+                                    filteredStudents.map((student,index) => (
                                         <tr key={student.id} className="transition-colors duration-150 hover:bg-gray-50">
-                                            <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{student.student_id}</td>
+                                            <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{index + 1}</td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                                                 {student.last_name} {student.first_name}
                                             </td>
@@ -122,7 +120,7 @@ const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, on
                                                 </span>
                                             </td>
                                             <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell">
-                                                {student.phone_number}
+                                                {student.user.phone_number}
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">
                                                 <div className="flex justify-center space-x-2">
@@ -133,13 +131,13 @@ const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, on
                                                     >
                                                         <Eye className="h-5 w-5" />
                                                     </button>
-                                                    <button
-                                                        onClick={() => onEditStudent(student)}
+                                                    <Link
+                                                        href={route('dashboard.students.edit',student.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
                                                         aria-label="Modifier"
                                                     >
                                                         <Edit className="h-5 w-5" />
-                                                    </button>
+                                                    </Link>
                                                     <button
                                                         onClick={() => onDeleteStudent(student.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-red-600"
@@ -167,4 +165,4 @@ const StudentTable: React.FC<StudentTableProps> = ({ students, onViewStudent, on
     );
 };
 
-export default StudentTable;
+export default StudentList;

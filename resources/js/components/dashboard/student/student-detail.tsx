@@ -1,4 +1,4 @@
-import { Student } from '@/pages/dashboard/students/student-page';
+import { Student } from '@/types/models';
 import { ArrowLeft, GraduationCap, Mail, Phone, UserCircle, Users } from 'lucide-react';
 import React from 'react';
 
@@ -39,12 +39,12 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student, onBack }) => {
 
                                 <div>
                                     <p className="text-sm font-medium text-gray-500">Identifiant</p>
-                                    <p className="text-base text-gray-900">{student.student_id}</p>
+                                    <p className="text-base text-gray-900">{student.id}</p>
                                 </div>
 
                                 <div>
                                     <p className="text-sm font-medium text-gray-500">Date de naissance</p>
-                                    <p className="text-base text-gray-900">{new Date(student.birthday).toLocaleDateString('fr-FR')}</p>
+                                    <p className="text-base text-gray-900">{student.user?.birthday}</p>
                                 </div>
 
                                 <div>
@@ -56,7 +56,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student, onBack }) => {
                                     <Phone className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
                                     <div>
                                         <p className="text-sm font-medium text-gray-500">Téléphone</p>
-                                        <p className="text-base text-gray-900">{student.phone_number}</p>
+                                        <p className="text-base text-gray-900">{student.user?.phone_number}</p>
                                     </div>
                                 </div>
 
@@ -64,7 +64,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student, onBack }) => {
                                     <Mail className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
                                     <div>
                                         <p className="text-sm font-medium text-gray-500">Email</p>
-                                        <p className="text-base text-gray-900">{student.email}</p>
+                                        <p className="text-base text-gray-900">{student.user?.email}</p>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student, onBack }) => {
                                     <Phone className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
                                     <div>
                                         <p className="text-sm font-medium text-gray-500">Téléphone</p>
-                                        <p className="text-base text-gray-900">{student.guardian_phone}</p>
+                                        <p className="text-base text-gray-900">{student.guardian_phone_number}</p>
                                     </div>
                                 </div>
 

@@ -1,3 +1,4 @@
+import HeaderDashboard from '@/components/dashboard/header-dashboard';
 import { StudentEditForm } from '@/components/dashboard/student/forms/student-edit-form'
 import AdminLayout from '@/layouts/admin-layout'
 import { Student } from '@/types/models';
@@ -14,6 +15,7 @@ export default function StudentEditFormPage() {
   const { student } = usePage<PageProps>().props;
   return (
 <AdminLayout>
+    <HeaderDashboard title='Modifier les informations'/>
         <StudentEditForm student={student}/>
     </AdminLayout>
   )
