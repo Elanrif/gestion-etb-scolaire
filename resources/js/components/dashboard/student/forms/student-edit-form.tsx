@@ -5,11 +5,12 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { FormEventHandler } from 'react';
-import { router, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/input-error';
 import { Student } from '@/types/models';
 import { StudentForm } from '@/types/models/forms';
+import { toast } from 'react-toastify';
 
 
 const classes = [
@@ -54,9 +55,17 @@ export function StudentEditForm({student}: {student: Student}) {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        return;
-        router.put(route(route('dashboard.students.edit',student.id), data))
-       
+        //router.put(route('dashboard.students.edit',student.id), data)
+        put(route('dashboard.students.update',student.id), {
+                    onSuccess: () => {
+                        toast.success("Succes !");
+                    },
+                    onError: (e) => {
+                        console.log('handleSubmit error : ', e);
+                        toast.error("Une erreur s'est produite");
+                    },
+                    onFinish: () => {},
+                });
     };
 
     return (

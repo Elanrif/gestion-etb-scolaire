@@ -93,8 +93,37 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-       
+        // Récupérer les données validées
+        $validated_data = $request->validated();
+    
+        // Mise à jour du compte utilisateur associé
+        $student->user->update([
+            'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
+            'email' => $validated_data['email'],
+            'address' => $validated_data['address'],
+            'phone_number' => $validated_data['phone_number'],
+            'birthday' => $validated_data['birthday'],
+        ]);
+    
+        // Mise à jour des informations de l'étudiant
+        $student->update([
+            'first_name' => $validated_data['first_name'],
+            'last_name' => $validated_data['last_name'],
+            'gender' => $validated_data['gender'],
+            'level' => $validated_data['level'],
+            'class' => $validated_data['class'],
+            'relationship' => $validated_data['relationship'],
+            'guardian_phone_number' => $validated_data['guardian_phone_number'],
+            'guardian_email' => $validated_data['guardian_email'],
+            'guardian_last_name' => $validated_data['guardian_last_name'],
+            'guardian_first_name' => $validated_data['guardian_first_name'],
+            'matricule' => $validated_data['matricule'],
+        ]);
+    
+        return to_route('dashboard.students.index');
     }
+        
+    
 
     /**
      * Remove the specified resource from storage.
