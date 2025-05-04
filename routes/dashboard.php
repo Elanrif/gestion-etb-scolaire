@@ -26,4 +26,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::put('/professors/{professor}', [ProfessorController::class, 'update'])->name('professors.update');
     Route::delete('/professors/{professor}', [ProfessorController::class, 'destroy'])->name('professors.destroy');
 
+    Route::get('/professor', [ProfessorController::class, 'index'])->name('professors.index');
+    Route::get('/professors/create', [ProfessorController::class, 'create'])->name('professors.create');
+    Route::post('/professor', [ProfessorController::class, 'store'])->name('professors.store');
+    Route::put('/professor/{professor}', [ProfessorController::class, 'update'])->name('professors.update');
+    Route::delete('/professor-forms/{professor}', [ProfessorController::class, 'destroy'])->name('professors.destroy');
+
 });

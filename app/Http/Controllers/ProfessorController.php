@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Professor;
+use App\Models\Form;
 use App\Http\Requests\StoreProfessorRequest;
 use App\Http\Requests\UpdateProfessorRequest;
 use Inertia\Inertia;
@@ -24,7 +25,8 @@ class ProfessorController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('dashboard/professor/professor-form-page',);
+
     }
 
     /**
