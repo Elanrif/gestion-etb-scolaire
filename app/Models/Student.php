@@ -34,12 +34,4 @@ class Student extends Model
         return $this->belongsTo(Classe::class);
     }
 
-     /**
-     * The roles that belong to the user.
-     */
-    public function classes(): BelongsToMany
-    {
-        return $this->belongsToMany(Classe::class);
-    }
-
 }
