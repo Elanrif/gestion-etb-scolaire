@@ -4,35 +4,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler } from 'react';
 import { useForm } from '@inertiajs/react';
-import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
-import { toast } from 'react-toastify';
+import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/input-error';
+import { Student } from '@/types/models';
+import { StudentForm } from '@/types/models/forms';
+import { toast } from 'react-toastify';
 
-
-type user = {
-    email: string;
-    password: string;
-    birthday: string;
-    password_confirmation: string;
-    phone_number: string;
-    address: string;
-}
-
-type Student = {
-    first_name: string;
-    last_name: string;
-    gender: string;
-    matricule:string;
-    class:string;
-    level:string;
-    relationship:string;
-    guardian_first_name:string;
-    guardian_last_name:string;
-    guardian_email:string;
-    guardian_phone_number:string;
-} & user
 
 const classes = [
     { id: 'seconde-a', name: 'Seconde A' },
@@ -44,33 +23,25 @@ const classes = [
     { id: 'terminale-es', name: 'Terminale ES' },
     { id: 'terminale-l', name: 'Terminale L' },
 ];
-export function StudentForm() {
-    const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
-    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
-
-    const togglePasswordVisibility = () => setShowPassword(!showPassword);
-    const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
-
+export function StudentEditForm({student}: {student: Student}) {
+    console.log('student', student.user.birthday)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<Required<Student>>({
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    phone_number: '',
-    address: '',
-    birthday: '',
-    gender: '',
-    level:'',
-    class:'',
-    relationship:'',
-    guardian_phone_number:'',
-    guardian_email:'',
-    guardian_last_name:'',
-    guardian_first_name:'',
-    matricule:'',
-   
+    const { data, setData, put, errors, processing, reset } = useForm<Required<StudentForm>>('edit-student',{
+    first_name: student.first_name,
+    last_name: student.last_name,
+    email: student.user.email,
+    phone_number: student.user.phone_number,
+    address: student.user.address,
+    birthday: student.user.birthday,
+    gender: student.gender,
+    level: student.level,
+    class: student.class,
+    relationship: student.relationship,
+    guardian_phone_number: student.guardian_phone_number,
+    guardian_email: student.guardian_email,
+    guardian_last_name: student.last_name,
+    guardian_first_name: student.guardian_first_name,
+    matricule: student.matricule,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -84,13 +55,17 @@ export function StudentForm() {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('credentials.students'), {
-            onError: (e) => {
-                console.log('handleSubmit error : ', e);
-                toast.error("Une erreur s'est produite");
-            },
-            onFinish: () => {},
-        });
+        //router.put(route('dashboard.students.edit',student.id), data)
+        put(route('dashboard.students.update',student.id), {
+                    onSuccess: () => {
+                        toast.success("Succes !");
+                    },
+                    onError: (e) => {
+                        console.log('handleSubmit error : ', e);
+                        toast.error("Une erreur s'est produite");
+                    },
+                    onFinish: () => {},
+                });
     };
 
     return (
@@ -157,62 +132,6 @@ export function StudentForm() {
                         <InputError message={errors.address} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Mot de passe
-                        </Label>
-                        <div className="relative">
-                        <Input
-                            id="password"
-                            type={showPassword ?
-                            'text' :'password'}
-                            name="password"
-                            value={data.password}
-                            onChange={handleChange}
-                            disabled={processing}
-                            autoComplete="new-password"
-                            placeholder="Mot de passe"
-                            className="w-full"
-                        />
-                        <button
-                                type="button"
-                                onClick={togglePasswordVisibility}
-                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                                tabIndex={-1}
-                            >
-                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
-                        </div>
-                        <InputError message={errors.password} />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="password_confirmation" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Confirmez le mot de passe
-                        </Label>
-                           <div className='relative'>
-                           <Input
-                                id="password_confirmation"
-                                type={showPasswordConfirmation ? 'text' : 'password'}
-                                name="password_confirmation"
-                                required
-                                autoComplete="new-password"
-                                value={data.password_confirmation}
-                                onChange={handleChange}
-                                disabled={processing}
-                                placeholder="Confirmez le mot de passe"
-                                className="w-full"
-                            />
-                            <button
-                                type="button"
-                                onClick={togglePasswordConfirmationVisibility}
-                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                                tabIndex={-1}
-                            >
-                                {showPasswordConfirmation ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
-                           </div>
-                        <InputError message={errors.password} />
-                    </div>
-                    <div className="space-y-2">
                         <Label htmlFor="phone_number" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Téléphone
                         </Label>
@@ -227,12 +146,12 @@ export function StudentForm() {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="birthday" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Date de naissance
+                            Date de naissance :
                         </Label>
-                        <Input id="birthday" type="date" required name="birthday" value={data.birthday} onChange={handleChange} />
-                         <InputError message={errors.password} />
+                        <Input id="birthday" type="date" required name="" value={data.birthday} onChange={handleChange} />
+                         <InputError message={errors.birthday} />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2">birthday
                         <Label htmlFor="gender" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Genre
                         </Label>
@@ -388,10 +307,10 @@ export function StudentForm() {
                 <button
                     type="submit"
                     disabled={processing}
-                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                    className="flex items-center gap-2 rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
                 >
+                   <span> Modifier</span>
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                    Enregistrer
                 </button>
             </div>
         </form>

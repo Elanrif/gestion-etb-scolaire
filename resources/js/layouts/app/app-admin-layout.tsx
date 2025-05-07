@@ -77,7 +77,7 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
         },
         {
             name: 'Élèves',
-            href: '/admin/students',
+            href: '/dashboard/students',
             icon: Users,
             active: pathname.startsWith('/admin/students'),
         },
