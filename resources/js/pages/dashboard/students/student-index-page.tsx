@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StudentDetail from '@/components/dashboard/student/student-detail';
 import ConfirmationModal from '@/components/dashboard/student/confirmation-modal';
 import AdminLayout from '@/layouts/admin-layout';
@@ -6,6 +6,8 @@ import StudentList from '@/components/dashboard/student/student-list';
 import HeaderDashboard from '@/components/dashboard/header-dashboard';
 import { router, usePage } from '@inertiajs/react';
 import { Student } from '@/types/models';
+import { toast } from 'react-toastify';
+import { SharedData } from '@/types';
 
 
 interface PageProps {
@@ -18,7 +20,15 @@ export default function StudentIndexPage() {
     const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [studentToDelete, setStudentToDelete] = useState<number | null>(null);
-
+    const { flash } = usePage<SharedData>().props;
+    
+    useEffect(() => {
+        
+        if (flash.success) {
+            toast.success(flash.success);
+        }
+    }, [flash.success]);
+        
     const handleViewStudent = (student: Student) => {
         setSelectedStudent(student);
     };

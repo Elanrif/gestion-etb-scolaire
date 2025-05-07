@@ -67,6 +67,7 @@ class StudentController extends Controller
              'matricule' => $validated_data['matricule'],
          ]);
  
+         $request->session()->flash('success', 'Succès!');
          return to_route('dashboard.students.index');
     }
 
@@ -120,6 +121,7 @@ class StudentController extends Controller
             'matricule' => $validated_data['matricule'],
         ]);
     
+        $request->session()->flash('success', 'Succès!');
         return to_route('dashboard.students.index');
     }
         
