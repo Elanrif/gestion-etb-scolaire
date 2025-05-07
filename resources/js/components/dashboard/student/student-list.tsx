@@ -14,7 +14,7 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
     const [selectedClass, setSelectedClass] = useState<string>('');
 
     // Get unique classes for filter
-    const classes = Array.from(new Set(students.map((student) => student.class)));
+    const classes = (students.map((student) => student.classe?.name));
 
     // Filter students based on search and class filter
     const filteredStudents = students.filter((student) => {
@@ -116,7 +116,7 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
                                             </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                                                 <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
-                                                    {student.class}
+                                                    {student.classe?.name}
                                                 </span>
                                             </td>
                                             <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell">

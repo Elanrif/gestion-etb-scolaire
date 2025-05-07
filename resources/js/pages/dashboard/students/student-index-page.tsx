@@ -21,7 +21,6 @@ export default function StudentIndexPage() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [studentToDelete, setStudentToDelete] = useState<number | null>(null);
     const { flash } = usePage<SharedData>().props;
-    
     useEffect(() => {
         
         if (flash.success) {

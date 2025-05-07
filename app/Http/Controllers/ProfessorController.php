@@ -19,8 +19,8 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        $professors = Professor::with('classes','matieres')->orderBy('id', 'DESC')->get();
-        return Inertia::render('dashboard/professors/professor-page',['professors'=> $professors]);
+        $professors = Professor::with('classes','matieres','user')->orderBy('id', 'DESC')->get();
+        return Inertia::render('dashboard/professors/professor-index-page',['professors'=> $professors]);
 
     }
 

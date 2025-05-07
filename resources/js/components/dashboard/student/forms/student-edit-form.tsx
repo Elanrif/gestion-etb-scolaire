@@ -8,25 +8,14 @@ import { FormEventHandler } from 'react';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/input-error';
-import { StudentForm } from '@/types/models/forms';
 import { toast } from 'react-toastify';
+import { StudentFormType } from '@/types/models/forms';
+import { Classe } from '@/types/models';
 
 
-const classes = [
-    { id: 'seconde-a', name: 'Seconde A' },
-    { id: 'seconde-b', name: 'Seconde B' },
-    { id: 'premiere-s', name: 'Première S' },
-    { id: 'premiere-es', name: 'Première ES' },
-    { id: 'premiere-l', name: 'Première L' },
-    { id: 'terminale-s', name: 'Terminale S' },
-    { id: 'terminale-es', name: 'Terminale ES' },
-    { id: 'terminale-l', name: 'Terminale L' },
-];
-export function StudentEditForm({student}: {student: StudentForm}) {
-    console.log('student', student.birthday)
+export function StudentEditForm({student, classes}: {student: StudentFormType, classes: Classe[]}) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, put, errors, processing, reset } = useForm<Required<StudentForm>>('edit-student',{
-    id: student.id as number,
+    const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>('edit-student',{
     first_name: student.first_name,
     last_name: student.last_name,
     email: student.email,
@@ -35,7 +24,7 @@ export function StudentEditForm({student}: {student: StudentForm}) {
     birthday: student.birthday,
     gender: student.gender,
     level: student.level,
-    class: student.class,
+    classe_id: student.classe_id,
     relationship: student.relationship,
     guardian_phone_number: student.guardian_phone_number,
     guardian_email: student.guardian_email,
@@ -203,16 +192,16 @@ export function StudentEditForm({student}: {student: StudentForm}) {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="class" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="classe_id" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Classe
                         </Label>
-                        <Select value={data.class} onValueChange={(value) => handleSelectChange('class', value)}>
-                            <SelectTrigger id="class">
+                        <Select value={data.classe_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
+                            <SelectTrigger id="classe_id">
                                 <SelectValue placeholder="Sélectionnez votre classe" />
                             </SelectTrigger>
                             <SelectContent>
                                 {classes.map((cls) => (
-                                    <SelectItem key={cls.id} value={cls.id}>
+                                    <SelectItem key={cls.id} value={cls.id?.toString()}>
                                         {cls.name}
                                     </SelectItem>
                                 ))}

@@ -1,11 +1,13 @@
-export type userForm = {
+export type userFormType = {
     email: string;
+    password?: string;
+    password_confirmation?: string;
     birthday: string;
     phone_number: string;
     address: string;
 }
 
- export type ProfessorForm = {
+ export type ProfessorFormType = {
     first_name: string;
     last_name: string;
     employee_number: string;
@@ -14,20 +16,20 @@ export type userForm = {
     experience_year: number;
     level_taught: string;
     additional_info: string;
- } & userForm
+ } & userFormType
 
 
-export type StudentForm = {
+export type StudentFormType = {
     id?: number;
     first_name: string;
     last_name: string;
     gender: string;
-    matricule:string;
-    class:string;
-    level:string;
-    relationship:string;
-    guardian_first_name:string;
-    guardian_last_name:string;
-    guardian_email:string;
-    guardian_phone_number:string;
-} & userForm
+    matricule: string;
+    classe_id: number;
+    level: string;
+    relationship: string;
+    guardian_first_name: string;
+    guardian_last_name: string;
+    guardian_email: string;
+    guardian_phone_number: string;
+} & userFormType

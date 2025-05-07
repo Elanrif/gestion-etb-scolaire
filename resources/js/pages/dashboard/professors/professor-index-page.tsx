@@ -3,15 +3,11 @@ import HeaderDashboard from '@/components/dashboard/professor/header-dashboard';
 import ProfessorDetail from '@/components/dashboard/professor/professor-detail';
 import AdminLayout from '@/layouts/admin-layout';
 import { router, usePage } from '@inertiajs/react';
-import { useState } from 'react';
-import { Professor } from './professor-page';
+import { useEffect, useState } from 'react';
 import ProfessorList from '@/components/dashboard/professor/professor-list';
-
-
-
-
-
-
+import { SharedData } from '@/types';
+import { toast } from 'react-toastify';
+import { Professor } from '@/types/models';
 interface PageProps {
     professors: Professor[];
     [key: string]: Professor[] ; // Signature d'index requise
@@ -23,8 +19,15 @@ export default function ProfessorIndexPage() {
     const [selectedProfessor, setSelectedProfessor] = useState<Professor | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [professorToDelete, setProfessorToDelete] = useState<number | null>(null);
+    const { flash } = usePage<SharedData>().props;
 
-
+      useEffect(() => {
+            
+            if (flash.success) {
+                toast.success(flash.success);
+            }
+        }, [flash.success]);
+        
     const handleViewProfessor = (professor: Professor) => {
         setSelectedProfessor(professor);
     };

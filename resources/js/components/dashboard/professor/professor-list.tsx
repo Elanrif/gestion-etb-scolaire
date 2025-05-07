@@ -14,7 +14,14 @@ const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfes
     const [selectedClass, setSelectedClass] = useState<string>('');
 
     // Get unique classes for filter
-    const classes = Array.from(new Set(professors.map((professor) => professor.class)));
+    const classes = [
+        ...new Set(
+          professors.flatMap((professor) =>
+            professor.classes?.map((classe) => classe.name) || []
+          )
+        )
+      ];
+      
 
     // Filter students based on search and class filter
     const filteredProfessors = professors.filter((professor) => {
@@ -116,11 +123,11 @@ const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfes
                                             </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                                                 <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
-                                                    {professor.class}
+                                                    {professor.classes?.length}
                                                 </span>
                                             </td>
                                             <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell">
-                                                {professor.user.phone_number}
+                                                {professor.user?.phone_number}
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">
                                                 <div className="flex justify-center space-x-2">

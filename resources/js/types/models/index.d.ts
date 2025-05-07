@@ -1,5 +1,11 @@
 import { User } from "..";
 
+export interface Classe { 
+    id: number;
+    name: string;
+    [key: string]: unknown;
+}
+
 export interface Student {
     id: number;
     user: User;
@@ -7,7 +13,7 @@ export interface Student {
     last_name: string;
     gender: string;
     matricule:string;
-    class:string;
+    classe: Classe;
     level:string;
     relationship:string;
     guardian_first_name:string;
@@ -21,6 +27,7 @@ export interface Student {
 type Professor = {
     id: number;
     user: User;
+    classes: Classe[];
     first_name: string;
     last_name: string;
     employee_number: string;
@@ -33,7 +40,7 @@ type Professor = {
 };
 
 interface Classe {
-    id: string;
+    id: number;
     name: string;
     professorId: string;
     professors: Professor[];
