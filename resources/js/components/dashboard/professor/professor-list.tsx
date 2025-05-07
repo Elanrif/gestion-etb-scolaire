@@ -1,4 +1,4 @@
-import { Professor } from '@/pages/dashboard/professors/professor-page';
+import { Professor } from '@/types/models';
 import { Link } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
 import React, { useState } from 'react';
@@ -6,24 +6,21 @@ import React, { useState } from 'react';
 interface ProfessorTableProps {
     professors: Professor[];
     onViewProfessor: (professor: Professor) => void;
-    onEditProfessor: (professor: Professor) => void;
-    onDeleteProfessor: (professorId: string) => void;
-    onAddProfessor: () => void;
+    onDeleteProfessor: (professorId: number) => void;
 }
 
-const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfessor, onEditProfessor, onDeleteProfessor,  }) => {
+const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfessor, onDeleteProfessor }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
     // Get unique classes for filter
     const classes = Array.from(new Set(professors.map((professor) => professor.class)));
 
-    // Filter professors based on search and class filter
-    const filteredprofessors = professors.filter((professor) => {
+    // Filter students based on search and class filter
+    const filteredProfessors = professors.filter((professor) => {
         const matchesSearch =
             professor.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            professor.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            professor.professor_id.toLowerCase().includes(searchTerm.toLowerCase());
+            professor.last_name.toLowerCase().includes(searchTerm.toLowerCase())
 
         const matchesClass = selectedClass ? professor.class === selectedClass : true;
 
@@ -33,13 +30,13 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
     return (
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Liste des Professeurs</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Liste des Étudiants</h1>
                 <Link
                     href={route('dashboard.professors.create')}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <UserPlus className="mr-2 h-5 w-5" />
-                    Ajouter un Professeur
+                    Ajouter un professeur
                 </Link>
             </div>
 
@@ -97,12 +94,6 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
                                     </th>
                                     <th
                                         scope="col"
-                                        className="hidden px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase md:table-cell"
-                                    >
-                                        Email
-                                    </th>
-                                    <th
-                                        scope="col"
                                         className="hidden px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase lg:table-cell"
                                     >
                                         Téléphone
@@ -116,10 +107,10 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
-                                {filteredprofessors.length > 0 ? (
-                                    filteredprofessors.map((professor) => (
+                                {filteredProfessors.length > 0 ? (
+                                    filteredProfessors.map((professor,index) => (
                                         <tr key={professor.id} className="transition-colors duration-150 hover:bg-gray-50">
-                                            <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{professor.professor_id}</td>
+                                            <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{index + 1}</td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                                                 {professor.last_name} {professor.first_name}
                                             </td>
@@ -128,11 +119,8 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
                                                     {professor.class}
                                                 </span>
                                             </td>
-                                            <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 md:table-cell">
-                                                {professor.email}
-                                            </td>
                                             <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell">
-                                                {professor.phone_number}
+                                                {professor.user.phone_number}
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">
                                                 <div className="flex justify-center space-x-2">
@@ -143,13 +131,13 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
                                                     >
                                                         <Eye className="h-5 w-5" />
                                                     </button>
-                                                    <button
-                                                        onClick={() => onEditProfessor(professor)}
+                                                    <Link
+                                                        href={route('dashboard.professors.edit',professor.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
                                                         aria-label="Modifier"
                                                     >
                                                         <Edit className="h-5 w-5" />
-                                                    </button>
+                                                    </Link>
                                                     <button
                                                         onClick={() => onDeleteProfessor(professor.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-red-600"
@@ -177,4 +165,4 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
     );
 };
 
-export default ProfessorTable;
+export default ProfessorList;

@@ -22,6 +22,7 @@ export interface Student {
     [key: string]: unknown;
 }
 
+
 type Professor = {
     id: string;
     user: User;

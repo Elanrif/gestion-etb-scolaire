@@ -148,7 +148,7 @@ export default function ProfessorPage() {
                 <header className="bg-[#1E3A8A] shadow">
                     <div className="mx-auto flex max-w-7xl items-center px-4 py-4 sm:px-6 lg:px-8">
                         <GraduationCap className="mr-3 h-8 w-8 text-white" />
-                        <h1 className="text-xl font-bold text-white">Gestion des Étudiants</h1>
+                        <h1 className="text-xl font-bold text-white">Gestion des Professeurs</h1>
                     </div>
                 </header>
 
