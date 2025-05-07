@@ -5,27 +5,21 @@ export interface Student {
     user: User;
     first_name: string;
     last_name: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-    phone_number: string;
-    address: string;
-    birthday: string;
     gender: string;
     matricule:string;
-    level:string;
     class:string;
+    level:string;
     relationship:string;
-    guardian_phone_number:string;
-    guardian_email:string;
-    guardian_last_name:string;
     guardian_first_name:string;
+    guardian_last_name:string;
+    guardian_email:string;
+    guardian_phone_number:string;
     [key: string]: unknown;
 }
 
 
 type Professor = {
-    id: string;
+    id: number;
     user: User;
     first_name: string;
     last_name: string;
@@ -35,9 +29,7 @@ type Professor = {
     experience_year: number;
     level_taught: string;
     additional_info: string;
-    created_at?: string;
-    updated_at?: string;
-    [key: string]: string | User;
+    [key: string]: unknown;
 };
 
 interface Classe {

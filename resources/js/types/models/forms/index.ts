@@ -6,7 +6,6 @@ export type userForm = {
 }
 
  export type ProfessorForm = {
-
     first_name: string;
     last_name: string;
     employee_number: string;
@@ -15,11 +14,11 @@ export type userForm = {
     experience_year: number;
     level_taught: string;
     additional_info: string;
-
  } & userForm
 
 
 export type StudentForm = {
+    id?: number;
     first_name: string;
     last_name: string;
     gender: string;

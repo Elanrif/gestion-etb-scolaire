@@ -8,7 +8,6 @@ import { FormEventHandler } from 'react';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/input-error';
-import { Student } from '@/types/models';
 import { StudentForm } from '@/types/models/forms';
 import { toast } from 'react-toastify';
 
@@ -23,16 +22,17 @@ const classes = [
     { id: 'terminale-es', name: 'Terminale ES' },
     { id: 'terminale-l', name: 'Terminale L' },
 ];
-export function StudentEditForm({student}: {student: Student}) {
-    console.log('student', student.user.birthday)
+export function StudentEditForm({student}: {student: StudentForm}) {
+    console.log('student', student.birthday)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, put, errors, processing, reset } = useForm<Required<StudentForm>>('edit-student',{
+    id: student.id as number,
     first_name: student.first_name,
     last_name: student.last_name,
-    email: student.user.email,
-    phone_number: student.user.phone_number,
-    address: student.user.address,
-    birthday: student.user.birthday,
+    email: student.email,
+    phone_number: student.phone_number,
+    address: student.address,
+    birthday: student.birthday,
     gender: student.gender,
     level: student.level,
     class: student.class,
