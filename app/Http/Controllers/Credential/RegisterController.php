@@ -44,7 +44,7 @@ class RegisterController extends Controller
             'last_name' => $validated_data['last_name'],
             'status' => $validated_data['status'],
             'secratary_id' => $validated_data['secratary_id'],
-            'experience_year' => $validated_data['experience_year'],
+            'experience_years' => $validated_data['experience_years'],
             'responsability_notes' => $validated_data['responsability_notes'],
         ]);
 
@@ -128,7 +128,7 @@ class RegisterController extends Controller
             'discipline' => $validated_data['discipline'],
             'level_taught' => $validated_data['level_taught'],
             'additional_info' => $validated_data['additional_info'],
-            'experience_year' => $validated_data['experience_year'],
+            'experience_years' => $validated_data['experience_years'],
         ]);
 
         event(new Registered($user));

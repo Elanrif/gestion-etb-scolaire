@@ -8,12 +8,14 @@ export type userFormType = {
 }
 
  export type ProfessorFormType = {
+    id?: number;
     first_name: string;
     last_name: string;
     employee_number: string;
     status: string;
     discipline: string;
-    experience_year: number;
+    experience_years: number;
+    classe_id?: number;
     level_taught: string;
     additional_info: string;
  } & userFormType

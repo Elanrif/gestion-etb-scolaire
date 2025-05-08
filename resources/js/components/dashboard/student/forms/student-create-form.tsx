@@ -39,7 +39,6 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
     guardian_last_name:'',
     guardian_first_name:'',
     matricule:'',
-   
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -63,7 +62,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-sm">
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

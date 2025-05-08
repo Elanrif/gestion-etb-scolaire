@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+
 use App\Models\Professor;
 use App\Models\User;
 use Carbon\Carbon;
@@ -34,12 +35,13 @@ class UpdateProfessorRequest extends FormRequest
                 'email' => ['required', 'string', 'email', 'max:255',Rule::unique(User::class)->ignore($professor->user_id)],
                 'phone_number' => [
                     'required', 'string', 'max:255',
-                    Rule::unique(User::class)->ignore($professor->user_id), ],
-                'employee_number' => 'required|string|max:255|unique:'.Professor::class,
+                    Rule::unique(User::class)->ignore($professor->user_id),
+                ],
+                'employee_number' =>['required', 'string', 'max:255',Rule::unique(Professor::class)->ignore($professor->id)],
                 'status' => 'required|string|max:255',
                 'discipline' => 'required|string|max:255',
                 'address' => 'required|string|max:255',
-                'experience_year' => 'required|integer|min:0|max:50',
+                'experience_years' => 'required|integer|min:0|max:50',
                 'level_taught' => 'required|string|max:255',
                 'additional_info' => 'nullable|string|max:255',
                 'birthday' => 'required|date|before_or_equal:' . Carbon::now()->subYears(12)->format('Y-m-d'),
@@ -57,7 +59,7 @@ class UpdateProfessorRequest extends FormRequest
              'discipline' => 'discipline principale',
              'address' => 'addresse',
              'employee_number' => 'numéro d\'employé',
-             'experience_year' => 'années d\'expérience',
+             'experience_years' => 'années d\'expérience',
              'birthday' => 'date de naissance',
              'level_taught' => 'niveau enseigné',
          ];
@@ -80,9 +82,9 @@ class UpdateProfessorRequest extends FormRequest
              'status.required' => 'Le statut est obligatoire.',
              'discipline.required' => 'La discipline est obligatoire.',
              'level_taught.required' => 'Le niveau enseigné est obligatoire.',
-             'experience_year.required' => 'Le nombre d\'années d\'expérience est obligatoire.',
-             'experience_year.integer' => 'Le nombre d\'années d\'expérience doit être un entier.',
-             'experience_year.max' => 'Le nombre d\'années d\'expérience ne doit pas dépasser 50.',
+             'experience_years.required' => 'Le nombre d\'années d\'expérience est obligatoire.',
+             'experience_years.integer' => 'Le nombre d\'années d\'expérience doit être un entier.',
+             'experience_years.max' => 'Le nombre d\'années d\'expérience ne doit pas dépasser 50.',
              'birthday.before_or_equal' => 'La date de naissance doit indiquer un âge d\'au plus 12 ans.',
          ];
       }

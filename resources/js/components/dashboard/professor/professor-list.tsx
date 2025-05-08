@@ -37,7 +37,7 @@ const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfes
     return (
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Liste des Étudiants</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Liste des Professeurs</h1>
                 <Link
                     href={route('dashboard.professors.create')}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
@@ -85,7 +85,7 @@ const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfes
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
-                                        ID Étudiant
+                                        ID Professeur
                                     </th>
                                     <th
                                         scope="col"

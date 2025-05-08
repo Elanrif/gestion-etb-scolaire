@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 export function ProfessorEditForm({professor}: {professor: ProfessorFormType}) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<ProfessorFormType>('edit-professor',{
+    const { data, setData, put, errors, processing, reset } = useForm<ProfessorFormType>('edit-professor',{
         first_name: professor.first_name,
         last_name: professor.last_name ,
         email: professor.email,
@@ -21,9 +21,8 @@ export function ProfessorEditForm({professor}: {professor: ProfessorFormType}) {
         employee_number:professor.employee_number,
         status: professor.status,
         discipline: professor.discipline,
-        experience_year: professor.experience_year,
+        experience_years: professor.experience_years,
         level_taught: professor.level_taught,
-        classe_id: professor.classe_id,
         birthday: professor.birthday,
         additional_info: professor.additional_info,
         address: professor.address,
@@ -56,7 +55,7 @@ export function ProfessorEditForm({professor}: {professor: ProfessorFormType}) {
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
-        post(route('credentials.professor'), {
+        put(route('dashboard.professors.update',professor.id), {
             onSuccess: () => {
                 toast.success('Compte créé avec succès');
             },
@@ -69,8 +68,8 @@ export function ProfessorEditForm({professor}: {professor: ProfessorFormType}) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="rounded-lg bg-white p-6 shadow-sm">
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-sm">
+            <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
@@ -221,20 +220,20 @@ export function ProfessorEditForm({professor}: {professor: ProfessorFormType}) {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience_year" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="experience_years" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Années d'expérience
                         </Label>
                         <Input
-                            id="experience_year"
+                            id="experience_years"
                             type="number"
                             min="0"
-                            name="experience_year"
-                            value={data.experience_year}
+                            name="experience_years"
+                            value={data.experience_years}
                             onChange={handleChange}
                             placeholder="Nombre d'années"
                             className="w-full"
                         />
-                        <InputError message={errors.experience_year} />
+                        <InputError message={errors.experience_years} />
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label className="after:ms-1 after:text-red-500 after:content-['*']">Niveaux enseignés</Label>
@@ -294,7 +293,7 @@ export function ProfessorEditForm({professor}: {professor: ProfessorFormType}) {
                     className="flex items-center gap-2 rounded bg-indigo-600 px-6 py-2 text-white transition-colors duration-200 hover:bg-indigo-700 disabled:opacity-50"
                 >
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                    Enregistrer
+                    Modifier
                 </button>
             </div>
         </form>

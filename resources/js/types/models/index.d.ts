@@ -33,7 +33,7 @@ type Professor = {
     employee_number: string;
     status: string;
     discipline: string;
-    experience_year: number;
+    experience_years: number;
     level_taught: string;
     additional_info: string;
     [key: string]: unknown;
@@ -58,7 +58,7 @@ export interface Secretary {
     unique_id: string;
     status: StagiaireStatus;
     address: string;
-    experience_year: number;
+    experience_years: number;
     responsability_notes: string;
     birthday: string;
     [key: string]: unknown;

@@ -29,7 +29,7 @@ class ProfessorController extends Controller
      */
     public function create()
     {
-        return Inertia::render('dashboard/professors/professor-form-page',);
+        return Inertia::render('dashboard/professors/professor-create-form-page',);
 
     }
 
@@ -93,20 +93,18 @@ class ProfessorController extends Controller
     $validated_data = $request->validated();
 
     $professor->user->update([
-        'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
+            'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
             'email' => $validated_data['email'],
             'address' => $validated_data['address'],
             'phone_number' => $validated_data['phone_number'],
-            'password' => Hash::make($validated_data['password']),
             'birthday' => $validated_data['birthday'],
     ]);
 
     $professor->update([
         'first_name' => $validated_data['first_name'],
         'last_name' => $validated_data['last_name'],
-        'gender' => $validated_data['gender'],
         'employee_number' => $validated_data['employee_number'],
-        'statut' => $validated_data['statut'],
+        'status' => $validated_data['status'],
         'discipline' => $validated_data['discipline'],
         'experience_years' => $validated_data['experience_years'],
         'level_taught' => $validated_data['level_taught'],

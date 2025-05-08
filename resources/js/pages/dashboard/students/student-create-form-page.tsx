@@ -15,7 +15,7 @@ export default function StudentCreateFormPage() {
 
   return (
     <AdminLayout>
-      <HeaderDashboard title='Modifier les informations'/>
+      <HeaderDashboard title='Ajouter un étudiant'/>
         <StudentCreateForm classes={classes}/>
     </AdminLayout>
        

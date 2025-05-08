@@ -37,7 +37,7 @@ export default function StudentEditFormPage() {
   
   return (
 <AdminLayout>
-    <HeaderDashboard title='Modifier les informations'/>
+    <HeaderDashboard title="Modifier les informations de l'étudiant"/>
         <StudentEditForm student={student_form} classes={classes}/>
     </AdminLayout>
   )

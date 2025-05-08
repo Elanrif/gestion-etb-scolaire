@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('employee_number')->unique();
             $table->string('status');
             $table->string('discipline');
-            $table->integer('experience_year');
+            $table->integer('experience_years');
             $table->string('level_taught');
             $table->string('additional_info')->nullable();
             $table->timestamps();

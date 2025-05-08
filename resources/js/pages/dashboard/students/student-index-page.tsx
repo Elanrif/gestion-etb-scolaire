@@ -52,7 +52,7 @@ export default function StudentIndexPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen bg-gray-100">
-                <HeaderDashboard title='Gestion des Étudiants'/>
+                <HeaderDashboard title='Gestion des étudiants'/>
 
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
                     {selectedStudent ? (

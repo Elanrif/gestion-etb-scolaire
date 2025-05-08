@@ -5,35 +5,13 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
+import { ProfessorFormType } from '@/types/models/forms';
 import { useForm } from '@inertiajs/react';
 import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'react-toastify';
 
-
-type User = {
-    email: string;
-    password: string;
-    birthday: string;
-    password_confirmation: string;
-    phone_number: string;
-    address: string;
-};
-
-type Professor = {
-    first_name: string;
-    last_name: string;
-    employee_number: string;
-    status: string;
-    discipline: string;
-    experience_year: number;
-    level_taught: string;
-    additional_info: string;
-};
-
-type ProfessorForm = Professor & User;
-
-export function ProfessorForm() {
+export function ProfessorCreateForm() {
     const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
@@ -41,7 +19,7 @@ export function ProfessorForm() {
     const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<Required<ProfessorForm>>({
+    const { data, setData, post, errors, processing, reset } = useForm<ProfessorFormType>({
         first_name: '',
         last_name: '',
         email: '',
@@ -51,7 +29,7 @@ export function ProfessorForm() {
         employee_number: '',
         status: '',
         discipline: '',
-        experience_year: 0,
+        experience_years: 0,
         level_taught: '',
         birthday: '',
         additional_info: '',
@@ -98,9 +76,9 @@ export function ProfessorForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="rounded-lg bg-white p-6 shadow-sm">
-                <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-lg">
+            <div>
+                <h3 className="mb-4 text-lg font-medium text-indigo-800"> Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                         <Label htmlFor="first_name" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -306,20 +284,20 @@ export function ProfessorForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience_year" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="experience_years" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Années d'expérience
                         </Label>
                         <Input
-                            id="experience_year"
+                            id="experience_years"
                             type="number"
                             min="0"
-                            name="experience_year"
-                            value={data.experience_year}
+                            name="experience_years"
+                            value={data.experience_years}
                             onChange={handleChange}
                             placeholder="Nombre d'années"
                             className="w-full"
                         />
-                        <InputError message={errors.experience_year} />
+                        <InputError message={errors.experience_years} />
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label className="after:ms-1 after:text-red-500 after:content-['*']">Niveaux enseignés</Label>

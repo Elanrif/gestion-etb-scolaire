@@ -29,7 +29,7 @@ type Secretary = {
     last_name: string;
     secratary_id: string;
     status: StagiaireStatus;
-    experience_year: number;
+    experience_years: number;
     responsability_notes: string;
 } & user
 
@@ -50,7 +50,7 @@ export function SecretaryForm() {
         secratary_id: '',
         status: StagiaireStatus.TITULAIRE,
         address: '',
-        experience_year: 0,
+        experience_years: 0,
         responsability_notes: '',
         birthday: '',
     });
@@ -263,20 +263,20 @@ export function SecretaryForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience_year" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="experience_years" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Années d'expérience
                         </Label>
                         <Input
-                            id="experience_year"
-                            name="experience_year"
+                            id="experience_years"
+                            name="experience_years"
                             type="number"
                             min="0"
-                            value={data.experience_year.toString()}
+                            value={data.experience_years.toString()}
                             onChange={handleChange}
                             placeholder="Nombre d'années"
                             className="w-full"
                         />
-                        <InputError message={errors.experience_year} />
+                        <InputError message={errors.experience_years} />
                     </div>
                     <div className="space-y-2 sm:col-span-2">
                         <Label htmlFor="responsability_notes">Responsabilités principales</Label>

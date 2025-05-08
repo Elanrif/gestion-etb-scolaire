@@ -17,11 +17,13 @@ export default function ProfessorEditFormPage() {
     id: professor.id,
     first_name: professor.first_name,
     last_name: professor.last_name,
-    gender: professor.gender,
-    matricule:professor.matricule,
-    classe_id: professor.classes?.length,
-    level: professor.level,
-    relationship: professor.relationship,
+    employee_number:professor.employee_number,
+    status: professor.status,
+    discipline: professor.discipline,
+    experience_years: professor.experience_years,
+    level_taught: professor.level_taught,
+    additional_info: professor.additional_info,
+
     /* user info */
     email: professor.user?.email,
     birthday: professor.user?.birthday,
@@ -30,7 +32,7 @@ export default function ProfessorEditFormPage() {
   }
   return (
 <AdminLayout>
-    <HeaderDashboard title='Modifier les informations'/>
+    <HeaderDashboard title='Modifier les informations du professeur'/>
         <ProfessorEditForm professor={professor_form} />
     </AdminLayout>
   )

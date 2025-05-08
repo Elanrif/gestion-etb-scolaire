@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('secratary_id')->unique();
             $table->enum('status',['TITULAIRE','STAGIAIRE','CONTRACTUEL'])->default('TITULAIRE');
-            $table->integer('experience_year');
+            $table->integer('experience_years');
             $table->string('responsability_notes')->nullable();
             $table->timestamps();
         });

@@ -25,7 +25,7 @@ type Professor = {
     employee_number: string;
     status: string;
     discipline: string;
-    experience_year: number;
+    experience_years: number;
     level_taught: string;
     additional_info: string;
 };
@@ -50,7 +50,7 @@ export function ProfessorForm() {
         employee_number: '',
         status: '',
         discipline: '',
-        experience_year: 0,
+        experience_years: 0,
         level_taught: '',
         birthday: '',
         additional_info: '',
@@ -305,20 +305,20 @@ export function ProfessorForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="experience_year" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="experience_years" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Années d'expérience
                         </Label>
                         <Input
-                            id="experience_year"
+                            id="experience_years"
                             type="number"
                             min="0"
-                            name="experience_year"
-                            value={data.experience_year}
+                            name="experience_years"
+                            value={data.experience_years}
                             onChange={handleChange}
                             placeholder="Nombre d'années"
                             className="w-full"
                         />
-                        <InputError message={errors.experience_year} />
+                        <InputError message={errors.experience_years} />
                     </div>
                     <div className="col-span-1 space-y-2 md:col-span-2">
                         <Label className="after:ms-1 after:text-red-500 after:content-['*']">Niveaux enseignés</Label>
