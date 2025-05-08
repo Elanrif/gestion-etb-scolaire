@@ -1,60 +1,31 @@
+import InputError from '@/components/input-error';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
+import { ProfessorFormType } from '@/types/models/forms';
 import { useForm } from '@inertiajs/react';
-import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
+import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
-import InputError from '../input-error';
 
-type User = {
-    email: string;
-    password: string;
-    birthday: string;
-    password_confirmation: string;
-    phone_number: string;
-    address: string;
-};
-
-type Professor = {
-    first_name: string;
-    last_name: string;
-    employee_number: string;
-    status: string;
-    discipline: string;
-    experience_years: number;
-    level_taught: string;
-    additional_info: string;
-};
-
-type ProfessorForm = Professor & User;
-
-export function ProfessorForm() {
-    const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
-    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
-
-    const togglePasswordVisibility = () => setShowPassword(!showPassword);
-    const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
-
+export function ProfessorEditForm({professor}: {professor: ProfessorFormType}) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<Required<ProfessorForm>>({
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        phone_number: '',
-        employee_number: '',
-        status: '',
-        discipline: '',
-        experience_years: 0,
-        level_taught: '',
-        birthday: '',
-        additional_info: '',
-        address: '',
+    const { data, setData, put, errors, processing, reset } = useForm<ProfessorFormType>('edit-professor',{
+        first_name: professor.first_name,
+        last_name: professor.last_name ,
+        email: professor.email,
+        phone_number: professor.phone_number,
+        employee_number:professor.employee_number,
+        status: professor.status,
+        discipline: professor.discipline,
+        experience_years: professor.experience_years,
+        level_taught: professor.level_taught,
+        birthday: professor.birthday,
+        additional_info: professor.additional_info,
+        address: professor.address,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -84,7 +55,7 @@ export function ProfessorForm() {
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
-        post(route('credentials.professor'), {
+        put(route('dashboard.professors.update',professor.id), {
             onSuccess: () => {
                 toast.success('Compte créé avec succès');
             },
@@ -97,8 +68,8 @@ export function ProfessorForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="rounded-lg bg-white p-6 shadow-sm">
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-sm">
+            <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
@@ -161,62 +132,6 @@ export function ProfessorForm() {
                             className="w-full"
                         />
                         <InputError message={errors.first_name} />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Mot de passe
-                        </Label>
-                        <div className="relative">
-                            <Input
-                                id="password"
-                                type={showPassword ? 'text' : 'password'}
-                                name="password"
-                                required
-                                autoComplete="new-password"
-                                value={data.password}
-                                onChange={handleChange}
-                                disabled={processing}
-                                placeholder="Mot de passe"
-                                className="w-full"
-                            />
-                            <button
-                                type="button"
-                                onClick={togglePasswordVisibility}
-                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                                tabIndex={-1}
-                            >
-                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
-                        </div>
-                        <InputError message={errors.password} />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="password_confirmation" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Confirmez le mot de passe
-                        </Label>
-                        <div className="relative">
-                            <Input
-                                id="password_confirmation"
-                                type={showPasswordConfirmation ? 'text' : 'password'}
-                                name="password_confirmation"
-                                required
-                                autoComplete="new-password"
-                                value={data.password_confirmation}
-                                onChange={handleChange}
-                                disabled={processing}
-                                placeholder="Confirmez le mot de passe"
-                                className="w-full"
-                            />
-                            <button
-                                type="button"
-                                onClick={togglePasswordConfirmationVisibility}
-                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                                tabIndex={-1}
-                            >
-                                {showPasswordConfirmation ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
-                        </div>
-                        <InputError message={errors.password_confirmation} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="phone_number" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -378,7 +293,7 @@ export function ProfessorForm() {
                     className="flex items-center gap-2 rounded bg-indigo-600 px-6 py-2 text-white transition-colors duration-200 hover:bg-indigo-700 disabled:opacity-50"
                 >
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                    Enregistrer
+                    Modifier
                 </button>
             </div>
         </form>

@@ -23,7 +23,7 @@ class Professor extends Model
         'employee_number',
         'status',
         'discipline',
-        'experience_year',
+        'experience_years',
         'level_taught',
         'additional_info',
         'address',

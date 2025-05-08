@@ -8,6 +8,7 @@ import {
     BarChart3,
     Bell,
     BookOpen,
+    BookUser,
     Calendar,
     ChevronDown,
     FileText,
@@ -71,49 +72,55 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
     const navigationItems = [
         {
             name: 'Tableau de bord',
-            href: '/admin/dashboard',
+            href: 'dashboard.home',
             icon: LayoutDashboard,
             active: pathname === '/admin/dashboard',
         },
         {
             name: 'Élèves',
-            href: '/dashboard/students',
+            href: 'dashboard.students.index',
             icon: Users,
-            active: pathname.startsWith('/admin/students'),
+            active: pathname.startsWith(route('dashboard.students.index')),
+        },
+        {
+            name: 'Professeurs',   
+            href: 'dashboard.professors.index',
+            icon: BookUser,
+            active: pathname.startsWith(route('dashboard.professors.index')),
         },
         {
             name: 'Classes',
-            href: '/admin/classes',
+            href: 'dashboard.classes.index',
             icon: School,
-            active: pathname.startsWith('/admin/classes'),
+            active: pathname.startsWith(route('dashboard.classes.index')),
         },
         {
             name: 'Cours',
-            href: '/admin/courses',
+            href: 'dashboard.home',
             icon: BookOpen,
             active: pathname.startsWith('/admin/courses'),
         },
         {
             name: 'Notes',
-            href: '/admin/grades',
+            href: 'dashboard.home',
             icon: FileText,
             active: pathname.startsWith('/admin/grades'),
         },
         {
             name: 'Emploi du temps',
-            href: '/admin/schedule',
+            href: 'dashboard.home',
             icon: Calendar,
             active: pathname.startsWith('/admin/schedule'),
         },
         {
             name: 'Statistiques',
-            href: '/admin/statistics',
+            href: 'dashboard.home',
             icon: BarChart3,
             active: pathname.startsWith('/admin/statistics'),
         },
         {
             name: 'Paramètres',
-            href: '/admin/settings',
+            href: 'dashboard.home',
             icon: Settings,
             active: pathname.startsWith('/admin/settings'),
         },
@@ -147,7 +154,7 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
                     {navigationItems.map((item) => (
                         <Link
                             key={item.name}
-                            href={item.href}
+                            href={route(item.href)}
                             className={cn(
                                 'flex items-center rounded-md px-3 py-2 transition-colors',
                                 item.active ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100',

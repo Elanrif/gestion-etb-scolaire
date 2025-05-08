@@ -9,42 +9,11 @@ import { useForm } from '@inertiajs/react';
 import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { toast } from 'react-toastify';
 import InputError from '@/components/input-error';
+import { StudentFormType } from '@/types/models/forms';
+import { Classe } from '@/types/models';
 
-
-type user = {
-    email: string;
-    password: string;
-    birthday: string;
-    password_confirmation: string;
-    phone_number: string;
-    address: string;
-}
-
-type Student = {
-    first_name: string;
-    last_name: string;
-    gender: string;
-    matricule:string;
-    class:string;
-    level:string;
-    relationship:string;
-    guardian_first_name:string;
-    guardian_last_name:string;
-    guardian_email:string;
-    guardian_phone_number:string;
-} & user
-
-const classes = [
-    { id: 'seconde-a', name: 'Seconde A' },
-    { id: 'seconde-b', name: 'Seconde B' },
-    { id: 'premiere-s', name: 'Première S' },
-    { id: 'premiere-es', name: 'Première ES' },
-    { id: 'premiere-l', name: 'Première L' },
-    { id: 'terminale-s', name: 'Terminale S' },
-    { id: 'terminale-es', name: 'Terminale ES' },
-    { id: 'terminale-l', name: 'Terminale L' },
-];
-export function StudentForm() {
+export function StudentCreateForm({classes}: {classes: Classe[]}) {
+   
     const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
@@ -52,7 +21,7 @@ export function StudentForm() {
     const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<Required<Student>>({
+    const { data, setData, post, errors, processing, reset } = useForm<StudentFormType>({   
     first_name: '',
     last_name: '',
     email: '',
@@ -63,14 +32,13 @@ export function StudentForm() {
     birthday: '',
     gender: '',
     level:'',
-    class:'',
+    classe_id: 0,
     relationship:'',
     guardian_phone_number:'',
     guardian_email:'',
     guardian_last_name:'',
     guardian_first_name:'',
     matricule:'',
-   
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -94,7 +62,7 @@ export function StudentForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-sm">
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -284,16 +252,16 @@ export function StudentForm() {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="class" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="classe_id" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Classe
                         </Label>
-                        <Select value={data.class} onValueChange={(value) => handleSelectChange('class', value)}>
-                            <SelectTrigger id="class">
+                        <Select value={data.classe_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
+                            <SelectTrigger id="classe_id">
                                 <SelectValue placeholder="Sélectionnez votre classe" />
                             </SelectTrigger>
                             <SelectContent>
                                 {classes.map((cls) => (
-                                    <SelectItem key={cls.id} value={cls.id}>
+                                    <SelectItem key={cls.id} value={cls.id?.toString()}>
                                         {cls.name}
                                     </SelectItem>
                                 ))}
@@ -388,7 +356,7 @@ export function StudentForm() {
                 <button
                     type="submit"
                     disabled={processing}
-                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                    className="flex items-center gap-2 rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
                 >
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Enregistrer

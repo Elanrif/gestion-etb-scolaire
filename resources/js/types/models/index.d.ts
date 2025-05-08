@@ -1,46 +1,46 @@
 import { User } from "..";
 
+export interface Classe { 
+    id: number;
+    name: string;
+    [key: string]: unknown;
+}
+
 export interface Student {
     id: number;
     user: User;
     first_name: string;
     last_name: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-    phone_number: string;
-    address: string;
-    birthday: string;
     gender: string;
     matricule:string;
+    classe: Classe;
     level:string;
-    class:string;
     relationship:string;
-    guardian_phone_number:string;
-    guardian_email:string;
-    guardian_last_name:string;
     guardian_first_name:string;
+    guardian_last_name:string;
+    guardian_email:string;
+    guardian_phone_number:string;
     [key: string]: unknown;
 }
 
+
 type Professor = {
-    id: string;
+    id: number;
     user: User;
+    classes: Classe[];
     first_name: string;
     last_name: string;
     employee_number: string;
     status: string;
     discipline: string;
-    experience_year: number;
+    experience_years: number;
     level_taught: string;
     additional_info: string;
-    created_at?: string;
-    updated_at?: string;
-    [key: string]: string | User;
+    [key: string]: unknown;
 };
 
 interface Classe {
-    id: string;
+    id: number;
     name: string;
     professorId: string;
     professors: Professor[];
@@ -58,7 +58,7 @@ export interface Secretary {
     unique_id: string;
     status: StagiaireStatus;
     address: string;
-    experience_year: number;
+    experience_years: number;
     responsability_notes: string;
     birthday: string;
     [key: string]: unknown;
