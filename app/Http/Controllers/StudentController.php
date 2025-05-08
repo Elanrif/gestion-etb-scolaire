@@ -92,7 +92,7 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         $classes = Classe::all();
-        $student_ = Student::with('user')->find($student->id);
+        $student_ = Student::with(['user','classe'])->find($student->id);
         return Inertia::render('dashboard/students/student-edit-form-page',
         ['student'=> $student_, 'classes' => $classes]);
     }

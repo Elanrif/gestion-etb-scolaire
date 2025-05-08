@@ -60,8 +60,8 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
                     className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:w-auto sm:text-sm"
                 >
                     <option value="">Toutes les classes</option>
-                    {classes.map((className) => (
-                        <option key={className} value={className}>
+                    {classes.map((className,index) => (
+                        <option key={index} value={className}>
                             {className}
                         </option>
                     ))}
@@ -109,7 +109,7 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
                             <tbody className="divide-y divide-gray-200 bg-white">
                                 {filteredStudents.length > 0 ? (
                                     filteredStudents.map((student,index) => (
-                                        <tr key={student.id} className="transition-colors duration-150 hover:bg-gray-50">
+                                        <tr key={index} className="transition-colors duration-150 hover:bg-gray-50">
                                             <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{index + 1}</td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                                                 {student.last_name} {student.first_name}

@@ -9,8 +9,9 @@ import { SecretaryForm } from './secretary-form';
 import { ProfessorForm } from './professor-form';
 import { StudentForm } from './student-form';
 import { Link } from '@inertiajs/react';
+import { Classe } from '@/types/models';
 
-export default function RegistrationForm() {
+export default function RegistrationForm({classes}:{classes: Classe[]}) {
     const [role, setRole] = useState<'student' | 'professor' | 'secretary' | null>(null);
 
     return (
@@ -84,7 +85,7 @@ export default function RegistrationForm() {
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <StudentForm />
+                            <StudentForm classes={classes}/>
                         </motion.div>
                     )}
 

@@ -356,7 +356,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
                 <button
                     type="submit"
                     disabled={processing}
-                    className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                    className="flex items-center gap-2 rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
                 >
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     Enregistrer

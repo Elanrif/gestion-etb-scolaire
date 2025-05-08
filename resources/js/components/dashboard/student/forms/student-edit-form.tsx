@@ -200,8 +200,8 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                                 <SelectValue placeholder="Sélectionnez votre classe" />
                             </SelectTrigger>
                             <SelectContent>
-                                {classes.map((cls) => (
-                                    <SelectItem key={cls.id} value={cls.id?.toString()}>
+                                {classes.map((cls,index) => (
+                                    <SelectItem key={index} value={cls.id?.toString()}>
                                         {cls.name}
                                     </SelectItem>
                                 ))}

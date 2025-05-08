@@ -40,7 +40,7 @@ class UpdateStudentRequest extends FormRequest
                 'address' => 'required|string|max:255',
                 'gender' => 'required|string|max:255',
                 'level'=> 'required|string|max:255',
-                'classe_id'=> 'required|string|max:255|exists:classes,id',
+                'classe_id'=> 'required|integer|max:255|exists:classes,id',
                 'relationship'=> 'required|string|max:255',
                 'guardian_phone_number'=> 'required|string|max:255',
                 'guardian_email'=> 'required|string|max:255',

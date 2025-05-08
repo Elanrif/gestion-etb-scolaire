@@ -108,9 +108,10 @@ class ProfessorController extends Controller
         'discipline' => $validated_data['discipline'],
         'experience_years' => $validated_data['experience_years'],
         'level_taught' => $validated_data['level_taught'],
-        'additionnal_info' => $validated_data['additionnal_info'],
+        'additional_info' => $validated_data['additional_info'],
     ]);
 
+    $request->session()->flash('success', 'Succès!');
     return to_route('dashboard.professors.index');
 }
     /**
