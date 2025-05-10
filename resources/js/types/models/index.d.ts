@@ -64,8 +64,18 @@ export interface Secretary {
     [key: string]: unknown;
 }
 
+export interface Matiere {
+    id: number;
+    name: string;
+    professors: Professor[];
+    created_at?: string;
+    updated_at?: string;
+    [key: string]: string | Professor[];
+}
+
 export enum StagiaireStatus {
     TITULAIRE = 'TITULAIRE',
     STAGIAIRE = 'STAGIAIRE',
     CONTRACTUEL = 'CONTRACTUEL',
 }
+

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
         Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
         Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destory');
+
+        /* MATIERE */
+        Route::get('/matieres', [MatiereController::class, 'index'])->name('matieres.index');
     });
     
+
 });

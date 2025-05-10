@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Matiere;
 use App\Http\Requests\StoreMatiereRequest;
 use App\Http\Requests\UpdateMatiereRequest;
+use Inertia\Inertia;
 
 class MatiereController extends Controller
 {
@@ -13,7 +14,9 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        //
+        $matieres = Matiere::with('professors')->orderBy('id', 'DESC')->get();
+        return Inertia::render('dashboard/matieres/matiere-index-page',['matieres'=> $matieres]);
+
     }
 
     /**

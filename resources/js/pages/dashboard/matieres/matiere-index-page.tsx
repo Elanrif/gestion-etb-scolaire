@@ -5,19 +5,19 @@ import AdminLayout from '@/layouts/admin-layout';
 import StudentList from '@/components/dashboard/student/student-list';
 import HeaderDashboard from '@/components/dashboard/header-dashboard';
 import { router, usePage } from '@inertiajs/react';
-import { Student } from '@/types/models';
+import { Matiere} from '@/types/models';
 import { toast } from 'react-toastify';
 import { SharedData } from '@/types';
 
 
 interface PageProps {
-    students: Student[];
-    [key: string]: Student[] ; // Signature d'index requise
+    matieres:Matiere[];
+    [key: string]: Matiere[] ; // Signature d'index requise
 }
 
-export default function StudentIndexPage() {
-    const { students } = usePage<PageProps>().props;
-    const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+export default function MatiereIndexPage() {
+    const { matieres} = usePage<PageProps>().props;
+    const [selectedStudent, setSelectedStudent] = useState<Matiere | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [studentToDelete, setStudentToDelete] = useState<number | null>(null);
     const { flash } = usePage<SharedData>().props;
@@ -28,8 +28,8 @@ export default function StudentIndexPage() {
         }
     }, [flash.success]);
         
-    const handleViewStudent = (student: Student) => {
-        setSelectedStudent(student);
+    const handleViewStudent = (matiere: Matiere) => {
+        setSelectedStudent(matiere);
     };
 
     const handleDeleteConfirmation = (studentId: number) => {
@@ -56,11 +56,11 @@ export default function StudentIndexPage() {
 
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
                     {selectedStudent ? (
-                        <StudentDetail student={selectedStudent} onBack={handleBackToList} />
+                        <StudentDetail matiere={selectedStudent} onBack={handleBackToList} />
                     ) : (
                         <StudentList
-                            students={students}
-                            onViewStudent={handleViewStudent}
+                        matieres={matieres}
+                            onViewMtiere={handleViewStudent}
                             onDeleteStudent={handleDeleteConfirmation}
                         />
                     )}
