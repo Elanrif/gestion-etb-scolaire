@@ -7,7 +7,7 @@ import { usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Pencil, PlusIcon, Trash2 } from 'lucide-react';
+import { Pencil, School, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import AddClassDialog from './add-class-dialog';
 import DeleteConfirmDialog from './delete-confirm-dialog';
@@ -25,39 +25,55 @@ interface PageProps {
 
 export default function ClasseList() {
     const { classes, professors } = usePage<PageProps>().props;
-
+    const [searchTerm, setSearchTerm] = useState('');
     // États pour les dialogues
     const [addDialogOpen, setAddDialogOpen] = useState(false);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [selectedClass, setSelectedClass] = useState<Classe | null>(null);
 
+
     return (
-        <div className="container mx-auto py-8">
-            <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-2xl font-bold">Classes du Lycée</h1>
-                <Button onClick={() => setAddDialogOpen(true)}>
-                    <PlusIcon className="mr-2 h-4 w-4" />
+        <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
+            <div className="mb-6 justify-between sm:flex sm:items-center">
+                <h1 className="text-2xl font-bold text-gray-900">Liste des Classes</h1>
+                <Button 
+                    onClick={() => setAddDialogOpen(true)}
+                    className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
+                >
+                    <School className="mr-2 h-5 w-5" />
                     Ajouter une classe
                 </Button>
+            </div>
+            <div className="mb-5 relative w-full rounded-md sm:w-64">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <Search className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                        type="text"
+                        className="block w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 leading-5 placeholder-gray-500 transition duration-150 ease-in-out focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:text-sm"
+                        placeholder="Rechercher..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
             </div>
 
             <Table>
                 <TableCaption>Liste des classes du lycée</TableCaption>
                 <TableHeader>
-                    <TableRow>
-                        <TableHead>Nom de la classe</TableHead>
-                        <TableHead>Nbre de professeur</TableHead>
-                        <TableHead>Date de création</TableHead>
-                        <TableHead>Dernière modification</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
+                    <TableRow className='bg-gray-100 rounded-lg'>
+                        <TableHead className='text-gray-500'>Nom de la classe</TableHead>
+                        <TableHead className='text-gray-500'>Nbre de professeur</TableHead>
+                        <TableHead className='text-gray-500'>Date de création</TableHead>
+                        <TableHead className='text-gray-500'>Dernière modification</TableHead>
+                        <TableHead className="text-gray-500 text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody className='rounded-lg'>
                     {classes.map((classe) => {
                         
                         return (
-                            <TableRow key={classe.id}>
+                            <TableRow key={classe.id} className='bg-white'>
                                 <TableCell className="font-medium">{classe.name}</TableCell>
                                 <TableCell>{classe.professors.length || 'aucun'}</TableCell>
                                 <TableCell>{dayjs(classe.created_at).format('YYYY-MM-DD [à] HH:mm:ss')}</TableCell>
@@ -72,7 +88,7 @@ export default function ClasseList() {
                                                 setEditDialogOpen(true);
                                             }}
                                         >
-                                            <Pencil className="h-4 w-4" />
+                                            <Pencil className="h-2 w-2" />
                                         </Button>
                                         <Button
                                             variant="destructive"
@@ -82,7 +98,7 @@ export default function ClasseList() {
                                                 setDeleteDialogOpen(true);
                                             }}
                                         >
-                                            <Trash2 className="h-4 w-4" />
+                                            <Trash2 className="h-2 w-2" />
                                         </Button>
                                     </div>
                                 </TableCell>
