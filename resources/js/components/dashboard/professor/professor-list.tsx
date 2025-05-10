@@ -54,7 +54,9 @@ const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfes
                     </div>
                     <input
                         type="text"
-                        className="block w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 leading-5 placeholder-gray-500 transition duration-150 ease-in-out focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:text-sm"
+                        className="block w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 
+                        leading-5 placeholder-gray-500 transition duration-150 ease-in-out 
+                        focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:text-sm"
                         placeholder="Rechercher..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
