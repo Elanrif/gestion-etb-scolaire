@@ -1,4 +1,5 @@
-import { Professor } from '@/pages/dashboard/professors/professor-page';
+
+import { Professor } from '@/types/models';
 import { Link } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
 import React, { useState } from 'react';
@@ -22,8 +23,7 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
     const filteredprofessors = professors.filter((professor) => {
         const matchesSearch =
             professor.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            professor.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            professor.professor_id.toLowerCase().includes(searchTerm.toLowerCase());
+            professor.last_name.toLowerCase().includes(searchTerm.toLowerCase())
 
         const matchesClass = selectedClass ? professor.class === selectedClass : true;
 
@@ -63,8 +63,8 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
                     className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:w-auto sm:text-sm"
                 >
                     <option value="">Toutes les classes</option>
-                    {classes.map((className) => (
-                        <option key={className} value={className}>
+                    {classes.map((className,index) => (
+                        <option key={index} value={className}>
                             {className}
                         </option>
                     ))}
@@ -125,14 +125,14 @@ const ProfessorTable: React.FC<ProfessorTableProps> = ({ professors, onViewProfe
                                             </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                                                 <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
-                                                    {professor.class}
+                                                    {professor.classes.length}
                                                 </span>
                                             </td>
                                             <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 md:table-cell">
-                                                {professor.email}
+                                                {professor.user?.email}
                                             </td>
                                             <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell">
-                                                {professor.phone_number}
+                                                {professor.user?.phone_number}
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">
                                                 <div className="flex justify-center space-x-2">
