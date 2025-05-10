@@ -86,7 +86,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student, onBack }) => {
                                     <p className="text-sm font-medium text-gray-500">Classe</p>
                                     <div className="mt-1">
                                         <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-800">
-                                            {student.class}
+                                            {student.classe?.name}
                                         </span>
                                     </div>
                                 </div>

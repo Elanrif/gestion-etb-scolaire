@@ -1,4 +1,5 @@
-import { ArrowLeft, GraduationCap, Mail, Phone, UserCircle, Users } from 'lucide-react';
+import { Professor } from '@/types/models';
+import { ArrowLeft, GraduationCap, Mail, Phone, UserCircle, } from 'lucide-react';
 import React from 'react';
 
 interface professorDetailProps {
@@ -16,7 +17,7 @@ const ProfessorDetail: React.FC<professorDetailProps> = ({ professor, onBack }) 
 
             <div className="overflow-hidden bg-white shadow sm:rounded-lg">
                 <div className="bg-gradient-to-r from-[#1E3A8A] to-[#0D9488] px-4 py-5 sm:px-6">
-                    <h2 className="text-xl font-bold text-white">Profil de l'étudiant</h2>
+                    <h2 className="text-xl font-bold text-white">Profil du professeur</h2>
                     <p className="mt-1 max-w-2xl text-sm text-white/80">Informations personnelles et détails académiques</p>
                 </div>
 
@@ -38,24 +39,19 @@ const ProfessorDetail: React.FC<professorDetailProps> = ({ professor, onBack }) 
 
                                 <div>
                                     <p className="text-sm font-medium text-gray-500">Identifiant</p>
-                                    <p className="text-base text-gray-900">{professor.professor_id}</p>
+                                    <p className="text-base text-gray-900">{professor.id}</p>
                                 </div>
 
                                 <div>
                                     <p className="text-sm font-medium text-gray-500">Date de naissance</p>
-                                    <p className="text-base text-gray-900">{new Date(professor.birthday).toLocaleDateString('fr-FR')}</p>
-                                </div>
-
-                                <div>
-                                    <p className="text-sm font-medium text-gray-500">Genre</p>
-                                    <p className="text-base text-gray-900">{professor.gender}</p>
+                                    <p className="text-base text-gray-900">{new Date(professor.user?.birthday).toLocaleDateString('fr-FR')}</p>
                                 </div>
 
                                 <div className="flex items-start">
                                     <Phone className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
                                     <div>
                                         <p className="text-sm font-medium text-gray-500">Téléphone</p>
-                                        <p className="text-base text-gray-900">{professor.phone_number}</p>
+                                        <p className="text-base text-gray-900">{professor.user?.phone_number}</p>
                                     </div>
                                 </div>
 
@@ -63,7 +59,7 @@ const ProfessorDetail: React.FC<professorDetailProps> = ({ professor, onBack }) 
                                     <Mail className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
                                     <div>
                                         <p className="text-sm font-medium text-gray-500">Email</p>
-                                        <p className="text-base text-gray-900">{professor.email}</p>
+                                        <p className="text-base text-gray-900">{professor.user?.email}</p>
                                     </div>
                                 </div>
                             </div>
@@ -76,48 +72,51 @@ const ProfessorDetail: React.FC<professorDetailProps> = ({ professor, onBack }) 
                             </h3>
 
                             <div className="mb-8 space-y-4">
-                                <div>
-                                    <p className="text-sm font-medium text-gray-500">Niveau</p>
-                                    <p className="text-base text-gray-900">{professor.level}</p>
-                                </div>
-
-                                <div>
-                                    <p className="text-sm font-medium text-gray-500">Classe</p>
+                            <div>
+                                    <p className="text-sm font-medium text-gray-500">Matricule de l'employé</p>
                                     <div className="mt-1">
                                         <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-800">
-                                            {professor.class}
+                                            {professor.employee_number}
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <h3 className="mb-4 flex items-center text-lg font-medium text-gray-900">
-                                <Users className="mr-2 h-5 w-5 text-[#1E3A8A]" />
-                                Informations du tuteur
-                            </h3>
-
-                            <div className="space-y-4">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500">Nom complet</p>
-                                    <p className="text-base text-gray-900">
-                                        {professor.guardian_last_name} {professor.guardian_first_name}
-                                    </p>
-                                </div>
-
-                                <div className="flex items-start">
-                                    <Phone className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
-                                    <div>
-                                        <p className="text-sm font-medium text-gray-500">Téléphone</p>
-                                        <p className="text-base text-gray-900">{professor.guardian_phone}</p>
+                                    <p className="text-sm font-medium text-gray-500">Statut</p>
+                                    <div className="mt-1">
+                                        <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-800">
+                                            {professor.status}
+                                        </span>
                                     </div>
                                 </div>
-
-                                <div className="flex items-start">
-                                    <Mail className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
-                                    <div>
-                                        <p className="text-sm font-medium text-gray-500">Email</p>
-                                        <p className="text-base text-gray-900">{professor.guardian_email}</p>
+                            <div>
+                                    <p className="text-sm font-medium text-gray-500">Discipline</p>
+                                    <div className="mt-1">
+                                        <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-800">
+                                            {professor.discipline}
+                                        </span>
                                     </div>
+                                </div>
+                                <div>
+                                    <p className="text-sm font-medium text-gray-500">Nombre d'année d'expérience</p>
+                                    <div className="mt-1">
+                                        <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-800">
+                                            {professor.experience_years}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p className="text-sm font-medium text-gray-500">Classe</p>
+                                     <div className='flex items-center gap-3'>
+                                     {professor.classes?.map((classe,index) => (
+                                        <div className="mt-1">
+                                            <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-800">
+                                                    <div key={index}>
+                                                    {classe.name}
+                                                    </div>
+                                            </span>
+                                        </div>
+                                    ))}
+                                     </div>
                                 </div>
                             </div>
                         </div>
