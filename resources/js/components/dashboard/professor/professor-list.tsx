@@ -1,28 +1,35 @@
-import { Student } from '@/types/models';
+import { Professor } from '@/types/models';
 import { Link } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
 import React, { useState } from 'react';
 
-interface StudentTableProps {
-    students: Student[];
-    onViewStudent: (student: Student) => void;
-    onDeleteStudent: (studentId: number) => void;
+interface ProfessorTableProps {
+    professors: Professor[];
+    onViewProfessor: (professor: Professor) => void;
+    onDeleteProfessor: (professorId: number) => void;
 }
 
-const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onDeleteStudent }) => {
+const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfessor, onDeleteProfessor }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
     // Get unique classes for filter
-    const classes = (students.map((student) => student.classe?.name));
+    const classes = [
+        ...new Set(
+          professors.flatMap((professor) =>
+            professor.classes?.map((classe) => classe.name) || []
+          )
+        )
+      ];
+      
 
     // Filter students based on search and class filter
-    const filteredStudents = students.filter((student) => {
+    const filteredProfessors = professors.filter((professor) => {
         const matchesSearch =
-            student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            student.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+            professor.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            professor.last_name.toLowerCase().includes(searchTerm.toLowerCase())
 
-        const matchesClass = selectedClass ? student.class === selectedClass : true;
+        const matchesClass = selectedClass ? professor.class === selectedClass : true;
 
         return matchesSearch && matchesClass;
     });
@@ -30,13 +37,13 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
     return (
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Liste des Étudiants</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Liste des Professeurs</h1>
                 <Link
-                    href={route('dashboard.students.create')}
+                    href={route('dashboard.professors.create')}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <UserPlus className="mr-2 h-5 w-5" />
-                    Ajouter un étudiant
+                    Ajouter un professeur
                 </Link>
             </div>
 
@@ -60,8 +67,8 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
                     className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:w-auto sm:text-sm"
                 >
                     <option value="">Toutes les classes</option>
-                    {classes.map((className,index) => (
-                        <option key={index} value={className}>
+                    {classes.map((className) => (
+                        <option key={className} value={className}>
                             {className}
                         </option>
                     ))}
@@ -78,7 +85,7 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
-                                        ID Étudiant
+                                        ID Professeur
                                     </th>
                                     <th
                                         scope="col"
@@ -107,39 +114,39 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
-                                {filteredStudents.length > 0 ? (
-                                    filteredStudents.map((student,index) => (
-                                        <tr key={index} className="transition-colors duration-150 hover:bg-gray-50">
+                                {filteredProfessors.length > 0 ? (
+                                    filteredProfessors.map((professor,index) => (
+                                        <tr key={professor.id} className="transition-colors duration-150 hover:bg-gray-50">
                                             <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{index + 1}</td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
-                                                {student.last_name} {student.first_name}
+                                                {professor.last_name} {professor.first_name}
                                             </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                                                 <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
-                                                    {student.classe?.name}
+                                                    {professor.classes?.length}
                                                 </span>
                                             </td>
                                             <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell">
-                                                {student.user.phone_number}
+                                                {professor.user?.phone_number}
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">
                                                 <div className="flex justify-center space-x-2">
                                                     <button
-                                                        onClick={() => onViewStudent(student)}
+                                                        onClick={() => onViewProfessor(professor)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-[#0D9488]"
                                                         aria-label="Voir détails"
                                                     >
                                                         <Eye className="h-5 w-5" />
                                                     </button>
                                                     <Link
-                                                        href={route('dashboard.students.edit',student.id)}
+                                                        href={route('dashboard.professors.edit',professor.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
                                                         aria-label="Modifier"
                                                     >
                                                         <Edit className="h-5 w-5" />
                                                     </Link>
                                                     <button
-                                                        onClick={() => onDeleteStudent(student.id)}
+                                                        onClick={() => onDeleteProfessor(professor.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-red-600"
                                                         aria-label="Supprimer"
                                                     >
@@ -165,4 +172,4 @@ const StudentList: React.FC<StudentTableProps> = ({ students, onViewStudent, onD
     );
 };
 
-export default StudentList;
+export default ProfessorList;

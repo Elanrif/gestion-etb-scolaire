@@ -8,34 +8,23 @@ import { FormEventHandler } from 'react';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/input-error';
-import { Student } from '@/types/models';
-import { StudentForm } from '@/types/models/forms';
 import { toast } from 'react-toastify';
+import { StudentFormType } from '@/types/models/forms';
+import { Classe } from '@/types/models';
 
 
-const classes = [
-    { id: 'seconde-a', name: 'Seconde A' },
-    { id: 'seconde-b', name: 'Seconde B' },
-    { id: 'premiere-s', name: 'Première S' },
-    { id: 'premiere-es', name: 'Première ES' },
-    { id: 'premiere-l', name: 'Première L' },
-    { id: 'terminale-s', name: 'Terminale S' },
-    { id: 'terminale-es', name: 'Terminale ES' },
-    { id: 'terminale-l', name: 'Terminale L' },
-];
-export function StudentEditForm({student}: {student: Student}) {
-    console.log('student', student.user.birthday)
+export function StudentEditForm({student, classes}: {student: StudentFormType, classes: Classe[]}) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, put, errors, processing, reset } = useForm<Required<StudentForm>>('edit-student',{
+    const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>('edit-student',{
     first_name: student.first_name,
     last_name: student.last_name,
-    email: student.user.email,
-    phone_number: student.user.phone_number,
-    address: student.user.address,
-    birthday: student.user.birthday,
+    email: student.email,
+    phone_number: student.phone_number,
+    address: student.address,
+    birthday: student.birthday,
     gender: student.gender,
     level: student.level,
-    class: student.class,
+    classe_id: student.classe_id,
     relationship: student.relationship,
     guardian_phone_number: student.guardian_phone_number,
     guardian_email: student.guardian_email,
@@ -69,7 +58,7 @@ export function StudentEditForm({student}: {student: Student}) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-sm">
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -203,16 +192,16 @@ export function StudentEditForm({student}: {student: Student}) {
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="class" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="classe_id" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Classe
                         </Label>
-                        <Select value={data.class} onValueChange={(value) => handleSelectChange('class', value)}>
-                            <SelectTrigger id="class">
+                        <Select value={data.classe_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
+                            <SelectTrigger id="classe_id">
                                 <SelectValue placeholder="Sélectionnez votre classe" />
                             </SelectTrigger>
                             <SelectContent>
-                                {classes.map((cls) => (
-                                    <SelectItem key={cls.id} value={cls.id}>
+                                {classes.map((cls,index) => (
+                                    <SelectItem key={index} value={cls.id?.toString()}>
                                         {cls.name}
                                     </SelectItem>
                                 ))}

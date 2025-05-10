@@ -21,7 +21,6 @@ export default function StudentIndexPage() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [studentToDelete, setStudentToDelete] = useState<number | null>(null);
     const { flash } = usePage<SharedData>().props;
-    
     useEffect(() => {
         
         if (flash.success) {
@@ -53,7 +52,7 @@ export default function StudentIndexPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen bg-gray-100">
-                <HeaderDashboard title='Gestion des Étudiants'/>
+                <HeaderDashboard title='Gestion des étudiants'/>
 
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
                     {selectedStudent ? (

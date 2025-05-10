@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('gender');
             $table->string('matricule')->unique();
-            $table->string('class');
             $table->string('level');
             $table->string('relationship');
             $table->integer('number_of_absences')->default('0');
