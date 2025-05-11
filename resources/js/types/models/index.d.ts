@@ -44,6 +44,7 @@ interface Classe {
     name: string;
     professorId: string;
     professors: Professor[];
+    matieres: Matiere[];
     created_at?: string;
     updated_at?: string;
     [key: string]: string | Professor[];
@@ -67,7 +68,8 @@ export interface Secretary {
 export interface Matiere {
     id: number;
     name: string;
-    professors: Professor[];
+    professor: Professor;
+    classe: Classe;
     created_at?: string;
     updated_at?: string;
     [key: string]: string | Professor[];

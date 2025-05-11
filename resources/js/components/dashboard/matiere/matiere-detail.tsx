@@ -49,36 +49,31 @@ const MatiereDetail: React.FC< MatiereDetailProps> = ({ matiere, onBack }) => {
                                 Informations du tuteur
                             </h3>
 
-                            { matiere.professors?.map((professor, index) => (
-                                <div key= {index} className="space-y-4">
+                            <div className="space-y-4">
 
+                                <div>
+                                    <p className="text-sm font-medium text-gray-500">Nom complet</p>
+                                    <p className="text-base text-gray-900">
+                                    { matiere.professor?.first_name} { matiere.professor?.last_name} 
+                                    </p>
+                                </div>
+
+                                <div className="flex items-start">
+                                    <Phone className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
                                     <div>
-                                        <p className="text-sm font-medium text-gray-500">Nom complet</p>
-                                        <p className="text-base text-gray-900">
-                                        {professor.first_name} {professor.last_name} 
-                                        </p>
+                                        <p className="text-sm font-medium text-gray-500">Téléphone</p>
+                                        <p className="text-base text-gray-900">{ matiere.professor?.user?.phone_number}</p>
                                     </div>
-    
-                                    <div className="flex items-start">
-                                        <Phone className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-500">Téléphone</p>
-                                            <p className="text-base text-gray-900">{professor.user?.phone_number}</p>
-                                        </div>
-                                    </div>
-    
-                                    <div className="flex items-start">
-                                        <Mail className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-500">Email</p>
-                                            <p className="text-base text-gray-900">{professor.user?.email}</p>
-                                        </div>
-                                    </div>
-                             </div>
-                            ))
+                                </div>
 
-                            }
-                           
+                                <div className="flex items-start">
+                                    <Mail className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
+                                    <div>
+                                        <p className="text-sm font-medium text-gray-500">Email</p>
+                                        <p className="text-base text-gray-900">{ matiere.professor?.user?.email}</p>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>

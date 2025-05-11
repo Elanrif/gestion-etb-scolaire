@@ -21,7 +21,7 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
         const matchesSearch =
             matiere.name.toLowerCase().includes(searchTerm.toLowerCase()) ;
 
-        const matchesClass = selectedClass ? matiere.classe === selectedClass : true;
+        const matchesClass = selectedClass ? matiere.classe?.name === selectedClass : true;
 
         return matchesSearch && matchesClass;
     });
@@ -93,6 +93,12 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
                                     </th>
                                     <th
                                         scope="col"
+                                        className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
+                                    >
+                                        porofessor
+                                    </th>
+                                    <th
+                                        scope="col"
                                         className="px-6 py-3 text-center text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
                                         Actions
@@ -107,9 +113,12 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                                                 {matiere.name}
                                             </td>
+                                            <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
+                                                {matiere.classe?.name}
+                                            </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                                                 <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
-                                                    {matiere.name}
+                                                    {matiere.professor?.first_name}  {matiere.professor?.last_name}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">

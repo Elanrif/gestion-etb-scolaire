@@ -15,8 +15,20 @@ class Matiere extends Model
     protected $fillable = [
         'name',
     ];
-    public function professors(): BelongsTo
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function professor(): BelongsTo
     {
         return $this->belongsTo(Professor::class);
+    }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function classe(): BelongsTo
+    {
+        return $this->belongsTo(Classe::class);
     }
 }

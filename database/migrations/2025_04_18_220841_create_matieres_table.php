@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Classe;
 use App\Models\Professor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,6 +16,7 @@ return new class extends Migration
         Schema::create('matieres', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Professor::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Classe::class)->constrained()->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
         });

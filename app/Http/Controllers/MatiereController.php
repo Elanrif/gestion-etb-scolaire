@@ -14,7 +14,7 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        $matieres = Matiere::with('professors')->orderBy('id', 'DESC')->get();
+        $matieres = Matiere::with('professor','classe')->orderBy('id', 'DESC')->get();
         return Inertia::render('dashboard/matieres/matiere-index-page',['matieres'=> $matieres]);
 
     }
