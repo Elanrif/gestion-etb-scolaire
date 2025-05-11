@@ -1,4 +1,4 @@
-import Formations from '@/components/formation'
+import Formations from '@/components/shared/formation'
 import React from 'react'
 
 export default function FormationPage() {

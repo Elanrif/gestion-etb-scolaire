@@ -1,10 +1,10 @@
 import AppHomeLayout from '@/layouts/app/app-home-layout';
-import HomeApp from '@/components/home-app';
+import AppHome from '@/components/app-home';
 
 export default function HomePage() {
     return (
         <AppHomeLayout>
-          <HomeApp/>
+          <AppHome/>
         </AppHomeLayout>
     );
 }

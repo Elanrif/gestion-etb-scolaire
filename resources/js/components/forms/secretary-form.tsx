@@ -7,7 +7,7 @@ import { FormEventHandler, useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { toast } from 'react-toastify';
-import InputError from '../input-error';
+import InputError from '../shared/input-error';
 
 enum StagiaireStatus {
     TITULAIRE = 'Titulaire',

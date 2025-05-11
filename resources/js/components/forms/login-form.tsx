@@ -7,9 +7,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, BookOpen, ClipboardList, GraduationCap, LoaderCircle } from 'lucide-react';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import InputError from '../input-error';
+import InputError from '../shared/input-error';
 import { Checkbox } from '../ui/checkbox';
-import TextLink from '../text-link';
+import TextLink from '../shared/text-link';
 import { toast } from 'react-toastify';
 
 type LoginForm = {

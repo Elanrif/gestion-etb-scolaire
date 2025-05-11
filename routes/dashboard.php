@@ -14,9 +14,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return Inertia::render('dashboard/home-page');
         })->name('home');
     
-        Route::get('/teachers', function () {
+       /*  Route::get('/teachers', function () {
             return Inertia::render('dashboard/teacher-page');
-        })->name('teachers');
+        })->name('teachers'); */
     
     
         /* CLASS */

@@ -1,6 +1,6 @@
 'use client';
 
-import MultiSelectDropdown, { Option } from '@/components/multi-select';
+import MultiSelectDropdown, { Option } from '@/components/shared/multi-select';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
