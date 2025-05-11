@@ -30,13 +30,13 @@ const StudentList: React.FC< MatiereTableProps > = ({ students, onViewStudent, o
     return (
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Liste des Matieres</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Liste des Étudiant</h1>
                 <Link
                     href={route('dashboard.students.create')}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <UserPlus className="mr-2 h-5 w-5" />
-                    Ajouter une matiere
+                    Ajouter un Étudiant
                 </Link>
             </div>
 
@@ -59,7 +59,7 @@ const StudentList: React.FC< MatiereTableProps > = ({ students, onViewStudent, o
                     onChange={(e) => setSelectedClass(e.target.value)}
                     className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:w-auto sm:text-sm"
                 >
-                    <option value="">Toutes les clas</option>
+                    <option value="">Toutes les classes</option>
                     {classes.map((className,index) => (
                         <option key={index} value={className}>
                             {className}

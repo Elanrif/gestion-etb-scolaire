@@ -1,28 +1,27 @@
-import { Student } from '@/types/models';
+import { Matiere } from '@/types/models';
 import { Link } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface MatiereTableProps {
-    students: Student[];
-    onViewStudent: (student: Student) => void;
-    onDeleteStudent: (studentId: number) => void;
+    matieres: Matiere[];
+    onViewMatiere: (matiere: Matiere) => void;
+    onDeleteMatiere: (matieretId: number) => void;
 }
 
-const MatieretList: React.FC<MatiereTableProps > = ({ students, onViewStudent, onDeleteStudent }) => {
+const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, onDeleteMatiere }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
     // Get unique classes for filter
-    const classes = (students.map((student) => student.classe?.name));
+    const classes = (matieres.map((matiere) => matiere.name));
 
     // Filter students based on search and class filter
-    const filteredStudents = students.filter((student) => {
+    const filteredMatieres = matieres.filter((matiere) => {
         const matchesSearch =
-            student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            student.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+            matiere.name.toLowerCase().includes(searchTerm.toLowerCase()) ;
 
-        const matchesClass = selectedClass ? student.class === selectedClass : true;
+        const matchesClass = selectedClass ? matiere.classe === selectedClass : true;
 
         return matchesSearch && matchesClass;
     });
@@ -30,13 +29,13 @@ const MatieretList: React.FC<MatiereTableProps > = ({ students, onViewStudent, o
     return (
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Liste des Étudiants</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Liste des Matières</h1>
                 <Link
                     href={route('dashboard.students.create')}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <UserPlus className="mr-2 h-5 w-5" />
-                    Ajouter un étudiant
+                    Ajouter une matière
                 </Link>
             </div>
 
@@ -59,7 +58,7 @@ const MatieretList: React.FC<MatiereTableProps > = ({ students, onViewStudent, o
                     onChange={(e) => setSelectedClass(e.target.value)}
                     className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-[#1E3A8A] focus:ring-[#1E3A8A] focus:outline-none sm:w-auto sm:text-sm"
                 >
-                    <option value="">Toutes les classes</option>
+                    <option value="">Toutes les matières</option>
                     {classes.map((className,index) => (
                         <option key={index} value={className}>
                             {className}
@@ -78,25 +77,19 @@ const MatieretList: React.FC<MatiereTableProps > = ({ students, onViewStudent, o
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
-                                        ID Étudiant
+                                        ID Matière
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
-                                        Nom & Prénom
+                                        Nom de la matiére
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
                                         Classe
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="hidden px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase lg:table-cell"
-                                    >
-                                        Téléphone
                                     </th>
                                     <th
                                         scope="col"
@@ -107,39 +100,35 @@ const MatieretList: React.FC<MatiereTableProps > = ({ students, onViewStudent, o
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
-                                {filteredStudents.length > 0 ? (
-                                    filteredStudents.map((student,index) => (
+                                {filteredMatieres.length > 0 ? (
+                                    filteredMatieres.map((matiere,index) => (
                                         <tr key={index} className="transition-colors duration-150 hover:bg-gray-50">
                                             <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{index + 1}</td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
-                                                {student.last_name} {student.first_name}
+                                                {matiere.name}
                                             </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                                                 <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
-                                                    {student.classe?.name}
+                                                    {matiere.name}
                                                 </span>
-                                            </td>
-                                            <td className="hidden px-6 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell">
-                                                {student.user.phone_number}
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">
                                                 <div className="flex justify-center space-x-2">
                                                     <button
-                                                        onClick={() => onViewStudent(student)}
+                                                        onClick={() => onViewMatiere(matiere)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-[#0D9488]"
-                                                        aria-label="Voir détails"
-                                                    >
+                                                        aria-label="Voir détails">
                                                         <Eye className="h-5 w-5" />
                                                     </button>
                                                     <Link
-                                                        href={route('dashboard.students.edit',student.id)}
+                                                        href={route('dashboard.students.edit',matiere.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
                                                         aria-label="Modifier"
                                                     >
                                                         <Edit className="h-5 w-5" />
                                                     </Link>
                                                     <button
-                                                        onClick={() => onDeleteStudent(student.id)}
+                                                        onClick={() => onDeleteMatiere(matiere.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-red-600"
                                                         aria-label="Supprimer"
                                                     >
@@ -151,9 +140,9 @@ const MatieretList: React.FC<MatiereTableProps > = ({ students, onViewStudent, o
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={7} className="px-6 py-4 text-center text-sm text-gray-500">
-                                            Aucun étudiant trouvé
-                                        </td>
+                                     <td colSpan={7} className="px-6 py-4 text-center text-sm text-gray-500">
+                                        Aucune matière trouvé
+                                     </td>
                                     </tr>
                                 )}
                             </tbody>

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import StudentDetail from '@/components/dashboard/student/student-detail';
 import ConfirmationModal from '@/components/dashboard/confirmation-modal';
 import AdminLayout from '@/layouts/admin-layout';
-import StudentList from '@/components/dashboard/student/student-list';
 import HeaderDashboard from '@/components/dashboard/header-dashboard';
 import { router, usePage } from '@inertiajs/react';
 import { Matiere} from '@/types/models';
 import { toast } from 'react-toastify';
 import { SharedData } from '@/types';
+import MatiereDetail from '@/components/dashboard/matiere/matiere-detail';
+import MatieretList from '@/components/dashboard/matiere/matiere-list';
 
 
 interface PageProps {
@@ -17,9 +17,9 @@ interface PageProps {
 
 export default function MatiereIndexPage() {
     const { matieres} = usePage<PageProps>().props;
-    const [selectedStudent, setSelectedStudent] = useState<Matiere | null>(null);
+    const [selectedMatiere, setSelectedMatiere] = useState<Matiere | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [studentToDelete, setStudentToDelete] = useState<number | null>(null);
+    const [matiereToDelete, setMatiereToDelete] = useState<number | null>(null);
     const { flash } = usePage<SharedData>().props;
     useEffect(() => {
         
@@ -28,25 +28,25 @@ export default function MatiereIndexPage() {
         }
     }, [flash.success]);
         
-    const handleViewStudent = (matiere: Matiere) => {
-        setSelectedStudent(matiere);
+    const handleViewMatiere = (matiere: Matiere) => {
+        setSelectedMatiere(matiere);
     };
 
-    const handleDeleteConfirmation = (studentId: number) => {
-        setStudentToDelete(studentId);
+    const handleDeleteConfirmation = (matiereId: number) => {
+        setMatiereToDelete (matiereId);
         setShowDeleteModal(true);
     };
 
-    const handleDeleteStudent = () => {
-        if (studentToDelete) {
-            router.delete(route('dashboard.students.destory',studentToDelete))
+    const handleDeleteMatiere = () => {
+        if (matiereToDelete) {
+            router.delete(route('dashboard.matieres.destory',matiereToDelete))
             setShowDeleteModal(false);
-            setStudentToDelete(null);
+            setMatiereToDelete(null);
         }
     };
 
     const handleBackToList = () => {
-        setSelectedStudent(null);
+        setSelectedMatiere(null);
     };
 
     return (
@@ -55,13 +55,13 @@ export default function MatiereIndexPage() {
                 <HeaderDashboard title='Gestion des étudiants'/>
 
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
-                    {selectedStudent ? (
-                        <StudentDetail matiere={selectedStudent} onBack={handleBackToList} />
+                    {selectedMatiere ? (
+                        <MatiereDetail matiere={selectedMatiere} onBack={handleBackToList} />
                     ) : (
-                        <StudentList
+                        <MatieretList
                         matieres={matieres}
-                            onViewMtiere={handleViewStudent}
-                            onDeleteStudent={handleDeleteConfirmation}
+                            onViewMatiere={handleViewMatiere}
+                            onDeleteMatiere={handleDeleteConfirmation}
                         />
                     )}
                 </main>
@@ -69,9 +69,9 @@ export default function MatiereIndexPage() {
                 <ConfirmationModal
                     isOpen={showDeleteModal}
                     onClose={() => setShowDeleteModal(false)}
-                    onConfirm={handleDeleteStudent}
+                    onConfirm={handleDeleteMatiere}
                     title="Confirmation de suppression"
-                    message="Êtes-vous sûr de vouloir supprimer cet étudiant ? Cette action est irréversible."
+                    message="Êtes-vous sûr de vouloir supprimer cette matière ? Cette action est irréversible."
                     confirmLabel="Supprimer"
                     cancelLabel="Annuler"
                     isDestructive={true}

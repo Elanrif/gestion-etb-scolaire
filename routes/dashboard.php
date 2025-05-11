@@ -45,6 +45,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         /* MATIERE */
         Route::get('/matieres', [MatiereController::class, 'index'])->name('matieres.index');
+        Route::get('/matieres/create', [MatiereController::class, 'create'])->name('matieres.create');
+        Route::post('/matieres', [MatiereController::class, 'store'])->name('matieres.store');
+        Route::get('/matieres/{matiere}/edit', [MatiereController::class, 'edit'])->name('matieres.edit');
+        Route::put('/matieres/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
+        Route::delete('/matieres/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destory');
     });
     
 

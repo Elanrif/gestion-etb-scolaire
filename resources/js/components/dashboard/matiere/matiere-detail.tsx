@@ -18,7 +18,7 @@ const MatiereDetail: React.FC< MatiereDetailProps> = ({ matiere, onBack }) => {
             <div className="overflow-hidden bg-white shadow sm:rounded-lg">
                 <div className="bg-gradient-to-r from-[#1E3A8A] to-[#0D9488] px-4 py-5 sm:px-6">
                     <h2 className="text-xl font-bold text-white">Matiere</h2>
-                    <p className="mt-1 max-w-2xl text-sm text-white/80">Détails ,qtiere</p>
+                    <p className="mt-1 max-w-2xl text-sm text-white/80">Détails matiere</p>
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
