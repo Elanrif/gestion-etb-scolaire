@@ -8,7 +8,7 @@ import { useForm } from '@inertiajs/react';
 import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'react-toastify';
-import InputError from '../input-error';
+import InputError from '../shared/input-error';
 
 type User = {
     email: string;
