@@ -52,7 +52,7 @@ export default function MatiereIndexPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen bg-gray-100">
-                <HeaderDashboard title='Gestion des étudiants'/>
+                <HeaderDashboard title='Gestion des matières'/>
 
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
                     {selectedMatiere ? (

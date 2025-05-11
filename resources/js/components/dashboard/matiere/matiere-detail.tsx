@@ -31,7 +31,7 @@ const MatiereDetail: React.FC< MatiereDetailProps> = ({ matiere, onBack }) => {
                                     <p className="text-base text-gray-900">{matiere.id}</p>
                                     </div>
                                     <div>
-                                        <p className="text-sm font-medium text-gray-500">Nom</p>
+                                        <p className="text-sm font-medium text-gray-500">Nom de la matière</p>
                                         <p className="text-base text-gray-900">
                                             {matiere.name}
                                         </p>
@@ -46,7 +46,7 @@ const MatiereDetail: React.FC< MatiereDetailProps> = ({ matiere, onBack }) => {
                         <div>
                             <h3 className="mb-4 flex items-center text-lg font-medium text-gray-900">
                                 <Users className="mr-2 h-5 w-5 text-[#1E3A8A]" />
-                                Informations du tuteur
+                                Informations du professeur
                             </h3>
 
                             <div className="space-y-4">
