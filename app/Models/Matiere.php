@@ -12,9 +12,7 @@ class Matiere extends Model
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-    ];
+    protected $guarded = [];
 
     /**
      * The roles that belong to the user.

@@ -65,7 +65,7 @@ class UpdateStudentRequest extends FormRequest
                 'address' => 'addresse',
                 'gender' => "le genre de l'etudiant",
                 'level' => 'le niveau de l\'etudiant',
-                'class_id' => 'classe de l\'etudiant',
+                'classe_id' => 'classe de l\'etudiant',
                 'relationship' => 'lieu de parenté de l\'etudiant',
                 'guardian_phone_number' => 'le telephone du responsable l\'etudiant',
                 'guardian_email' => 'l\'Email du responsable de l\'etudiant',
@@ -89,7 +89,7 @@ class UpdateStudentRequest extends FormRequest
                  'address.required' => 'L\'adresse est obligatoire.',
                  'gender.required' => 'Le genre est obligatoire.',
                  'level.required' => 'Le niveau est obligatoire.',
-                 'class_id.required' => 'La classe est obligatoire.',
+                 'classe_id.required' => 'La classe est obligatoire.',
                  'relationship.required' => 'Le lien de parenté est obligatoire.',
                  'guardian_phone_number.required' => 'Le 
                  numéro du responsable obligatoire.',

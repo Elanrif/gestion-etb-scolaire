@@ -22,7 +22,6 @@ interface PageProps {
     [key: string]: Professor[] | Classe[]; // Signature d'index requise
 }
 
-
 export default function ClasseList() {
     const { classes, professors } = usePage<PageProps>().props;
     const [searchTerm, setSearchTerm] = useState('');

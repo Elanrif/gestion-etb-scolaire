@@ -1,5 +1,6 @@
+import { SharedData } from '@/types';
 import { Matiere } from '@/types/models';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -9,6 +10,11 @@ interface MatiereTableProps {
     onDeleteMatiere: (matieretId: number) => void;
 }
 
+interface PageProps {
+    professors: Professor[];
+    [key: string]: Professor[] ; // Signature d'index requise
+}
+
 const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, onDeleteMatiere }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
@@ -16,6 +22,15 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
     // Get unique classes for filter
     const classes = (matieres.map((matiere) => matiere.name));
 
+    const { flash } = usePage<SharedData>().props;
+    
+          useEffect(() => {
+                
+                if (flash.success) {
+                    toast.success(flash.success);
+                }
+            }, [flash.success]);
+            
     // Filter students based on search and class filter
     const filteredMatieres = matieres.filter((matiere) => {
         const matchesSearch =
@@ -31,7 +46,7 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
             <div className="mb-6 justify-between sm:flex sm:items-center">
                 <h1 className="text-2xl font-bold text-gray-900">Liste des Matières</h1>
                 <Link
-                    href={route('dashboard.students.create')}
+                    href={route('dashboard.matieres.create')}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <UserPlus className="mr-2 h-5 w-5" />

@@ -95,6 +95,12 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
             active: pathname.startsWith(route('dashboard.classes.index')),
         },
         {
+            name: 'Matières',
+            href: 'dashboard.matieres.index',
+            icon: School,
+            active: pathname.startsWith(route('dashboard.matieres.index')),
+        },
+        {
             name: 'Cours',
             href: 'dashboard.home',
             icon: BookOpen,

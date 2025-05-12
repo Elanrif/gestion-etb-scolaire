@@ -21,6 +21,7 @@ export default function MatiereIndexPage() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [matiereToDelete, setMatiereToDelete] = useState<number | null>(null);
     const { flash } = usePage<SharedData>().props;
+    
     useEffect(() => {
         
         if (flash.success) {

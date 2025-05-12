@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Matiere;
 use App\Http\Requests\StoreMatiereRequest;
 use App\Http\Requests\UpdateMatiereRequest;
+use App\Models\Classe;
+use App\Models\Professor;
 use Inertia\Inertia;
 
 class MatiereController extends Controller
@@ -24,7 +26,9 @@ class MatiereController extends Controller
      */
     public function create()
     {
-        //
+        $classes = Classe::orderBy('id', 'DESC')->get();
+        $professors = Professor::orderBy('id', 'DESC')->get();
+        return Inertia::render('dashboard/matieres/matiere-create-form-page',['classes'=> $classes,'professors'=> $professors]);
     }
 
     /**
@@ -32,7 +36,25 @@ class MatiereController extends Controller
      */
     public function store(StoreMatiereRequest $request)
     {
-        //
+         /* Get validated data */
+         $validated_data = $request->validated();
+
+         $classe = Classe::findOrFail($validated_data['classe_id']);
+         $professor = Professor::findOrFail($validated_data['professor_id']);
+
+         /* Create the ,qtiere account */
+         $matiere = Matiere::create([
+             'name' => $validated_data['name']
+            ]);
+
+         // Association
+         $matiere->classe()->associate($classe);
+         $matiere->professor()->associate($professor);
+         $matiere->save();
+
+         $request->session()->flash('success', 'Succès!');
+         return to_route('dashboard.matieres.index');
+
     }
 
     /**
