@@ -42,5 +42,4 @@ export type MatiereFormType = {
     name: string;
     classe_id: number;
     professor_id: number;
-
 }

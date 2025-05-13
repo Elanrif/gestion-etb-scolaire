@@ -1,4 +1,4 @@
-import HeaderDashboard from "@/components/dashboard/professor/header-dashboard";
+import HeaderDashboard from '@/components/dashboard/header-dashboard';
 import { ProfessorEditForm } from '@/components/dashboard/professor/forms/professor-edit-form';
 import AdminLayout from "@/layouts/admin-layout";
 import { Professor } from "@/types/models";

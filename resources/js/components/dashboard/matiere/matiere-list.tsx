@@ -2,7 +2,8 @@ import { SharedData } from '@/types';
 import { Matiere } from '@/types/models';
 import { Link, usePage } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 interface MatiereTableProps {
     matieres: Matiere[];
@@ -10,12 +11,7 @@ interface MatiereTableProps {
     onDeleteMatiere: (matieretId: number) => void;
 }
 
-interface PageProps {
-    professors: Professor[];
-    [key: string]: Professor[] ; // Signature d'index requise
-}
-
-const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, onDeleteMatiere }) => {
+const MatiereList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, onDeleteMatiere }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
@@ -24,12 +20,12 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
 
     const { flash } = usePage<SharedData>().props;
     
-          useEffect(() => {
-                
-                if (flash.success) {
-                    toast.success(flash.success);
-                }
-            }, [flash.success]);
+        useEffect(() => {
+            
+            if (flash.success) {
+                toast.success(flash.success);
+            }
+        }, [flash.success]);
             
     // Filter students based on search and class filter
     const filteredMatieres = matieres.filter((matiere) => {
@@ -145,7 +141,7 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
                                                         <Eye className="h-5 w-5" />
                                                     </button>
                                                     <Link
-                                                        href={route('dashboard.students.edit',matiere.id)}
+                                                        href={route('dashboard.matieres.edit',matiere.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
                                                         aria-label="Modifier"
                                                     >
@@ -178,4 +174,4 @@ const MatieretList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, 
     );
 };
 
-export default MatieretList;
+export default MatiereList;

@@ -16,7 +16,7 @@ interface PageProps {
     [key: string]: Professor[] | Classe[]; // Signature d'index requise
 }
 
-export function MatiereCreateForm() {
+export function MatiereForm() {
     const { classes, professors } = usePage<PageProps>().props;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -40,7 +40,7 @@ export function MatiereCreateForm() {
 
         post(route('dashboard.matieres.store'), {
             onSuccess: () => {
-                console.log("Compte créé avec succès !")
+                toast.success('Compte créé avec succès');
             },
             onError: (e) => {
                 console.log('handleSubmit error : ', e);

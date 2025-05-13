@@ -60,7 +60,7 @@ export default function MatiereIndexPage() {
                         <MatiereDetail matiere={selectedMatiere} onBack={handleBackToList} />
                     ) : (
                         <MatieretList
-                        matieres={matieres}
+                            matieres={matieres}
                             onViewMatiere={handleViewMatiere}
                             onDeleteMatiere={handleDeleteConfirmation}
                         />

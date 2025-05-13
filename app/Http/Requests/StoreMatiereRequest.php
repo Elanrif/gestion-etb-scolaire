@@ -44,5 +44,5 @@ class StoreMatiereRequest extends FormRequest
              'classe_id.required' => 'La classe est obligatoire.',
              'professor_id.required' => 'Le professeur est obligatoire.',
          ];
-        }
+     }
 }

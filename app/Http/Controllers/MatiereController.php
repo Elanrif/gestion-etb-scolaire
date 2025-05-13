@@ -7,6 +7,7 @@ use App\Http\Requests\StoreMatiereRequest;
 use App\Http\Requests\UpdateMatiereRequest;
 use App\Models\Classe;
 use App\Models\Professor;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class MatiereController extends Controller
@@ -42,7 +43,7 @@ class MatiereController extends Controller
          $classe = Classe::findOrFail($validated_data['classe_id']);
          $professor = Professor::findOrFail($validated_data['professor_id']);
 
-         /* Create the ,qtiere account */
+         /* Create the matiere account */
          $matiere = Matiere::create([
              'name' => $validated_data['name']
             ]);
@@ -70,7 +71,11 @@ class MatiereController extends Controller
      */
     public function edit(Matiere $matiere)
     {
-        //
+        $professors = Professor::all();
+        $classes = Classe::all();
+        $matiere_ = Matiere::with(['classe','professor'])->find($matiere->id);
+        return Inertia::render('dashboard/matieres/matiere-edit-form-page',
+        ['matiere'=> $matiere_, 'professors' => $professors ,'classes' => $classes]);
     }
 
     /**
@@ -78,14 +83,34 @@ class MatiereController extends Controller
      */
     public function update(UpdateMatiereRequest $request, Matiere $matiere)
     {
-        //
+          /* Get validated data */
+          $validated_data = $request->validated();
+
+          $classe = Classe::findOrFail($validated_data['classe_id']);
+          $professor = Professor::findOrFail($validated_data['professor_id']);
+ 
+          /* Update the matiere account */
+          $matiere->update([
+              'name' => $validated_data['name']
+             ]);
+ 
+          // Association
+          $matiere->classe()->associate($classe);
+          $matiere->professor()->associate($professor);
+          $matiere->save();
+ 
+          $request->session()->flash('success', 'Succès!');
+          return to_route('dashboard.matieres.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Matiere $matiere)
+    public function destroy(Request $request, Matiere $matiere)
     {
-        //
+        $matiere->delete();
+        $request->session()->flash('success', 'Succès!');
+        return to_route('dashboard.matieres.index');
     }
 }
