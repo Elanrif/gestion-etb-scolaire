@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import StudentDetail from '@/components/dashboard/student/student-detail';
-import ConfirmationModal from '@/components/dashboard/student/confirmation-modal';
+import ConfirmationModal from '@/components/dashboard/confirmation-modal';
 import AdminLayout from '@/layouts/admin-layout';
 import StudentList from '@/components/dashboard/student/student-list';
 import HeaderDashboard from '@/components/dashboard/header-dashboard';

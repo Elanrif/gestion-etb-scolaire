@@ -1,5 +1,5 @@
 import { Professor } from '@/types/models';
-import { ArrowLeft, GraduationCap, Mail, Phone, UserCircle, } from 'lucide-react';
+import { ArrowLeft, GraduationCap, Mail, MapPinHouse, Phone, UserCircle, } from 'lucide-react';
 import React from 'react';
 
 interface professorDetailProps {
@@ -52,6 +52,13 @@ const ProfessorDetail: React.FC<professorDetailProps> = ({ professor, onBack }) 
                                     <div>
                                         <p className="text-sm font-medium text-gray-500">Téléphone</p>
                                         <p className="text-base text-gray-900">{professor.user?.phone_number}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <MapPinHouse className="mt-0.5 mr-2 h-5 w-5 text-gray-400" />
+                                    <div>
+                                        <p className="text-sm font-medium text-gray-500">Adresse</p>
+                                        <p className="text-base text-gray-900">{professor.user?.address}</p>
                                     </div>
                                 </div>
 

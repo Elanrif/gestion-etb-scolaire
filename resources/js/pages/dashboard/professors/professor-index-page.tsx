@@ -1,5 +1,3 @@
-import ConfirmationModal from '@/components/dashboard/professor/confirmation-modal';
-import HeaderDashboard from '@/components/dashboard/professor/header-dashboard';
 import ProfessorDetail from '@/components/dashboard/professor/professor-detail';
 import AdminLayout from '@/layouts/admin-layout';
 import { router, usePage } from '@inertiajs/react';
@@ -8,11 +6,12 @@ import ProfessorList from '@/components/dashboard/professor/professor-list';
 import { SharedData } from '@/types';
 import { toast } from 'react-toastify';
 import { Professor } from '@/types/models';
+import HeaderDashboard from '@/components/dashboard/header-dashboard';
+import ConfirmationModal from '@/components/dashboard/confirmation-modal';
 interface PageProps {
     professors: Professor[];
     [key: string]: Professor[] ; // Signature d'index requise
 }
-
 
 export default function ProfessorIndexPage() {
     const { professors } = usePage<PageProps>().props;

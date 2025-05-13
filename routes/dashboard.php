@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
         Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
         Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destory');
+
+        /* MATIERE */
+        Route::get('/matieres', [MatiereController::class, 'index'])->name('matieres.index');
+        Route::get('/matieres/create', [MatiereController::class, 'create'])->name('matieres.create');
+        Route::post('/matieres', [MatiereController::class, 'store'])->name('matieres.store');
+        Route::get('/matieres/{matiere}/edit', [MatiereController::class, 'edit'])->name('matieres.edit');
+        Route::put('/matieres/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
+        Route::delete('/matieres/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destory');
     });
     
+
 });
