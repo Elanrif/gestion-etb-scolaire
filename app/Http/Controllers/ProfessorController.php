@@ -53,17 +53,15 @@ class ProfessorController extends Controller
         $user->professor()->create([
             'first_name' => $validated_data['first_name'],
             'last_name' => $validated_data['last_name'],
-            'gender' => $validated_data['gender'],
             'employee_number' => $validated_data['employee_number'],
-            'statut' => $validated_data['statut'],
+            'status' => $validated_data['status'],
             'discipline' => $validated_data['discipline'],
             'experience_years' => $validated_data['experience_years'],
             'level_taught' => $validated_data['level_taught'],
-            'additionnal_info' => $validated_data['additionnal_info'],
-            
-           
+            'additional_info' => $validated_data['additional_info'],
         ]);
 
+        $request->session()->flash('success', 'Succès!');
         return to_route('dashboard.professors.index');
     }
 

@@ -1,4 +1,3 @@
-import InputError from '@/components/input-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -9,6 +8,7 @@ import { useForm, usePage } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
+import InputError from '@/components/shared/input-error';
 
 interface PageProps {
     professors: Professor[];

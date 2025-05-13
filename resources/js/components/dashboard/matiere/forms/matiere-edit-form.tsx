@@ -1,4 +1,4 @@
-import InputError from '@/components/input-error';
+import InputError from '@/components/shared/input-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';

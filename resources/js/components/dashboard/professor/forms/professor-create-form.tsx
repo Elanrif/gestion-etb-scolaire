@@ -63,7 +63,7 @@ export function ProfessorCreateForm() {
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
-        post(route('credentials.professor'), {
+        post(route('dashboard.professors.store'), {
             onSuccess: () => {
                 toast.success('Compte créé avec succès');
             },
