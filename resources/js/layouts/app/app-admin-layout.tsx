@@ -15,7 +15,6 @@ import {
     GraduationCap,
     Home,
     LayoutDashboard,
-    LogOut,
     Menu,
     PanelLeft,
     School,
@@ -25,22 +24,21 @@ import {
     X,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { SharedData } from '@/types';
+import { UserInfo } from '@/components/shared/user-info';
+import { UserMenuContent } from '@/components/shared/user-menu-content';
 
 export default function AppAdminLayout({ children }: { children: React.ReactNode }) {
+    const { auth } = usePage<SharedData>().props;
     const { url: pathname } = usePage();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
@@ -74,31 +72,31 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
             name: 'Tableau de bord',
             href: 'dashboard.home',
             icon: LayoutDashboard,
-            active: pathname === '/admin/dashboard',
+            active: pathname === '/dashboard/home',
         },
         {
             name: 'Élèves',
             href: 'dashboard.students.index',
             icon: Users,
-            active: pathname.startsWith(route('dashboard.students.index')),
+            active: pathname.startsWith(`/dashboard/students`),
         },
         {
-            name: 'Professeurs',   
+            name: 'Professeurs',
             href: 'dashboard.professors.index',
             icon: BookUser,
-            active: pathname.startsWith(route('dashboard.professors.index')),
+            active: pathname.startsWith(`/dashboard/professors`),
         },
         {
             name: 'Classes',
             href: 'dashboard.classes.index',
             icon: School,
-            active: pathname.startsWith(route('dashboard.classes.index')),
+            active: pathname.startsWith(`/dashboard/classes`),
         },
         {
             name: 'Matières',
             href: 'dashboard.matieres.index',
             icon: School,
-            active: pathname.startsWith(route('dashboard.matieres.index')),
+            active: pathname.startsWith(`/dashboard/matieres`),
         },
         {
             name: 'Cours',
@@ -173,17 +171,7 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
                     ))}
                 </nav>
 
-                <div className="border-t p-4">
-                    <Link
-                        href="/admin/logout"
-                        className={cn(
-                            'flex items-center rounded-md px-3 py-2 text-red-600 transition-colors hover:bg-red-50',
-                            !isSidebarOpen && 'justify-center',
-                        )}
-                    >
-                        <LogOut className="h-5 w-5 flex-shrink-0" />
-                        {isSidebarOpen && <span className="ml-3">Déconnexion</span>}
-                    </Link>
+                <div className="border-t p-4 pb-4">
 
                     <Link
                         href="/"
@@ -233,38 +221,12 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="relative flex h-8 items-center gap-2 pr-1 pl-2">
-                                    <Avatar className="h-8 w-8">
-                                        <AvatarImage src="/avatars/admin.jpg" alt="Admin" />
-                                        <AvatarFallback>AD</AvatarFallback>
-                                    </Avatar>
-                                    <div className="hidden text-left md:block">
-                                        <p className="text-sm leading-none font-medium">Marie Dupont</p>
-                                        <p className="text-muted-foreground text-xs">Proviseure</p>
-                                    </div>
+                                     <UserInfo user={auth.user} />
                                     <ChevronDown className="h-4 w-4 opacity-50" />
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56" align="end" forceMount>
-                                <DropdownMenuLabel className="font-normal">
-                                    <div className="flex flex-col space-y-1">
-                                        <p className="text-sm leading-none font-medium">Marie Dupont</p>
-                                        <p className="text-muted-foreground text-xs leading-none">m.dupont@lycee-saintexupery.fr</p>
-                                    </div>
-                                </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    <User className="mr-2 h-4 w-4" />
-                                    <span>Profil</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Settings className="mr-2 h-4 w-4" />
-                                    <span>Paramètres</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem className="text-red-600">
-                                    <LogOut className="mr-2 h-4 w-4" />
-                                    <span>Déconnexion</span>
-                                </DropdownMenuItem>
+                                <UserMenuContent user={auth.user} />
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
@@ -274,26 +236,5 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
                 <main className="p-6">{children}</main>
             </div>
         </div>
-    );
-}
-
-// Composant User manquant dans les imports
-function User(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-        </svg>
     );
 }
