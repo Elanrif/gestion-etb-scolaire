@@ -1,4 +1,4 @@
-import Actuality from '@/components/actuality'
+import Actuality from '@/components/shared/actuality'
 import React from 'react'
 
 export default function ActualityPage() {

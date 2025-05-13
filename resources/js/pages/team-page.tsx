@@ -1,4 +1,4 @@
-import Team from '@/components/team'
+import Team from '@/components/shared/team'
 import React from 'react'
 
 export default function TeamPage() {

@@ -1,4 +1,4 @@
-import History from '@/components/history'
+import History from '@/components/shared/history'
 import React from 'react'
 
 export default function HistoryPage() {

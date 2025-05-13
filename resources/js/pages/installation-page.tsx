@@ -1,4 +1,4 @@
-import Installation from '@/components/installation'
+import Installation from '@/components/shared/installation'
 import React from 'react'
 
 export default function InstallationPage() {
