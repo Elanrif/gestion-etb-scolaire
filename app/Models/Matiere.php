@@ -12,11 +12,21 @@ class Matiere extends Model
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-    ];
-    public function professors(): BelongsTo
+    protected $guarded = [];
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function professor(): BelongsTo
     {
         return $this->belongsTo(Professor::class);
+    }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function classe(): BelongsTo
+    {
+        return $this->belongsTo(Classe::class);
     }
 }

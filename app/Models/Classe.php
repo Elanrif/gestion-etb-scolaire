@@ -30,4 +30,12 @@ class Classe extends Model
     {
         return $this->belongsToMany(Professor::class);
     }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function matieres(): HasMany
+    {
+        return $this->hasMany(Matiere::class);
+    }
 }

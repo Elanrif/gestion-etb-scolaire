@@ -35,3 +35,11 @@ export type StudentFormType = {
     guardian_email: string;
     guardian_phone_number: string;
 } & userFormType
+
+
+export type MatiereFormType = {
+    id?: number;
+    name: string;
+    classe_id: number;
+    professor_id: number;
+}

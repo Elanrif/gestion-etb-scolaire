@@ -44,6 +44,7 @@ interface Classe {
     name: string;
     professorId: string;
     professors: Professor[];
+    matieres: Matiere[];
     created_at?: string;
     updated_at?: string;
     [key: string]: string | Professor[];
@@ -64,8 +65,19 @@ export interface Secretary {
     [key: string]: unknown;
 }
 
+export interface Matiere {
+    id: number;
+    name: string;
+    professor: Professor;
+    classe: Classe;
+    created_at?: string;
+    updated_at?: string;
+    [key: string]: string | Professor[];
+}
+
 export enum StagiaireStatus {
     TITULAIRE = 'TITULAIRE',
     STAGIAIRE = 'STAGIAIRE',
     CONTRACTUEL = 'CONTRACTUEL',
 }
+
