@@ -1,9 +1,7 @@
-import { SharedData } from '@/types';
 import { Matiere } from '@/types/models';
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react';
 
 interface MatiereTableProps {
     matieres: Matiere[];
@@ -17,15 +15,6 @@ const MatiereList: React.FC<MatiereTableProps > = ({ matieres,  onViewMatiere, o
 
     // Get unique classes for filter
     const classes = (matieres.map((matiere) => matiere.name));
-
-    const { flash } = usePage<SharedData>().props;
-    
-        useEffect(() => {
-            
-            if (flash.success) {
-                toast.success(flash.success);
-            }
-        }, [flash.success]);
             
     // Filter students based on search and class filter
     const filteredMatieres = matieres.filter((matiere) => {

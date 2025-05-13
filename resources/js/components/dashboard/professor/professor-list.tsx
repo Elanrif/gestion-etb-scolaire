@@ -22,7 +22,6 @@ const ProfessorList: React.FC<ProfessorTableProps> = ({ professors, onViewProfes
         )
       ];
       
-
     // Filter students based on search and class filter
     const filteredProfessors = professors.filter((professor) => {
         const matchesSearch =

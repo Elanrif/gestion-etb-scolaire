@@ -9,6 +9,7 @@ use App\Models\Form;
 use App\Http\Requests\StoreProfessorRequest;
 use App\Http\Requests\UpdateProfessorRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -115,9 +116,10 @@ class ProfessorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Professor $professor)
+    public function destroy(Request $request, Professor $professor)
     {
         $professor->delete();
+        $request->session()->flash('success', 'Succès!');
         return to_route('dashboard.professors.index');
     }
 }

@@ -72,11 +72,12 @@ class ClasseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Classe $classe): RedirectResponse
+    public function destroy(Request $request, Classe $classe): RedirectResponse
     {
         Log::info('delete classe');
         $classe->professors()->detach();
         $classe->delete();
+        $request->session()->flash('success', 'Succès!');
         return to_route('dashboard.classes.index');
     }
 }

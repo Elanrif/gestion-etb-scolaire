@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Classe;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -142,10 +143,11 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy(Request $request, Student $student)
     {
         $student->delete();
 
+        $request->session()->flash('success', 'Succès!');
         return to_route('dashboard.students.index'); 
     }
 }

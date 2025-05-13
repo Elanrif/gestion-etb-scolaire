@@ -11,7 +11,7 @@ import MatieretList from '@/components/dashboard/matiere/matiere-list';
 
 
 interface PageProps {
-    matieres:Matiere[];
+    matieres: Matiere[];
     [key: string]: Matiere[] ; // Signature d'index requise
 }
 
