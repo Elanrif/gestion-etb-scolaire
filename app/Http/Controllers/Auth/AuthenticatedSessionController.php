@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
          // Define flash message
         $request->session()->flash('success', 'Bienvenue!');
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('account.user.index', absolute: false));
     }
 
     /**

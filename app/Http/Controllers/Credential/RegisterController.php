@@ -54,7 +54,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         $request->session()->flash('success', 'Compte créer avec succès!');
-        return to_route('dashboard');
+        return to_route('account.user.index');
     }
 
 
@@ -102,7 +102,7 @@ class RegisterController extends Controller
 
         Auth::login($user);
         $request->session()->flash('success', 'Compte créer avec succès!');
-        return to_route('dashboard');
+        return to_route('account.user.index');
     }
 
     public function storeProfessor(StoreProfessorRequest $request): RedirectResponse
@@ -139,6 +139,6 @@ class RegisterController extends Controller
         Auth::login($user);
 
         $request->session()->flash('success', 'Compte créer avec succès!');
-        return to_route('dashboard');
+        return to_route('account.user.index');
     }
 }
