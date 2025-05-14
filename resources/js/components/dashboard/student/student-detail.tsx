@@ -1,24 +1,100 @@
 import { Student } from '@/types/models';
-import { ArrowLeft, GraduationCap, Mail, MapPinHouse, Phone, UserCircle, Users } from 'lucide-react';
-import React from 'react';
+import { router } from '@inertiajs/react';
+import { CheckCircle, GraduationCap, Mail, MapPin as MapPinHouse, Phone, Trash2, UserCircle, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import ActiveAccountModal from './active-account-modal';
 
 interface StudentDetailProps {
     student: Student;
-    onBack: () => void;
 }
 
-const StudentDetail: React.FC<StudentDetailProps> = ({ student, onBack }) => {
+type activateType =  "activate" | "deactivate"
+
+const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
+    const [isValidated, setIsValidated] = useState<boolean>(student.is_validated || false);
+    const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [activate, isActivate] = useState<activateType>("activate");
+
+    const handleValidation = () => {
+        router.put(route('dashboard.students.is_validated', student.id))
+        
+        // Here you would typically make an API call to validate the account
+        if(student.is_validated){
+            setIsValidated(false)
+        }else{
+            setIsValidated(true)
+        }
+
+        setShowConfirmation(true);
+        setShowModal(false);
+        
+        // Hide confirmation message after 5 seconds
+        setTimeout(() => {
+            setShowConfirmation(false);
+        }, 5000);
+    };
+
     return (
         <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
-            <button onClick={onBack} className="mb-6 flex items-center text-[#1E3A8A] transition-colors duration-150 hover:text-[#1e3a8a]/80">
-                <ArrowLeft className="mr-2 h-5 w-5" />
-                Retour à la liste
-            </button>
+            {/* Confirmation Modal */}
+            {showModal && (activate === "activate" || activate === "deactivate") && (
+                <ActiveAccountModal
+                    show={showModal}
+                    onClose={() => setShowModal(false)}
+                    onConfirm={handleValidation}
+                    title={activate === "activate" ? "Activation du compte" : "Désactivation du compte"}
+                    message={`Êtes-vous sûr de vouloir ${
+                    activate === "activate" ? "valider" : "désactiver"
+                    } le compte de ${student.first_name} ${student.last_name} ?`}
+                    confirmText="Confirmer"
+                    cancelText="Annuler"
+                />
+            )}
+
+
+            {showConfirmation && (
+                <div className={`mb-4 animate-fade-in rounded-md ${student.is_validated ? "bg-green-100": "bg-red-100"} p-4 shadow-md transition-all duration-300`}>
+                    <div className="flex items-center">
+                        <CheckCircle className={`mr-2 h-5 w-5 ${student.is_validated ? "text-green-600": "text-red-600"}`} />
+                        <p className="text-green-800">{student.is_validated ? "Le compte de l'étudiant a été validé avec succès!": "Le compte de l'étudiant a été invalidé avec succès!"}</p>
+                    </div>
+                </div>
+            )}
 
             <div className="overflow-hidden bg-white shadow sm:rounded-lg">
                 <div className="bg-gradient-to-r from-[#1E3A8A] to-[#0D9488] px-4 py-5 sm:px-6">
-                    <h2 className="text-xl font-bold text-white">Profil de l'étudiant</h2>
-                    <p className="mt-1 max-w-2xl text-sm text-white/80">Informations personnelles et détails académiques</p>
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-xl font-bold text-white">Profil de l'étudiant</h2>
+                            <p className="mt-1 max-w-2xl text-sm text-white/80">Informations personnelles et détails académiques</p>
+                        </div>
+                        <div className="flex items-center">
+                            {isValidated ? (
+                               <div className='flex group items-center gap-2' 
+                               onClick={() => {
+                                setShowModal(true)
+                                isActivate("deactivate")
+                               }}>
+                                    <button className="flex items-center rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
+                                        <CheckCircle className="mr-1 h-4 w-4" />
+                                        Validé
+                                    </button>
+                                    <Trash2 className='text-white group-hover:text-red-300'/>
+                               </div>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        setShowModal(true)
+                                        isActivate("activate")
+                                    }}
+                                    className="rounded-md bg-white px-4 py-2 text-sm font-medium text-[#1E3A8A] shadow-sm transition-all duration-150 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+                                >
+                                    Valider le compte
+                                </button>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-6">

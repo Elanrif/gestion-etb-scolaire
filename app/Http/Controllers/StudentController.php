@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class StudentController extends Controller
@@ -83,7 +84,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $student_ = Student::with(['user','classe'])->find($student->id);
+        return Inertia::render('dashboard/students/student-show-page',['student'=> $student_]);
     }
 
     /**
@@ -138,8 +140,6 @@ class StudentController extends Controller
         return to_route('dashboard.students.index');
     }
         
-    
-
     /**
      * Remove the specified resource from storage.
      */
@@ -149,5 +149,14 @@ class StudentController extends Controller
 
         $request->session()->flash('success', 'Succès!');
         return to_route('dashboard.students.index'); 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function is_validated(Student $student)
+    {
+        $student->update(['is_validated' => !$student->is_validated]);
+        return to_route('dashboard.students.show', $student->id); 
     }
 }

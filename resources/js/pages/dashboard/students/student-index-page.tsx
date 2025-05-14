@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import StudentDetail from '@/components/dashboard/student/student-detail';
 import ConfirmationModal from '@/components/dashboard/confirmation-modal';
 import AdminLayout from '@/layouts/admin-layout';
 import StudentList from '@/components/dashboard/student/student-list';
@@ -17,7 +16,6 @@ interface PageProps {
 
 export default function StudentIndexPage() {
     const { students } = usePage<PageProps>().props;
-    const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [studentToDelete, setStudentToDelete] = useState<number | null>(null);
     const { flash } = usePage<SharedData>().props;
@@ -28,9 +26,6 @@ export default function StudentIndexPage() {
         }
     }, [flash.success]);
         
-    const handleViewStudent = (student: Student) => {
-        setSelectedStudent(student);
-    };
 
     const handleDeleteConfirmation = (studentId: number) => {
         setStudentToDelete(studentId);
@@ -45,25 +40,16 @@ export default function StudentIndexPage() {
         }
     };
 
-    const handleBackToList = () => {
-        setSelectedStudent(null);
-    };
-
     return (
         <AdminLayout>
             <div className="min-h-screen bg-gray-100">
                 <HeaderDashboard title='Gestion des étudiants'/>
 
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
-                    {selectedStudent ? (
-                        <StudentDetail student={selectedStudent} onBack={handleBackToList} />
-                    ) : (
-                        <StudentList
-                            students={students}
-                            onViewStudent={handleViewStudent}
-                            onDeleteStudent={handleDeleteConfirmation}
-                        />
-                    )}
+                    <StudentList
+                        students={students}
+                        onDeleteStudent={handleDeleteConfirmation}
+                    />
                 </main>
 
                 <ConfirmationModal

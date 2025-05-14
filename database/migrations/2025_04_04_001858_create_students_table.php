@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('gender');
             $table->string('matricule')->unique();
             $table->string('level');
+            $table->boolean('is_validated')->default(false);
             $table->string('relationship');
             $table->integer('number_of_absences')->default('0');
             $table->string('guardian_first_name');

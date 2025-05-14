@@ -1,15 +1,14 @@
 import { Student } from '@/types/models';
 import { Link } from '@inertiajs/react';
-import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
+import { CheckCircle, Edit, Eye, Search, Trash2, UserPlus, X } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface MatiereTableProps {
     students: Student[];
-    onViewStudent: (student: Student) => void;
     onDeleteStudent: (studentId: number) => void;
 }
 
-const StudentList: React.FC< MatiereTableProps > = ({ students, onViewStudent, onDeleteStudent }) => {
+const StudentList: React.FC< MatiereTableProps > = ({ students, onDeleteStudent }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
@@ -90,6 +89,12 @@ const StudentList: React.FC< MatiereTableProps > = ({ students, onViewStudent, o
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
+                                        Activation
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
+                                    >
                                         Classe
                                     </th>
                                     <th
@@ -114,6 +119,11 @@ const StudentList: React.FC< MatiereTableProps > = ({ students, onViewStudent, o
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                                                 {student.last_name} {student.first_name}
                                             </td>
+                                            <td className="px-6 py-4 text-sm text-center whitespace-nowrap text-gray-500">
+                                                <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
+                                                    {student.is_validated ?  <CheckCircle className="mr-1 h-4 w-4 text-green-700" /> :   <X className="mr-1 h-4 w-4 text-red-700" />}
+                                                </span>
+                                            </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
                                                 <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs leading-5 font-semibold text-blue-800">
                                                     {student.classe?.name}
@@ -124,13 +134,13 @@ const StudentList: React.FC< MatiereTableProps > = ({ students, onViewStudent, o
                                             </td>
                                             <td className="px-6 py-4 text-center text-sm font-medium whitespace-nowrap">
                                                 <div className="flex justify-center space-x-2">
-                                                    <button
-                                                        onClick={() => onViewStudent(student)}
-                                                        className="text-gray-600 transition-colors duration-150 hover:text-[#0D9488]"
-                                                        aria-label="Voir détails"
+                                                    <Link
+                                                        href={route('dashboard.students.show',student.id)}
+                                                        className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
+                                                        aria-label="Modifier"
                                                     >
                                                         <Eye className="h-5 w-5" />
-                                                    </button>
+                                                    </Link>
                                                     <Link
                                                         href={route('dashboard.students.edit',student.id)}
                                                         className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
