@@ -152,11 +152,25 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for validated the specified resource.
      */
     public function is_validated(Student $student)
     {
         $student->update(['is_validated' => !$student->is_validated]);
+        return to_route('dashboard.students.show', $student->id); 
+    }
+
+     /**
+     * Show the form for message the specified resource.
+     */
+    public function message(Request $request, Student $student)
+    {
+        $request->validate([
+            'message' => 'required|string|max:255',
+        ]);
+        $student->update(['message' => $request->message]);
+
+        $request->session()->flash('success', 'Message envoyé avec succès!');
         return to_route('dashboard.students.show', $student->id); 
     }
 }

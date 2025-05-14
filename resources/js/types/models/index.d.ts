@@ -14,6 +14,7 @@ export interface Student {
     gender: string;
     matricule:string;
     is_validated: boolean;
+    message: string;
     classe: Classe;
     level:string;
     relationship:string;

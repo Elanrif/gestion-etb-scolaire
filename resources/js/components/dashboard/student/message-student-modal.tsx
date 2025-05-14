@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { Student } from '@/types/models';
+import { router } from '@inertiajs/react';
 
 interface MessageStudentModalProps {
     show: boolean;
@@ -19,6 +20,7 @@ const MessageStudentModal: React.FC<MessageStudentModalProps> = ({
 
     const handleSend = () => {
         if (message.trim()) {
+            router.post(route('dashboard.students.message', student.id), {message})
             setMessage('');
             onClose();
         }
