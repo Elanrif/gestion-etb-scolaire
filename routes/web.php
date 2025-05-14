@@ -7,12 +7,8 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-});
 
+require __DIR__.'/account.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/credentials.php';
 require __DIR__.'/dashboard.php';
