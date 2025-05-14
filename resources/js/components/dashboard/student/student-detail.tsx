@@ -1,8 +1,9 @@
 import { Student } from '@/types/models';
 import { router } from '@inertiajs/react';
-import { CheckCircle, GraduationCap, Mail, MapPin as MapPinHouse, Phone, Trash2, UserCircle, Users } from 'lucide-react';
+import { CheckCircle, GraduationCap, Mail, MapPin as MapPinHouse, MessageCircleIcon, Phone, Trash2, UserCircle, Users } from 'lucide-react';
 import React, { useState } from 'react';
 import ActiveAccountModal from './active-account-modal';
+import MessageStudentModal from './message-student-modal';
 
 interface StudentDetailProps {
     student: Student;
@@ -14,6 +15,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
     const [isValidated, setIsValidated] = useState<boolean>(student.is_validated || false);
     const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [displayModal, setDisplayModal] = useState<boolean>(false);
     const [activate, isActivate] = useState<activateType>("activate");
 
     const handleValidation = () => {
@@ -37,6 +39,14 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
 
     return (
         <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
+            {/* Message Student Modal */}
+            {
+                displayModal && <MessageStudentModal
+                show={displayModal}
+                onClose={() => setDisplayModal(false)}
+                student= {student}
+            />
+            }
             {/* Confirmation Modal */}
             {showModal && (activate === "activate" || activate === "deactivate") && (
                 <ActiveAccountModal
@@ -66,10 +76,19 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
                 <div className="bg-gradient-to-r from-[#1E3A8A] to-[#0D9488] px-4 py-5 sm:px-6">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-xl font-bold text-white">Profil de l'étudiant</h2>
-                            <p className="mt-1 max-w-2xl text-sm text-white/80">Informations personnelles et détails académiques</p>
+                            <h2 className="text-md md:text-xl font-bold text-white">Profil de l'étudiant</h2>
+                            <p className="mt-1 max-w-2xl text-xs md:text-sm text-white/80">Informations personnelles et détails académiques</p>
                         </div>
+                        <div
+                            className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200 cursor-pointer"
+                            onClick={() => setDisplayModal(true)}
+                        >
+                            <MessageCircleIcon className="w-5 h-5" />
+                            <span className="hidden md:block">Envoyer un message</span>
+                        </div>
+
                         <div className="flex items-center">
+                            
                             {isValidated ? (
                                <div className='flex group items-center gap-2' 
                                onClick={() => {
@@ -80,7 +99,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
                                         <CheckCircle className="mr-1 h-4 w-4" />
                                         Validé
                                     </button>
-                                    <Trash2 className='text-white group-hover:text-red-300'/>
+                                    <Trash2 className='text-white hidden md:block group-hover:text-red-300'/>
                                </div>
                             ) : (
                                 <button
