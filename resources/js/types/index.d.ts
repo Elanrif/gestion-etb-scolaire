@@ -1,8 +1,15 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
+import { Professor, Secretary, Student } from './models';
 
 export interface Auth {
     user: User;
+}
+
+export interface AuthData extends User {
+        student: Student;
+        secretary: Secretary;
+        professor: Professor;
 }
 
 export interface BreadcrumbItem {
@@ -26,13 +33,13 @@ export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
+    data?: AuthData;
     ziggy: Config & { location: string };
     flash: {
-        success: string ;
-        welcome: string ;
+        success: string;
+        welcome: string;
         [key: string]: unknown;
-    }
-        ;
+    };
     [key: string]: unknown;
 }
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class AccountUser extends Controller
 {
@@ -12,7 +14,14 @@ class AccountUser extends Controller
      */
     public function index()
     {
-        return Inertia::render('account/dashboard');
+        $user = Auth::user();
+        $data = User::with([
+            'student', 
+            'professor', 
+            'secretary'
+        ])->find($user->id);
+        
+        return Inertia::render('account/dashboard',['data' => $data]);
     }
 
     /**

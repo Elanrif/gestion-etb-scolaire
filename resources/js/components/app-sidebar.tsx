@@ -9,7 +9,7 @@ import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Accueil',
         href: '/dashboard',
         icon: LayoutGrid,
     },
