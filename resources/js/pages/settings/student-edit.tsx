@@ -51,7 +51,6 @@ export default function StudentEdit() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Profile settings" />
-            {JSON.stringify(student)}
             <SettingsLayout student={student}>
                 <div className="space-y-6">
                     <HeadingSmall title="Information du profil" description="Mettre à jour votre nom et votre nom." />

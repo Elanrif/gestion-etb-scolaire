@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('matricule')->unique();
             $table->string('level');
             $table->boolean('is_validated')->default(false);
+            $table->enum('activation_status',['deactivated', 'approved', 'rejected', 'cancelled'])->default('deactivated');
             $table->longText('message')->nullable();
             $table->string('relationship');
             $table->integer('number_of_absences')->default('0');

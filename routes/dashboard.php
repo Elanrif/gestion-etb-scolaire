@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
         Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destory');
         Route::put('/students/{student}/validated', [StudentController::class, 'is_validated'])->name('students.is_validated');
-        Route::post('/students/{student}/message', [StudentController::class, 'message'])->name('students.message');
+        Route::post('/students/{student}/reject_account', [StudentController::class, 'reject_account'])->name('students.reject_account');
 
 
         /* MATIERE */

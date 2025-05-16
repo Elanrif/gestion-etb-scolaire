@@ -1,4 +1,6 @@
-import NotificationBanner from '@/components/account/notification-banner';
+import NotificationBannerApproved from '@/components/account/notification-banner-approved';
+import NotificationBannerDeactivated from '@/components/account/notification-banner-deactivated';
+import NotificationBannerRejected from '@/components/account/notification-banner-rejected';
 import SkeletonAccount from '@/components/account/skeleton-account';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
@@ -12,9 +14,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+
 export default function Dashboard() {
     const { flash, data } = usePage<SharedData>().props;
-    console.log('data : ', data);
     const [showNotification, setShowNotification] = useState(!!data?.student?.message);
     useEffect(() => {
         if (flash.success) {
@@ -23,22 +25,46 @@ export default function Dashboard() {
     }, [flash.success]);
 
     const handleDismissNotification = () => {
-        //setShowNotification(false);
-        setShowNotification(true);
+        setShowNotification(false);
     };
 
-    const handleEditProfile = () => {
-        setShowNotification(true);
-    };
+    const showNotificationBanner = () => {
 
+        if (!data?.student) return null;
+
+        const { is_validated, activation_status, message } = data.student;
+
+        if (is_validated) {
+            return <NotificationBannerApproved/>;
+        }
+
+        switch (activation_status) {
+            case 'deactivated':
+                return (
+                    <NotificationBannerDeactivated
+                        onDismiss={handleDismissNotification}
+                        student= {data.student}
+                    />
+                );
+            case 'rejected':
+                return (
+                    <NotificationBannerRejected
+                        message={message || 'Veuillez corriger les informations de votre compte'}
+                        onDismiss={handleDismissNotification}
+                        student= {data.student}
+                    />
+                );
+            default:
+                return null;
+        }
+    };
+            
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Accueil" />
 
             <div className="px-3">
-                {showNotification && (
-                    <NotificationBanner message={data?.student?.message as string} onDismiss={handleDismissNotification} onEdit={handleEditProfile} />
-                )}
+                {showNotification && showNotificationBanner()}
 
                 {!data?.student?.is_validated && <SkeletonAccount />}
             </div>

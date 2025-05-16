@@ -20,7 +20,7 @@ const MessageStudentModal: React.FC<MessageStudentModalProps> = ({
 
     const handleSend = () => {
         if (message.trim()) {
-            router.post(route('dashboard.students.message', student.id), {message})
+            router.post(route('dashboard.students.reject_account', student.id), { message });
             setMessage('');
             onClose();
         }

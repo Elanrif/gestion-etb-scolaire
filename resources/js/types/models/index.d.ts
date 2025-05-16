@@ -6,22 +6,25 @@ export interface Classe {
     [key: string]: unknown;
 }
 
+export type ActivationStatusEnum = "deactivated" | "approved" | "rejected" | "cancelled";
+
 export interface Student {
     id: number;
     user: User;
     first_name: string;
     last_name: string;
     gender: string;
-    matricule:string;
+    matricule: string;
     is_validated: boolean;
+    activation_status: ActivationStatusEnum;
     message: string;
     classe: Classe;
-    level:string;
-    relationship:string;
-    guardian_first_name:string;
-    guardian_last_name:string;
-    guardian_email:string;
-    guardian_phone_number:string;
+    level: string;
+    relationship: string;
+    guardian_first_name: string;
+    guardian_last_name: string;
+    guardian_email: string;
+    guardian_phone_number: string;
     [key: string]: unknown;
 }
 

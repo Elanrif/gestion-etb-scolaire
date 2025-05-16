@@ -156,19 +156,29 @@ class StudentController extends Controller
      */
     public function is_validated(Student $student)
     {
-        $student->update(['is_validated' => !$student->is_validated]);
+        $is_validated_ = !$student->is_validated;
+        $student->update([
+            'is_validated' => $is_validated_,
+            'activation_status' => $is_validated_ ? 'approved' : 'deactivated',
+        ]);
+
         return to_route('dashboard.students.show', $student->id); 
     }
 
      /**
      * Show the form for message the specified resource.
      */
-    public function message(Request $request, Student $student)
+    public function reject_account(Request $request, Student $student)
     {
         $request->validate([
             'message' => 'required|string|max:255',
         ]);
-        $student->update(['message' => $request->message]);
+
+        $student->update([
+            'message' => $request->message,
+            'is_validated' => false,
+            'activation_status' => 'rejected',
+        ]);
 
         $request->session()->flash('success', 'Message envoyé avec succès!');
         return to_route('dashboard.students.show', $student->id); 

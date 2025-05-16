@@ -1,9 +1,10 @@
 import { Student } from '@/types/models';
 import { router } from '@inertiajs/react';
 import { CheckCircle, GraduationCap, Mail, MapPin as MapPinHouse, MessageCircleIcon, Phone, Trash2, UserCircle, Users } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ActiveAccountModal from './active-account-modal';
 import MessageStudentModal from './message-student-modal';
+import { student_key } from '@/types/models/shared.data';
 
 interface StudentDetailProps {
     student: Student;
@@ -18,10 +19,15 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
     const [displayModal, setDisplayModal] = useState<boolean>(false);
     const [activate, isActivate] = useState<activateType>("activate");
 
+    useEffect(() => {
+        if (isValidated) {
+            localStorage.removeItem(student_key);
+        }
+    }, [isValidated]);
+    
     const handleValidation = () => {
         router.put(route('dashboard.students.is_validated', student.id))
         
-        // Here you would typically make an API call to validate the account
         if(student.is_validated){
             setIsValidated(false)
         }else{
@@ -31,7 +37,6 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
         setShowConfirmation(true);
         setShowModal(false);
         
-        // Hide confirmation message after 5 seconds
         setTimeout(() => {
             setShowConfirmation(false);
         }, 5000);
@@ -80,11 +85,11 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
                             <p className="mt-1 max-w-2xl text-xs md:text-sm text-white/80">Informations personnelles et détails académiques</p>
                         </div>
                         <div
-                            className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-red-500 hover:text-slate-50 transition-colors duration-200 cursor-pointer"
                             onClick={() => setDisplayModal(true)}
                         >
                             <MessageCircleIcon className="w-5 h-5" />
-                            <span className="hidden md:block">Envoyer un message</span>
+                            <span className="hidden md:block">Réjeter le compte</span>
                         </div>
 
                         <div className="flex items-center">

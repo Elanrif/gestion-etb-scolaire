@@ -140,7 +140,6 @@ export function StudentEditForm({ student, classes }: { student: StudentFormType
                         <InputError message={errors.birthday} />
                     </div>
                     <div className="space-y-2">
-                        birthday
                         <Label htmlFor="gender" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Genre
                         </Label>
