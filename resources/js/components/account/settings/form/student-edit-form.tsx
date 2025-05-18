@@ -51,7 +51,6 @@ export function StudentEditForm({
     matricule: student.matricule,
     });
 
-    // États pour la gestion des photos
     const [idPhoto, setIdPhoto] = useState<string | null>(student.id_photo || null);
     const [cardPhoto, setCardPhoto] = useState<string | null>(student.card_photo || null);
 
@@ -68,7 +67,6 @@ export function StudentEditForm({
         e.preventDefault();
        
         console.log('handleSubmit data : ', data);
-        return;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formData = {
             ...data,
@@ -89,6 +87,7 @@ export function StudentEditForm({
 
     // Fonctions pour la gestion des photos
     const handleIdPhotoUpload = (file: File) => {
+        console.log('handleIdPhotoUpload', file)
         const reader = new FileReader();
         reader.onload = (e) => {
             const result = e.target?.result as string;

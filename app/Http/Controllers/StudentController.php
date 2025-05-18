@@ -6,12 +6,14 @@ use App\Enums\RoleUser;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Support\Carbon;
 use App\Models\Classe;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class StudentController extends Controller
@@ -104,14 +106,47 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        // Récupérer les données validées
+        //$student = Student::with(['user'])->find($student->id);
+        $imageIdPhotoUrl = null;
+        $imageCardPhotoUrl = null;
         $validated_data = $request->validated();
         $classe_id = $validated_data['classe_id'];
         $classe = Classe::findOrFail($classe_id);
+
+        /* ID PHOTO */
+        if ($request->hasFile('id_photo')) {
+            /* Delete old images on udate */
+            if ($student->user->id_photo) {                  
+                $oldImagePath = str_replace('/storage', '', $student->user->id_photo);
+                Storage::disk('public')->delete($oldImagePath);
+            }
+            /* Manage Images  */
+            $image = $request->file('id_photo');
+            $timestamp = Carbon::now()->format('Ymd_His');
+            $imageName = $timestamp . '_' . Str::random(5) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+            $imageIdPhotoUrl = Storage::url($imagePath);
+        }
+
+        /* CARD PHOTO */
+        if ($request->hasFile('card_photo')) {
+            if ($student->card_photo) {                  
+                $oldImagePath = str_replace('/storage', '', $student->card_photo);
+                Storage::disk('public')->delete($oldImagePath);
+            }
+            /* Manage Images  */
+            $image = $request->file('card_photo');
+            $timestamp = Carbon::now()->format('Ymd_His');
+            $imageName = $timestamp . '_' . Str::random(5) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+            $imageCardPhotoUrl = Storage::url($imagePath);
+        }
+
         // Mise à jour du compte utilisateur associé
         $student->user->update([
             'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
             'email' => $validated_data['email'],
+            'id_photo' => $imageIdPhotoUrl,
             'address' => $validated_data['address'],
             'phone_number' => $validated_data['phone_number'],
             'birthday' => $validated_data['birthday'],
@@ -121,6 +156,7 @@ class StudentController extends Controller
         $student->update([
             'first_name' => $validated_data['first_name'],
             'last_name' => $validated_data['last_name'],
+            'card_photo' => $imageCardPhotoUrl,
             'gender' => $validated_data['gender'],
             'level' => $validated_data['level'],
             'relationship' => $validated_data['relationship'],
