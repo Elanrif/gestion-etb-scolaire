@@ -1,7 +1,6 @@
 import { type BreadcrumbItem} from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 
-import DeleteUser from '@/components/shared/delete-user';
 import HeadingSmall from '@/components/shared/heading-small';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
@@ -57,8 +56,6 @@ export default function StudentEdit() {
 
                     <StudentEditForm student={student_form} classes={classes} />
                 </div>
-
-                <DeleteUser />
             </SettingsLayout>
         </AppLayout>
     );

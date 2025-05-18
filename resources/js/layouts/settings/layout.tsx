@@ -8,6 +8,12 @@ import { Link } from '@inertiajs/react';
 
 const sidebarNavItems: NavItem[] = [
     {
+        title: 'Gérer compte',
+        isStudent: true,
+        href: 'settings.edit',
+        icon: null,
+    },
+    {
         title: 'Profile',
         href: '/settings/profile',
         icon: null,
@@ -15,12 +21,6 @@ const sidebarNavItems: NavItem[] = [
     {
         title: 'Mot de passe',
         href: '/settings/password',
-        icon: null,
-    },
-    {
-        title: 'Gérer compte',
-        isStudent: true,
-        href: 'settings.edit',
         icon: null,
     },
     {

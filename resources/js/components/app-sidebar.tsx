@@ -10,7 +10,7 @@ import AppLogo from './app-logo';
 const mainNavItems: NavItem[] = [
     {
         title: 'Accueil',
-        href: '/dashboard',
+        href: 'account.user.index',
         icon: LayoutGrid,
     },
 ];

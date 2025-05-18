@@ -42,8 +42,6 @@ export default function Dashboard() {
             case 'deactivated':
                 return (
                     <NotificationBannerDeactivated
-                        onDismiss={handleDismissNotification}
-                        student= {data.student}
                     />
                 );
             case 'rejected':

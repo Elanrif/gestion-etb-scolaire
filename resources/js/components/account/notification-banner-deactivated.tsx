@@ -1,16 +1,9 @@
 'use client';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Student } from '@/types/models';
-import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
 
-interface NotificationBannerProps {
-    student: Student;
-    onDismiss: () => void;
-}
-export default function NotificatinBannerDeactivated({ onDismiss, student }: NotificationBannerProps) {
+export default function NotificationBannerDeactivated() {
     
     const scheme = {
         name: 'Warm Amber',
@@ -36,13 +29,6 @@ export default function NotificatinBannerDeactivated({ onDismiss, student }: Not
                 <div className="flex-1">
                     <AlertTitle className={`mb-2 ${scheme.titleText} font-semibold`}>Message de l'administrateur</AlertTitle>
                     <AlertDescription className={`mb-2 ${scheme.descText} font-semibold`}>{message}</AlertDescription>
-                </div>
-                <div className="mt-3 ml-7 flex space-x-2" onClick={onDismiss}>
-                    <Link href={route('settings.edit', student.id)} className="flex">
-                        <Button variant="outline" size="sm" className={`${scheme.buttonBorder} ${scheme.buttonText} ${scheme.buttonHover}`}>
-                            Modifier mes informations
-                        </Button>
-                    </Link>
                 </div>
             </Alert>
         </div>

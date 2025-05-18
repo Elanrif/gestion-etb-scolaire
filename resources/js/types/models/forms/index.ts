@@ -23,6 +23,8 @@ export type userFormType = {
 
 export type StudentFormType = {
     id?: number;
+    id_photo?: string;
+    card_photo?: string;
     first_name: string;
     last_name: string;
     gender: string;
