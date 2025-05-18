@@ -32,7 +32,8 @@ export function StudentEditForm({
 }) {
 
     const { data, setData, put, errors, processing } = useForm<StudentFormType>('edit-student',{
-        
+    id_photo: student.id_photo ,
+    card_photo: student.card_photo,
     first_name: student.first_name,
     last_name: student.last_name,
     email: student.email,
@@ -67,6 +68,7 @@ export function StudentEditForm({
         e.preventDefault();
        
         console.log('handleSubmit data : ', data);
+        return;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const formData = {
             ...data,

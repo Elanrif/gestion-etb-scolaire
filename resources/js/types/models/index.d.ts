@@ -10,6 +10,7 @@ export type ActivationStatusEnum = "deactivated" | "approved" | "rejected" | "ca
 
 export interface Student {
     id: number;
+    card_photo: string;
     user: User;
     first_name: string;
     last_name: string;
