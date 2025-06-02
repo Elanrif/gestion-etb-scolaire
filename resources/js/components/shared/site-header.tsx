@@ -2,13 +2,13 @@ import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, GraduationCap, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { route } from 'ziggy-js';
-
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { SharedData } from '@/types';
 
 export function SiteHeader() {
     // Utiliser usePage() d'Inertia pour obtenir l'URL actuelle
-    const { url } = usePage().props;
+    const { url, auth } = usePage<SharedData>().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
 
@@ -67,7 +67,7 @@ export function SiteHeader() {
     ];
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
+        <header className="sticky px-7 top-0 z-50 w-full border-b bg-white shadow-sm">
             <div className="container flex h-16 items-center justify-between">
                 <Link href="/" className="flex items-center space-x-2">
                     <div className="rounded-full bg-blue-600 p-1.5">
@@ -117,6 +117,7 @@ export function SiteHeader() {
                         ),
                     )}
                 </nav>
+                { !auth.user  && (
                 <div className="hidden gap-4 md:flex">
                     <Link href="/login">
                         <Button variant="outline" className="border-gray-200 text-gray-800 hover:bg-gray-100 hover:text-blue-600">
@@ -126,7 +127,8 @@ export function SiteHeader() {
                     <Link href="/register">
                         <Button className="bg-orange-500 text-white hover:bg-orange-600">S'inscrire</Button>
                     </Link>
-                </div>
+                </div>)
+                }
                 <button className="md:hidden" onClick={toggleMenu}>
                     {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </button>
@@ -176,6 +178,7 @@ export function SiteHeader() {
                                 </Link>
                             ),
                         )}
+                        { !auth.user && (
                         <div className="flex flex-col gap-2 pt-2">
                             <Link href="/login">
                                 <Button variant="outline" className="w-full border-gray-200 text-gray-800 hover:bg-gray-100 hover:text-blue-600">
@@ -185,7 +188,9 @@ export function SiteHeader() {
                             <Link href="/register">
                                 <Button className="w-full bg-orange-500 text-white hover:bg-orange-600">S'inscrire</Button>
                             </Link>
-                        </div>
+                        </div>)
+                        }
+                        
                     </nav>
                 </div>
             )}
