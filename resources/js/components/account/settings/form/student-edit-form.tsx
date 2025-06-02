@@ -51,8 +51,8 @@ export function StudentEditForm({
     matricule: student.matricule,
     });
 
-    const [idPhoto, setIdPhoto] = useState<File | null>(student.id_photo || null);
-    const [cardPhoto, setCardPhoto] = useState<File | null>(student.card_photo || null);
+    const [idPhoto, setIdPhoto] = useState<string | null>(typeof student.id_photo === 'string' ? student.id_photo : null);
+    const [cardPhoto, setCardPhoto] = useState<string | null>(typeof student.card_photo === 'string' ? student.card_photo : null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -70,8 +70,13 @@ export function StudentEditForm({
 
     // Ajouter toutes les données sauf les fichiers
     Object.entries(data).forEach(([key, value]) => {
-        if (key !== 'id_photo' && key !== 'card_photo' && value !== null) {
-            formData.append(key, value);
+        if (key !== 'id_photo' && key !== 'card_photo' && value !== null && value !== undefined) {
+            // Convert numbers to strings before appending
+            if (typeof value === 'number') {
+                formData.append(key, value.toString());
+            } else {
+                formData.append(key, value as string | Blob);
+            }
         }
     });
 
@@ -100,9 +105,9 @@ export function StudentEditForm({
     // Fonctions pour la gestion des photos
     const handleIdPhotoUpload = (file: File) => {
         const reader = new FileReader();
-        reader.onload = (e) => {
-            //const result = e.target?.result as string;
-            setIdPhoto(file);
+        reader.onload = () => {
+            const result = reader.result as string;
+            setIdPhoto(result);
             setData((prev) => ({ ...prev, id_photo: file }));
         };
         reader.readAsDataURL(file);
@@ -110,9 +115,9 @@ export function StudentEditForm({
 
     const handleCardPhotoUpload = (file: File) => {
         const reader = new FileReader();
-        reader.onload = (e) => {
-            //const result = e.target?.result as string;
-            setCardPhoto(file);
+        reader.onload = () => {
+            const result = reader.result as string;
+            setCardPhoto(result);
             setData((prev) => ({ ...prev, card_photo: file }));
         };
         reader.readAsDataURL(file);
