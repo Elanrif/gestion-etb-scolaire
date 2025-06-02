@@ -1,9 +1,10 @@
 import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { UserInfo } from '@/components/shared/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
-import { type User } from '@/types';
-import { Link } from '@inertiajs/react';
+import { SharedData, type User } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import { Home, LogOut, Settings } from 'lucide-react';
+import { UserRole } from '@/types/enums';
 
 interface UserMenuContentProps {
     user: User;
@@ -11,6 +12,7 @@ interface UserMenuContentProps {
 
 export function UserMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
+    const { auth } = usePage<SharedData>().props;
 
     return (
         <>
@@ -21,12 +23,14 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem asChild>
+
+                { (auth.user.role != UserRole.USER && auth.user.role != UserRole.STUDENT ) && <DropdownMenuItem asChild>
                     <Link className="block w-full" href={route('dashboard.home')} as="button" prefetch onClick={cleanup}>
                         <Home className="mr-2" />
-                        Dashboard
+                        Dashboard 
                     </Link>
                 </DropdownMenuItem>
+                }
                 <DropdownMenuItem asChild>
                     <Link className="block w-full" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
                         <Settings className="mr-2" />

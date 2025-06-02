@@ -60,11 +60,3 @@ export interface User {
     updated_at?: string;
     [key: string]: unknown;
 }
-
-export enum UserRole {
-    ADMIN = 'ADMIN',
-    PROFESSOR = 'PROFESSOR',
-    SECRETARY = 'SECRATARY',
-    STUDENT = 'STUDENT',
-    USER = 'USER',
-}

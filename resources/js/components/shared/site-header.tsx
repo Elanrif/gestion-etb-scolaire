@@ -2,13 +2,13 @@ import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, GraduationCap, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { route } from 'ziggy-js';
-
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { SharedData } from '@/types';
 
 export function SiteHeader() {
     // Utiliser usePage() d'Inertia pour obtenir l'URL actuelle
-    const { url } = usePage().props;
+    const { url, auth } = usePage<SharedData>().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
 
@@ -176,7 +176,7 @@ export function SiteHeader() {
                                 </Link>
                             ),
                         )}
-                        <div className="flex flex-col gap-2 pt-2">
+                        { !auth.user && (<div className="flex flex-col gap-2 pt-2">
                             <Link href="/login">
                                 <Button variant="outline" className="w-full border-gray-200 text-gray-800 hover:bg-gray-100 hover:text-blue-600">
                                     Se connecter
@@ -185,7 +185,9 @@ export function SiteHeader() {
                             <Link href="/register">
                                 <Button className="w-full bg-orange-500 text-white hover:bg-orange-600">S'inscrire</Button>
                             </Link>
-                        </div>
+                        </div>)
+                        }
+                        
                     </nav>
                 </div>
             )}
