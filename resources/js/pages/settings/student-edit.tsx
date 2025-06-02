@@ -25,7 +25,6 @@ export default function StudentEdit() {
     
     const { student, classes } = usePage<PageProps>().props;
 
-    console.log('student manage account', student);
       const student_form = {
         id: student.id,
         first_name: student.first_name,

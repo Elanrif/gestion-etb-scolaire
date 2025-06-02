@@ -28,7 +28,7 @@ class UpdateStudentRequest extends FormRequest
     {
         $student = $this->route('student');
 
-            Log::info('Student rules : ', ['student' => $this->all()]);
+            Log::info('Upload student rules : ', ['student' => $this->all()]);
             return [
                 'id_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'card_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',

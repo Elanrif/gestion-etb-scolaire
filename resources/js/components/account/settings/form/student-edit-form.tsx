@@ -31,7 +31,7 @@ export function StudentEditForm({
     classes: Classe[];
 }) {
 
-    const { data, setData, put, errors, processing } = useForm<StudentFormType>('edit-student',{
+    const { data, setData, put, errors, processing } = useForm<StudentFormType>('edit-settings-student',{
     id_photo: student.id_photo ,
     card_photo: student.card_photo,
     first_name: student.first_name,
@@ -51,8 +51,8 @@ export function StudentEditForm({
     matricule: student.matricule,
     });
 
-    const [idPhoto, setIdPhoto] = useState<string | null>(student.id_photo || null);
-    const [cardPhoto, setCardPhoto] = useState<string | null>(student.card_photo || null);
+    const [idPhoto, setIdPhoto] = useState<File | null>(student.id_photo || null);
+    const [cardPhoto, setCardPhoto] = useState<File | null>(student.card_photo || null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -64,35 +64,46 @@ export function StudentEditForm({
     };
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-       
-        console.log('handleSubmit data : ', data);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const formData = {
-            ...data,
-            id_photo: idPhoto || undefined,
-            card_photo: cardPhoto || undefined,
-        };
-        put(route('dashboard.students.update',student.id), {
-                    onSuccess: () => {
-                        toast.success("Succes !");
-                    },
-                    onError: (e) => {
-                        console.log('handleSubmit error : ', e);
-                        toast.error("Une erreur s'est produite");
-                    },
-                    onFinish: () => {},
-                });
+    e.preventDefault();
+    
+    const formData = new FormData();
+
+    // Ajouter toutes les données sauf les fichiers
+    Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'id_photo' && key !== 'card_photo' && value !== null) {
+            formData.append(key, value);
+        }
+    });
+
+    // Ajouter les fichiers séparément
+    if (data.id_photo instanceof File) {
+        formData.append('id_photo', data.id_photo);
+    }
+    if (data.card_photo instanceof File) {
+        formData.append('card_photo', data.card_photo);
+    }
+
+    console.log('Settings upload : ', data);
+    put(route('dashboard.students.update', student.id), {
+        onSuccess: () => {
+            toast.success('Succes !');
+        },
+        onError: (e) => {
+            console.log('handleSubmit error : ', e);
+            toast.error("Une erreur s'est produite");
+        },
+        onFinish: () => {},
+        forceFormData: true,
+    });
     };
 
     // Fonctions pour la gestion des photos
     const handleIdPhotoUpload = (file: File) => {
-        console.log('handleIdPhotoUpload', file)
         const reader = new FileReader();
         reader.onload = (e) => {
-            const result = e.target?.result as string;
-            setIdPhoto(result);
-            setData((prev) => ({ ...prev, id_photo: result }));
+            //const result = e.target?.result as string;
+            setIdPhoto(file);
+            setData((prev) => ({ ...prev, id_photo: file }));
         };
         reader.readAsDataURL(file);
     };
@@ -100,9 +111,9 @@ export function StudentEditForm({
     const handleCardPhotoUpload = (file: File) => {
         const reader = new FileReader();
         reader.onload = (e) => {
-            const result = e.target?.result as string;
-            setCardPhoto(result);
-            setData((prev) => ({ ...prev, card_photo: result }));
+            //const result = e.target?.result as string;
+            setCardPhoto(file);
+            setData((prev) => ({ ...prev, card_photo: file }));
         };
         reader.readAsDataURL(file);
     };
