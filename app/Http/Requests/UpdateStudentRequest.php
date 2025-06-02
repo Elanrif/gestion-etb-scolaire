@@ -28,8 +28,10 @@ class UpdateStudentRequest extends FormRequest
     {
         $student = $this->route('student');
 
-            Log::info('Student rules : ', ['student' => $this->all()]);
+            Log::info('Upload student rules : ', ['student' => $this->all()]);
             return [
+                'id_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'card_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => ['required', 'string', 'email', 'max:255',Rule::unique(User::class)->ignore($student->user_id)],
@@ -58,6 +60,8 @@ class UpdateStudentRequest extends FormRequest
         public function attributes(): array
         {
             return [
+                'id_photo'  => 'photo d\'identité',
+                'card_photo'  =>'photo de la carte d\'étudiant',
                 'first_name' => 'prénom',
                 'last_name' => 'nom',
                 'email' => 'adresse e-mail',
@@ -79,6 +83,10 @@ class UpdateStudentRequest extends FormRequest
          public function messages(): array
          {
              return [
+                 'id_photo.image'  => 'La photo d\'identité doit être de type image',
+                 'card_photo.image'  =>'La carte d\'étudiant doit être de type image',
+                 'id_photo.required' => 'La photo d\'identité est obligatoire',
+                 'card_photo.required' =>'La carte d\'étudiant est obligatoire',
                  'first_name.required' => 'Le prénom est obligatoire.',
                  'last_name.required' => 'Le nom est obligatoire.',
                  'email.required' => 'L\'adresse e-mail est obligatoire.',

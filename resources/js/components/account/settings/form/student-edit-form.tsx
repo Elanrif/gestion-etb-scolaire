@@ -1,59 +1,131 @@
 'use client';
 
+import type React from 'react';
+
 import InputError from '@/components/shared/input-error';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Classe } from '@/types/models';
-import { StudentFormType } from '@/types/models/forms';
-import { useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { CreditCard, LoaderCircle, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import { ImageUpload } from '@/components/account/settings/form/image-upload';
 import { toast } from 'react-toastify';
+import { useForm } from '@inertiajs/react';
+import { StudentFormType } from '@/types/models/forms';
 
-export function StudentEditForm({ student, classes }: { student: StudentFormType; classes: Classe[] }) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>('edit-student', {
-        first_name: student.first_name,
-        last_name: student.last_name,
-        email: student.email,
-        phone_number: student.phone_number,
-        address: student.address,
-        birthday: student.birthday,
-        gender: student.gender,
-        level: student.level,
-        classe_id: student.classe_id,
-        relationship: student.relationship,
-        guardian_phone_number: student.guardian_phone_number,
-        guardian_email: student.guardian_email,
-        guardian_last_name: student.last_name,
-        guardian_first_name: student.guardian_first_name,
-        matricule: student.matricule,
+// Types simplifiés pour l'exemple
+interface Classe {
+    id: string | number;
+    name: string;
+}
+
+export function StudentEditForm({
+    student,
+    classes,
+}: {
+    student: StudentFormType;
+    classes: Classe[];
+}) {
+
+    const { data, setData, put, errors, processing } = useForm<StudentFormType>('edit-settings-student',{
+    id_photo: student.id_photo ,
+    card_photo: student.card_photo,
+    first_name: student.first_name,
+    last_name: student.last_name,
+    email: student.email,
+    phone_number: student.phone_number,
+    address: student.address,
+    birthday: student.birthday,
+    gender: student.gender,
+    level: student.level,
+    classe_id: student.classe_id,
+    relationship: student.relationship,
+    guardian_phone_number: student.guardian_phone_number,
+    guardian_email: student.guardian_email,
+    guardian_last_name: student.last_name,
+    guardian_first_name: student.guardian_first_name,
+    matricule: student.matricule,
     });
+
+    const [idPhoto, setIdPhoto] = useState<File | null>(student.id_photo || null);
+    const [cardPhoto, setCardPhoto] = useState<File | null>(student.card_photo || null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setData(name as keyof typeof data, value);
+        setData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSelectChange = (name: keyof typeof data, value: string) => {
-        setData(name, value);
+    const handleSelectChange = (name: keyof StudentFormType, value: string) => {
+        setData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
-        e.preventDefault();
-        //router.put(route('dashboard.students.edit',student.id), data)
-        put(route('dashboard.students.update', student.id), {
-            onSuccess: () => {
-                toast.success('Succes !');
-            },
-            onError: (e) => {
-                console.log('handleSubmit error : ', e);
-                toast.error("Une erreur s'est produite");
-            },
-            onFinish: () => {},
-        });
+    const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const formData = new FormData();
+
+    // Ajouter toutes les données sauf les fichiers
+    Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'id_photo' && key !== 'card_photo' && value !== null) {
+            formData.append(key, value);
+        }
+    });
+
+    // Ajouter les fichiers séparément
+    if (data.id_photo instanceof File) {
+        formData.append('id_photo', data.id_photo);
+    }
+    if (data.card_photo instanceof File) {
+        formData.append('card_photo', data.card_photo);
+    }
+
+    console.log('Settings upload : ', data);
+    put(route('dashboard.students.update', student.id), {
+        onSuccess: () => {
+            toast.success('Succes !');
+        },
+        onError: (e) => {
+            console.log('handleSubmit error : ', e);
+            toast.error("Une erreur s'est produite");
+        },
+        onFinish: () => {},
+        forceFormData: true,
+    });
+    };
+
+    // Fonctions pour la gestion des photos
+    const handleIdPhotoUpload = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            //const result = e.target?.result as string;
+            setIdPhoto(file);
+            setData((prev) => ({ ...prev, id_photo: file }));
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleCardPhotoUpload = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            //const result = e.target?.result as string;
+            setCardPhoto(file);
+            setData((prev) => ({ ...prev, card_photo: file }));
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleRemoveIdPhoto = () => {
+        setIdPhoto(null);
+        setData((prev) => ({ ...prev, id_photo: undefined }));
+    };
+
+    const handleRemoveCardPhoto = () => {
+        setCardPhoto(null);
+        setData((prev) => ({ ...prev, card_photo: undefined }));
     };
 
     return (
@@ -61,6 +133,78 @@ export function StudentEditForm({ student, classes }: { student: StudentFormType
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className='col-span-2'>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <CreditCard className="h-5 w-5" /> Photos
+                                </CardTitle>
+                                <CardDescription>Ajoutez les photos nécessaires</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Tabs defaultValue="id-photo" className="w-full">
+                                    <TabsList className="grid w-full grid-cols-2">
+                                        <TabsTrigger value="id-photo">Photo d'identité</TabsTrigger>
+                                        <TabsTrigger value="card-photo">Photo de carte</TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent value="id-photo" className="space-y-4 pt-4">
+                                        <div className="flex flex-col items-center space-y-4">
+                                            {idPhoto ? (
+                                                <div className="relative">
+                                                    <img
+                                                        src={idPhoto || '/placeholder.svg'}
+                                                        alt="Photo d'identité"
+                                                        className="border-primary h-48 w-36 rounded-md border-2 object-cover"
+                                                    />
+                                                    <div className="mt-2 flex justify-center space-x-2">
+                                                        <Button type="button" variant="destructive" size="sm" onClick={handleRemoveIdPhoto}>
+                                                            <Trash2 className="mr-2 h-4 w-4" />
+                                                            Supprimer
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <ImageUpload
+                                                    onUpload={handleIdPhotoUpload}
+                                                    label="Photo d'identité"
+                                                    description="Format 3.5 x 4.5 cm, fond uni"
+                                                    maxSize={5}
+                                                    acceptedTypes={['image/jpeg', 'image/png']}
+                                                />
+                                            )}
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent value="card-photo" className="space-y-4 pt-4">
+                                        <div className="flex flex-col items-center space-y-4">
+                                            {cardPhoto ? (
+                                                <div className="relative">
+                                                    <img
+                                                        src={cardPhoto || '/placeholder.svg'}
+                                                        alt="Photo de carte"
+                                                        className="border-primary h-48 w-auto rounded-md border-2 object-cover"
+                                                    />
+                                                    <div className="mt-2 flex justify-center space-x-2">
+                                                        <Button type="button" variant="destructive" size="sm" onClick={handleRemoveCardPhoto}>
+                                                            <Trash2 className="mr-2 h-4 w-4" />
+                                                            Supprimer
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <ImageUpload
+                                                    onUpload={handleCardPhotoUpload}
+                                                    label="Photo de carte"
+                                                    description="Format paysage recommandé"
+                                                    maxSize={5}
+                                                    acceptedTypes={['image/jpeg', 'image/png']}
+                                                />
+                                            )}
+                                        </div>
+                                    </TabsContent>
+                                </Tabs>
+                            </CardContent>
+                        </Card>
+                    </div>
                     <div className="space-y-2">
                         <Label htmlFor="first_name" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Prénom
@@ -136,7 +280,7 @@ export function StudentEditForm({ student, classes }: { student: StudentFormType
                         <Label htmlFor="birthday" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Date de naissance :
                         </Label>
-                        <Input id="birthday" type="date" required name="" value={data.birthday} onChange={handleChange} />
+                        <Input id="birthday" type="date" required name="birthday" value={data.birthday} onChange={handleChange} />
                         <InputError message={errors.birthday} />
                     </div>
                     <div className="space-y-2">

@@ -8,6 +8,12 @@ import { Link } from '@inertiajs/react';
 
 const sidebarNavItems: NavItem[] = [
     {
+        title: 'Gérer compte',
+        isStudent: true,
+        href: 'settings.edit',
+        icon: null,
+    },
+    {
         title: 'Profile',
         href: '/settings/profile',
         icon: null,
@@ -15,12 +21,6 @@ const sidebarNavItems: NavItem[] = [
     {
         title: 'Mot de passe',
         href: '/settings/password',
-        icon: null,
-    },
-    {
-        title: 'Gérer compte',
-        isStudent: true,
-        href: 'settings.edit',
         icon: null,
     },
     {
@@ -42,7 +42,6 @@ export default function SettingsLayout({ children, student }: SettingsLayoutProp
     }
 
     const currentPath = window.location.pathname;
-    console.log('Student Settings', student);
     return (
         <div className="px-4 py-6">
             <Heading title="Paramétres" description="Gérer votre compte et votre profile" />
