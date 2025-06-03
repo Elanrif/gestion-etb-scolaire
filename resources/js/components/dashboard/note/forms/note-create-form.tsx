@@ -17,7 +17,6 @@ interface PageProps {
 
 export function NoteCreateForm() {
     const { classes } = usePage<PageProps>().props;
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, post, errors, processing, reset } = useForm<NoteFormType>({
             note: '',
@@ -27,6 +26,10 @@ export function NoteCreateForm() {
             professor_id: null,
             student_id: null,
     });
+
+    const selectedClasse = classes.find(classe => classe.id === Number(data.classe_id));
+    const filteredStudents = selectedClasse ? selectedClasse.students : [];
+    const filteredMatieres = selectedClasse ? selectedClasse.matieres : [];
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -101,32 +104,40 @@ export function NoteCreateForm() {
                     <Label htmlFor="student" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Etudiant
                     </Label>
-                    <Select value={data.student_id?.toString()} onValueChange={(value) => handleSelectChange('student_id', value)}>
-                        <SelectTrigger id="student" className="w-full">
-                            <SelectValue placeholder="Sélectionnez un étudiant" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {classes?.map((classe,index) => (
-                                <SelectItem key={index} value={classe.id?.toString()}>
-                                    {classe.name}</SelectItem>
-                            ))}
-                        </SelectContent>
+                    <Select
+                    value={data.student_id?.toString() ?? ''}
+                    onValueChange={value => setData('student_id', Number(value))}
+                    >
+                    <SelectTrigger id="student" className="w-full">
+                        <SelectValue placeholder="Sélectionnez un étudiant" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {filteredStudents.map(student => (
+                        <SelectItem key={student.id} value={student.id.toString()}>
+                            {student.name}
+                        </SelectItem>
+                        ))}
+                    </SelectContent>
                     </Select>
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="matiere" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Matière
                     </Label>
-                    <Select value={data.matiere_id?.toString()} onValueChange={(value) => handleSelectChange('matiere_id', value)}>
-                        <SelectTrigger id="matiere" className="w-full">
-                            <SelectValue placeholder="Sélectionnez une matière" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {classes?.map((classe,index) => (
-                                <SelectItem key={index} value={classe.id?.toString()}>
-                                  {classe.name}</SelectItem>
-                            ))}
-                        </SelectContent>
+                    <Select
+                    value={data.matiere_id?.toString() ?? ''}
+                    onValueChange={value => setData('matiere_id', Number(value))}
+                    >
+                    <SelectTrigger id="matiere" className="w-full">
+                        <SelectValue placeholder="Sélectionnez une matière" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {filteredMatieres.map(matiere => (
+                        <SelectItem key={matiere.id} value={matiere.id.toString()}>
+                            {matiere.name}
+                        </SelectItem>
+                        ))}
+                    </SelectContent>
                     </Select>
                 </div>
                 <div className="space-y-2">
