@@ -4,6 +4,7 @@ use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -54,6 +55,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/matieres/{matiere}/edit', [MatiereController::class, 'edit'])->name('matieres.edit');
         Route::put('/matieres/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
         Route::delete('/matieres/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destory');
+        
+
+        
+        /* NOTE */
+        Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
+        Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
     });
     
 
