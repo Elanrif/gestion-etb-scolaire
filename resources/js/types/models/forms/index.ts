@@ -43,5 +43,16 @@ export type MatiereFormType = {
     id?: number;
     name: string;
     classe_id: number;
-    professor_id?: number | undefined; 
+    professor_id: number| null;
+}
+
+export type NoteFormType = {
+    id?: number;
+    note: string;
+    trimestre: string;
+    classe_id: number | null;
+    matiere_id: number | null;
+    professor_id: number | null; 
+    student_id: number | null; 
+
 }

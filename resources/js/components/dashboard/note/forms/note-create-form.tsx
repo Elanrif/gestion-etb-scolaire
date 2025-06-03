@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Classe } from '@/types/models';
-import { MatiereFormType} from '@/types/models/forms';
+import { NoteFormType} from '@/types/models/forms';
 import { useForm, usePage } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
@@ -18,12 +18,14 @@ interface PageProps {
 export function NoteCreateForm() {
     const { classes } = usePage<PageProps>().props;
 
-    console.log('classes : ', classes);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<MatiereFormType>({
-        name: '',
-        classe_id: 0,
-        professor_id: undefined,
+    const { data, setData, post, errors, processing, reset } = useForm<NoteFormType>({
+            note: '',
+            trimestre: '',
+            classe_id: null,
+            matiere_id: null,
+            professor_id: null,
+            student_id: null,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -56,34 +58,34 @@ export function NoteCreateForm() {
             <h3 className="mb-4 text-sm text-gray-600 font-medium">Veuillez remplir les champs ci-dessous</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                        <Label htmlFor="name" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="note" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Note/20
                         </Label>
                         <Input
-                            id="name"
+                            id="note"
                             type='number'
-                            name="name"
-                            value={data.name}
+                            name="note"
+                            value={data.note}
                             onChange={handleChange}
                             placeholder="Veuillez saisir une note"
                             required
                             className="w-full"
                         />
-                        <InputError message={errors.name} />
+                        <InputError message={errors.note} />
                     </div>
 
                     <div className="space-y-2">
-                       <Label htmlFor="professor" className="after:ms-1 after:text-red-500 after:content-['*']">
+                       <Label htmlFor="classes" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Classe
                     </Label>
-                    <Select value={data.professor_id?.toString()} onValueChange={(value) => handleSelectChange('professor_id', value)}>
-                        <SelectTrigger id="professors" className="w-full">
+                    <Select value={data.professor_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
+                        <SelectTrigger id="classes" className="w-full">
                             <SelectValue placeholder="Sélectionnez une classe" />
                         </SelectTrigger>
                         <SelectContent>
-                            {professors?.map((professor,index) => (
-                                <SelectItem key={index} value={professor.id?.toString()}>
-                                    {professor.first_name} {professor.last_name}</SelectItem>
+                            {classes?.map((classe,index) => (
+                                <SelectItem key={index} value={classe.id?.toString()}>
+                                    {classe.name} </SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
@@ -96,33 +98,33 @@ export function NoteCreateForm() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 
                 <div className="space-y-2">
-                    <Label htmlFor="professor" className="after:ms-1 after:text-red-500 after:content-['*']">
+                    <Label htmlFor="student" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Etudiant
                     </Label>
-                    <Select value={data.professor_id?.toString()} onValueChange={(value) => handleSelectChange('professor_id', value)}>
-                        <SelectTrigger id="professors" className="w-full">
+                    <Select value={data.student_id?.toString()} onValueChange={(value) => handleSelectChange('student_id', value)}>
+                        <SelectTrigger id="student" className="w-full">
                             <SelectValue placeholder="Sélectionnez un étudiant" />
                         </SelectTrigger>
                         <SelectContent>
-                            {professors?.map((professor,index) => (
-                                <SelectItem key={index} value={professor.id?.toString()}>
-                                    {professor.first_name} {professor.last_name}</SelectItem>
+                            {classes?.map((classe,index) => (
+                                <SelectItem key={index} value={classe.id?.toString()}>
+                                    {classe.name}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="professor" className="after:ms-1 after:text-red-500 after:content-['*']">
+                    <Label htmlFor="matiere" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Matière
                     </Label>
-                    <Select value={data.professor_id?.toString()} onValueChange={(value) => handleSelectChange('professor_id', value)}>
+                    <Select value={data.matiere_id?.toString()} onValueChange={(value) => handleSelectChange('matiere_id', value)}>
                         <SelectTrigger id="matiere" className="w-full">
                             <SelectValue placeholder="Sélectionnez une matière" />
                         </SelectTrigger>
                         <SelectContent>
-                            {professors?.map((professor,index) => (
-                                <SelectItem key={index} value={professor.id?.toString()}>
-                                    {professor.first_name} {professor.last_name}</SelectItem>
+                            {classes?.map((classe,index) => (
+                                <SelectItem key={index} value={classe.id?.toString()}>
+                                  {classe.name}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>

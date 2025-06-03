@@ -24,7 +24,7 @@ class NoteController extends Controller
      */
     public function create()
     {  
-        $classes = Classe::with('students','professors', 'matieres')->orderBy('id', 'DESC')->get();
+        $classes = Classe::with('students', 'matieres')->orderBy('id', 'DESC')->get();
         return Inertia::render('dashboard/notes/note-create-form-page',['classes'=> $classes]);
     }
 
