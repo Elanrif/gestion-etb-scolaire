@@ -7,7 +7,7 @@ use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
    
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
     
