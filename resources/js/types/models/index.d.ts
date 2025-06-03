@@ -3,6 +3,9 @@ import { User } from "..";
 export interface Classe { 
     id: number;
     name: string;
+    students: Students[];
+    professors: Professors[];
+    matieres: Matieres[];
     [key: string]: unknown;
 }
 

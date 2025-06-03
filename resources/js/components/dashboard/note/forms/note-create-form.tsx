@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Classe, Professor } from '@/types/models';
+import { Classe } from '@/types/models';
 import { MatiereFormType} from '@/types/models/forms';
 import { useForm, usePage } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
@@ -11,19 +11,19 @@ import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
 
 interface PageProps {
-    professors: Professor[];
     classes: Classe[];
-    [key: string]: Professor[] | Classe[]; // Signature d'index requise
+    [key: string]:  Classe[]; // Signature d'index requise
 }
 
 export function NoteCreateForm() {
-    const { professors } = usePage<PageProps>().props;
+    const { classes } = usePage<PageProps>().props;
 
+    console.log('classes : ', classes);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, post, errors, processing, reset } = useForm<MatiereFormType>({
         name: '',
         classe_id: 0,
-        professor_id: 0
+        professor_id: undefined,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -71,6 +71,23 @@ export function NoteCreateForm() {
                         />
                         <InputError message={errors.name} />
                     </div>
+
+                    <div className="space-y-2">
+                       <Label htmlFor="professor" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        Classe
+                    </Label>
+                    <Select value={data.professor_id?.toString()} onValueChange={(value) => handleSelectChange('professor_id', value)}>
+                        <SelectTrigger id="professors" className="w-full">
+                            <SelectValue placeholder="Sélectionnez une classe" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {professors?.map((professor,index) => (
+                                <SelectItem key={index} value={professor.id?.toString()}>
+                                    {professor.first_name} {professor.last_name}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    </div>
                 </div>
             </div>
 
@@ -95,7 +112,23 @@ export function NoteCreateForm() {
                     </Select>
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="trimestre">Trimestre</Label>
+                    <Label htmlFor="professor" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        Matière
+                    </Label>
+                    <Select value={data.professor_id?.toString()} onValueChange={(value) => handleSelectChange('professor_id', value)}>
+                        <SelectTrigger id="matiere" className="w-full">
+                            <SelectValue placeholder="Sélectionnez une matière" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {professors?.map((professor,index) => (
+                                <SelectItem key={index} value={professor.id?.toString()}>
+                                    {professor.first_name} {professor.last_name}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="trimestre" className="after:ms-1 after:text-red-500 after:content-['*']">Trimestre</Label>
                     <Select>
                         <SelectTrigger id="trimestre" className="border-gray-200">
                             <SelectValue placeholder="Sélectionner un trimestre" />

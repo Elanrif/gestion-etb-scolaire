@@ -43,5 +43,5 @@ export type MatiereFormType = {
     id?: number;
     name: string;
     classe_id: number;
-    professor_id: number;
+    professor_id?: number | undefined; 
 }

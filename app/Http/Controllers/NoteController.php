@@ -23,10 +23,9 @@ class NoteController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        $classes = Classe::orderBy('id', 'DESC')->get();
-        $professors = Professor::orderBy('id', 'DESC')->get();
-        return Inertia::render('dashboard/notes/note-create-form-page',['classes'=> $classes,'professors'=> $professors]);
+    {  
+        $classes = Classe::with('students','professors', 'matieres')->orderBy('id', 'DESC')->get();
+        return Inertia::render('dashboard/notes/note-create-form-page',['classes'=> $classes]);
     }
 
     /**
@@ -50,7 +49,11 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        //
+        $professors = Professor::all();
+        $classes = Classe::all();
+        $note_ = Note::with(['classe','professor'])->find($note->id);
+        return Inertia::render('dashboard/matieres/matiere-edit-form-page',
+        ['note'=> $note_, 'professors' => $professors ,'classes' => $classes]);
     }
 
     /**
