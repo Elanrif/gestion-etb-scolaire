@@ -57,7 +57,7 @@ export function NoteEditForm({
             onFinish: () => {},
         });
     };
-
+    
     return (
          <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-lg">
                     <div>

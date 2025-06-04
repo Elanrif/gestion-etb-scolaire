@@ -36,13 +36,10 @@ export function NoteCreateForm() {
         setData(name as keyof typeof data, value);
     };
 
-    const handleSelectChange = (name: keyof typeof data, value: string) => {
-        setData(name, value);
-    };
-
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-
+        console.log('data', data);
+        return;
         post(route('dashboard.matieres.store'), {
             onSuccess: () => {
                 console.log("Compte créé avec succès !")
@@ -54,6 +51,7 @@ export function NoteCreateForm() {
             onFinish: () => {},
         });
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-lg">
@@ -81,7 +79,8 @@ export function NoteCreateForm() {
                        <Label htmlFor="classes" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Classe
                     </Label>
-                    <Select value={data.professor_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
+                    <Select value={data.classe_id?.toString()} onValueChange={(value) => setData('classe_id', Number(value))}
+                        required>
                         <SelectTrigger id="classes" className="w-full">
                             <SelectValue placeholder="Sélectionnez une classe" />
                         </SelectTrigger>
@@ -107,6 +106,7 @@ export function NoteCreateForm() {
                     <Select
                     value={data.student_id?.toString() ?? ''}
                     onValueChange={value => setData('student_id', Number(value))}
+                    required
                     >
                     <SelectTrigger id="student" className="w-full">
                         <SelectValue placeholder="Sélectionnez un étudiant" />
@@ -114,7 +114,7 @@ export function NoteCreateForm() {
                     <SelectContent>
                         {filteredStudents.map(student => (
                         <SelectItem key={student.id} value={student.id.toString()}>
-                            {student.name}
+                            {student.first_name} {student.last_name}
                         </SelectItem>
                         ))}
                     </SelectContent>
@@ -127,6 +127,7 @@ export function NoteCreateForm() {
                     <Select
                     value={data.matiere_id?.toString() ?? ''}
                     onValueChange={value => setData('matiere_id', Number(value))}
+                    required
                     >
                     <SelectTrigger id="matiere" className="w-full">
                         <SelectValue placeholder="Sélectionnez une matière" />
@@ -142,14 +143,17 @@ export function NoteCreateForm() {
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="trimestre" className="after:ms-1 after:text-red-500 after:content-['*']">Trimestre</Label>
-                    <Select>
+                    <Select 
+                        value={data.trimestre}
+                        onValueChange={value => setData('trimestre', (value))}
+                        required>
                         <SelectTrigger id="trimestre" className="border-gray-200">
                             <SelectValue placeholder="Sélectionner un trimestre" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="titulaire">Trimestre1</SelectItem>
-                            <SelectItem value="contractuel">Trimestre2</SelectItem>
-                            <SelectItem value="vacataire">Trimestre3</SelectItem>
+                            <SelectItem value="trimestre1">Trimestre1</SelectItem>
+                            <SelectItem value="trimestre2">Trimestre2</SelectItem>
+                            <SelectItem value="trimestre3">Trimestre3</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

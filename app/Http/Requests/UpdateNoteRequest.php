@@ -11,7 +11,7 @@ class UpdateNoteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,29 @@ class UpdateNoteRequest extends FormRequest
      */
     public function rules(): array
     {
+        Log::info('Matiere rules : ', ['matiere' => $this->all()]);
         return [
-            //
+           'name' => 'required|string|max:255',
+           'classe_id'=> 'nullable|integer|max:255|exists:classes,id', 
+           'professor_id'=> 'nullable|integer|max:255|exists:professors,id',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'nom',
+            'class_id' => 'classe',
+            'professor_id' => 'responsable de la matière',
+        ];
+    }
+     /* Custom messages */
+     public function messages(): array
+     {
+         return [
+             'name.required' => 'Le prénom est obligatoire.',
+             'classe_id.required' => 'La classe est obligatoire.',
+             'professor_id.required' => 'Le professeur est obligatoire.',
+         ];
+     }
 }
