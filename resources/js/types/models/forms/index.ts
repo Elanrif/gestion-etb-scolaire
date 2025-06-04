@@ -52,7 +52,6 @@ export type NoteFormType = {
     trimestre: string;
     classe_id: number | null;
     matiere_id: number | null;
-    professor_id: number | null; 
     student_id: number | null; 
 
 }

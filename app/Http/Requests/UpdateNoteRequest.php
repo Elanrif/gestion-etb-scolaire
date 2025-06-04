@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class UpdateNoteRequest extends FormRequest
 {
@@ -23,27 +24,39 @@ class UpdateNoteRequest extends FormRequest
     {
         Log::info('Matiere rules : ', ['matiere' => $this->all()]);
         return [
-           'name' => 'required|string|max:255',
+           'note' => 'required|string|max:255',
            'classe_id'=> 'nullable|integer|max:255|exists:classes,id', 
            'professor_id'=> 'nullable|integer|max:255|exists:professors,id',
+           'matiere_id'=> 'nullable|integer|max:255|exists:professors,id',
+           'student_id'=> 'nullable|integer|max:255|exists:professors,id',
+           'trimestre' => 'required|string|max:255',
+          
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'name' => 'nom',
+            'note' => 'nom',
             'class_id' => 'classe',
             'professor_id' => 'responsable de la matière',
+            'matiere_id' => 'nom de la matière de la matière',
+            'student_id' => 'nom de l\'étudiant',
+            'trimestre' => 'trimestre',
+            
+            
         ];
     }
      /* Custom messages */
      public function messages(): array
      {
          return [
-             'name.required' => 'Le prénom est obligatoire.',
+             'note.required' => 'veillez saisir une note.',
              'classe_id.required' => 'La classe est obligatoire.',
              'professor_id.required' => 'Le professeur est obligatoire.',
+             'matiere_id' => 'le nom de la matière de la matière',
+             'student_id' => 'le nom de l\'étudiant',
+             'trimestre' => 'le trimestre est obligatoire',
          ];
      }
 }

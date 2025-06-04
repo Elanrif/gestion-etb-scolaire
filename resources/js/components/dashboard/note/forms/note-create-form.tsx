@@ -23,7 +23,6 @@ export function NoteCreateForm() {
             trimestre: '',
             classe_id: null,
             matiere_id: null,
-            professor_id: null,
             student_id: null,
     });
 
@@ -38,11 +37,9 @@ export function NoteCreateForm() {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('data', data);
-        return;
-        post(route('dashboard.matieres.store'), {
+        post(route('dashboard.notes.store'), {
             onSuccess: () => {
-                console.log("Compte créé avec succès !")
+                console.log("succès !")
             },
             onError: (e) => {
                 console.log('handleSubmit error : ', e);
@@ -104,7 +101,7 @@ export function NoteCreateForm() {
                         Etudiant
                     </Label>
                     <Select
-                    value={data.student_id?.toString() ?? ''}
+                    value={data.student_id?.toString()}
                     onValueChange={value => setData('student_id', Number(value))}
                     required
                     >
@@ -125,7 +122,7 @@ export function NoteCreateForm() {
                         Matière
                     </Label>
                     <Select
-                    value={data.matiere_id?.toString() ?? ''}
+                    value={data.matiere_id?.toString()}
                     onValueChange={value => setData('matiere_id', Number(value))}
                     required
                     >
