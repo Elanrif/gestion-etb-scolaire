@@ -18,7 +18,7 @@ class Cour extends Model
         return $this->belongsTo(Professor::class);
     }
 
-     public function class(): BelongsTo
+     public function classe(): BelongsTo
     {
         return $this->belongsTo(Classe::class);
     }

@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
         Route::get('/cours', [CourController::class, 'index'])->name('cours.index');
         Route::get('/cours/create', [CourController::class, 'create'])->name('cours.create');
         Route::post('/cours', [CourController::class, 'store'])->name('cours.store');
+        Route::get('/cours/{cour}/edit', [CourController::class, 'edit'])->name('cours.edit');
         Route::put('/cours/{cour}', [CourController::class, 'update'])->name('cours.update');
         Route::delete('/cours/{cour}', [CourController::class, 'destroy'])->name('cours.destroy');
     

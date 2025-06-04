@@ -7,6 +7,7 @@ use App\Models\Classe;
 use App\Models\Professor;
 use App\Http\Requests\StoreCourRequest;
 use App\Http\Requests\UpdateCourRequest;
+use App\Models\Matiere;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,7 +19,8 @@ class CourController extends Controller
      */
     public function index()
     {
-         return Inertia::render('dashboard/cours/cour-index-page',);
+         $cours = Cour::with('professor.user','classe','matiere')->orderBy('id', 'DESC')->get();
+         return Inertia::render('dashboard/cours/cour-index-page',['cours'=> $cours]);
     }
 
     /**
@@ -34,7 +36,25 @@ class CourController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreCourRequest $request)
-    {
+    {    
+         /* Get validated data */
+         $validated_data = $request->validated();
+
+         $classe = Classe::findOrFail($validated_data['classe_id']);
+         $professor = Professor::findOrFail($validated_data['professor_id']);
+         $matiere = Matiere::findOrFail($validated_data['matiere_id']);
+
+         /* Create the matiere account */
+         $cour = Cour::create([
+             'name' => $validated_data['name']
+            ]);
+
+         // Association
+         $cour->classe()->associate($classe);
+         $cour->professor()->associate($professor);
+         $cour->matiere()->associate($matiere);
+         $cour->save();
+
          $request->session()->flash('success', 'Succès!');
          return to_route('dashboard.cours.index');
     }

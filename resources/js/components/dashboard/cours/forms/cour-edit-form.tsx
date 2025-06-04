@@ -14,7 +14,7 @@ interface PageProps {
     classes: Classe[];
     [key: string]: Classe[]; // Signature d'index requise
 }
-export function CourCreateForm() {
+export function CourEditForm() {
     const { classes } = usePage<PageProps>().props;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, post, errors, processing, reset } = useForm<CourFormType>({
@@ -40,7 +40,7 @@ export function CourCreateForm() {
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
-        post(route('dashboard.cours.store'), {
+        post(route('dashboard.matieres.store'), {
             onSuccess: () => {
                 console.log("Compte créé avec succès !")
             },
@@ -88,7 +88,6 @@ export function CourCreateForm() {
                             ))}
                         </SelectContent>
                     </Select>
-                     <InputError message={errors.classe_id} />
                     </div>
                 </div>  
             </div>
@@ -116,8 +115,6 @@ export function CourCreateForm() {
                         ))}
                         </SelectContent>    
                     </Select>
-                    
-                     <InputError message={errors.professor_id} />
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="matiere" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -139,8 +136,6 @@ export function CourCreateForm() {
                         ))}
                     </SelectContent>
                     </Select>
-                    
-                     <InputError message={errors.matiere_id} />
                 </div>
             </div>
 
