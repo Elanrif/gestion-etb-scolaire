@@ -17,8 +17,9 @@ class NoteController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {        
-        return Inertia::render('dashboard/notes/note-index-page');
+    {   
+        $notes = Note::with(['student', 'matiere.classe'])->orderBy('id', 'DESC')->get();
+        return Inertia::render('dashboard/notes/note-index-page',['notes'=> $notes]);
     }
 
     /**
