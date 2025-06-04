@@ -26,9 +26,8 @@ class StoreNoteRequest extends FormRequest
         return [
            'note' => 'required|string|max:255',
            'classe_id'=> 'nullable|integer|max:255|exists:classes,id', 
-           'professor_id'=> 'nullable|integer|max:255|exists:professors,id',
-           'matiere_id'=> 'nullable|integer|max:255|exists:professors,id',
-           'student_id'=> 'nullable|integer|max:255|exists:professors,id',
+           'matiere_id'=> 'nullable|string|max:255|exists:matieres,id',
+           'student_id'=> 'nullable|integer|max:255|exists:studens,id',
            'trimestre' => 'required|string|max:255',
           
         ];

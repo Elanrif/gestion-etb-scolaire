@@ -88,6 +88,7 @@ export function NoteCreateForm() {
                             ))}
                         </SelectContent>
                     </Select>
+                    <InputError message={errors.classe_id} />
                     </div>
                 </div>
             </div>
@@ -116,6 +117,7 @@ export function NoteCreateForm() {
                         ))}
                     </SelectContent>
                     </Select>
+                    <InputError message={errors.student_id} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="matiere" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -137,6 +139,7 @@ export function NoteCreateForm() {
                         ))}
                     </SelectContent>
                     </Select>
+                     <InputError message={errors.matiere_id} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="trimestre" className="after:ms-1 after:text-red-500 after:content-['*']">Trimestre</Label>
@@ -153,6 +156,7 @@ export function NoteCreateForm() {
                             <SelectItem value="trimestre3">Trimestre3</SelectItem>
                         </SelectContent>
                     </Select>
+                    <InputError message={errors.trimestre} />
                 </div>
             </div>
 
