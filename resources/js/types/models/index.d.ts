@@ -81,6 +81,17 @@ export interface Matiere {
     [key: string]: string | Professor[];
 }
 
+export interface Cour {
+    id: number;
+    name: string;
+    professor: Professor;
+    classe: Classe;
+    matiere: Matiere;
+    created_at?: string;
+    updated_at?: string;
+    [key: string]: string | Professor[];
+}
+
 export enum StagiaireStatus {
     TITULAIRE = 'TITULAIRE',
     STAGIAIRE = 'STAGIAIRE',

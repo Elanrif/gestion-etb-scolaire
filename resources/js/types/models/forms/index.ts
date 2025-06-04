@@ -20,7 +20,6 @@ export type userFormType = {
     additional_info: string;
  } & userFormType
 
-
 export type StudentFormType = {
     id?: number;
     id_photo?: File | null;
@@ -38,10 +37,17 @@ export type StudentFormType = {
     guardian_phone_number: string;
 } & userFormType
 
-
 export type MatiereFormType = {
     id?: number;
     name: string;
     classe_id: number;
     professor_id: number;
+}
+
+export type CourFormType = {
+    id?: number;
+    name: string;
+    classe_id: number | null;
+    professor_id: number | null;
+    matiere_id: number | null;
 }

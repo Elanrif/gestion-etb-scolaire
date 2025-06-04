@@ -34,6 +34,10 @@ class Professor extends Model
      *
      * @return user
      */
+    public function cours() {
+        return $this->hasMany(Cour::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

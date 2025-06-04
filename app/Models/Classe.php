@@ -18,6 +18,10 @@ class Classe extends Model
      /**
      * The roles that belong to the user.
      */
+      public function cours() {
+        return $this->hasMany(Cour::class);
+    }
+    
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
