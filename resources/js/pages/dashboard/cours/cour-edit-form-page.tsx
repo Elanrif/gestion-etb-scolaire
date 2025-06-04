@@ -1,23 +1,26 @@
 
+import { CourEditForm } from '@/components/dashboard/cours/forms/cour-edit-form';
 import HeaderDashboard from '@/components/dashboard/header-dashboard';
 import AdminLayout from "@/layouts/admin-layout";
-import { Classe, Matiere, Professor } from "@/types/models";
+import { Classe, Cour, Matiere, Professor } from "@/types/models";
 import { usePage } from "@inertiajs/react";
 
 interface PageProps {
-    cour: Matiere;
-    prcours: Professor[];
+    cour: Cour;
+    professors: Professor[];
     classes: Classe[];
+    matieres: Matiere[];
     [key: string]: unknown;
   }
-export default function MatiereEditFormPage() {
-  const { cour, professors, classes } = usePage<PageProps>().props;
+export default function CourEditFormPage() {
+  const { cour, professors, classes, matieres } = usePage<PageProps>().props;
 
   const cour_form = {
     id: cour.id,
     name: cour.name,
     classe_id: cour.classe?.id,
-    professor_id: cour.professor?.id
+    matiere_id: cour.matiere?.id,
+    professor_id: cour.professor?.id,
   }
   return (
 <AdminLayout>
@@ -25,7 +28,8 @@ export default function MatiereEditFormPage() {
      <CourEditForm 
         cour={cour_form}
         professors={professors}
-        classes={classes} />
+        classes={classes}
+        matieres={matieres} />
     </AdminLayout>
   )
 }

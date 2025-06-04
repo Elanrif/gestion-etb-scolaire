@@ -3,30 +3,34 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Classe } from '@/types/models';
+import { Classe, Matiere, Professor } from '@/types/models';
 import { CourFormType } from '@/types/models/forms';
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 import { toast } from 'react-toastify';
 
-interface PageProps {
-    classes: Classe[];
-    [key: string]: Classe[]; // Signature d'index requise
-}
-export function CourEditForm() {
-    const { classes } = usePage<PageProps>().props;
+export function CourEditForm({
+        cour,
+        classes,
+        matieres,
+        professors
+       }: {
+        cour: CourFormType;
+        classes: Classe[];
+        matieres: Matiere[];
+        professors: Professor[];
+        
+      })
+     {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<CourFormType>({
-        name: '',
-        classe_id: null,
-        professor_id: null,
-        matiere_id: null,
+    const { data, setData, post, errors, processing, reset } = useForm<CourFormType>('edit-cour', {
+        id: cour.id,
+        name: cour.name,
+        classe_id: cour.classe_id,
+        professor_id: cour.professor_id,
+        matiere_id: cour.matiere_id,
     });
-
-    const selectedClasse = classes.find(classe => classe.id === Number(data.classe_id));
-    const filteredProfessors = selectedClasse ? selectedClasse.professors : [];
-    const filteredMatieres = selectedClasse ? selectedClasse.matieres : [];
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -39,10 +43,13 @@ export function CourEditForm() {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-
-        post(route('dashboard.matieres.store'), {
+        if (!cour.id) {
+            toast.error("ID du cours manquant.");
+            return;
+        }
+        post(route('dashboard.cours.update',cour.id), {
             onSuccess: () => {
-                console.log("Compte créé avec succès !")
+                console.log("matière mise à jour avec succès!!")
             },
             onError: (e) => {
                 console.log('handleSubmit error : ', e);
@@ -108,11 +115,9 @@ export function CourEditForm() {
                             <SelectValue placeholder="Sélectionnez un professeur" />
                         </SelectTrigger> 
                          <SelectContent>
-                             {filteredProfessors.map(professor => (
-                        <SelectItem key={professor.id} value={professor.id.toString()}>
-                            {professor.first_name} {professor.last_name}
-                        </SelectItem>
-                        ))}
+                            {professors.map((professor,index) => (
+                                        <SelectItem key={index} value={professor.id?.toString()}>{professor.first_name} {professor.last_name}</SelectItem>
+                                    ))}
                         </SelectContent>    
                     </Select>
                 </div>
@@ -129,11 +134,9 @@ export function CourEditForm() {
                         <SelectValue placeholder="Sélectionnez une matière" />
                     </SelectTrigger>
                     <SelectContent>
-                        {filteredMatieres.map(matiere => (
-                        <SelectItem key={matiere.id} value={matiere.id.toString()}>
-                            {matiere.name}
-                        </SelectItem>
-                        ))}
+                       {matieres.map((matieres,index) => (
+                                        <SelectItem key={index} value={matieres.id?.toString()}>{matieres.name}</SelectItem>
+                                    ))}
                     </SelectContent>
                     </Select>
                 </div>

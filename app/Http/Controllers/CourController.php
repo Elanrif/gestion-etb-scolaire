@@ -72,7 +72,16 @@ class CourController extends Controller
      */
     public function edit(Cour $cour)
     {
-         return Inertia::render('dashboard/cours/cour-edit-form-page',);
+        $cour = Cour::with('professor.user','classe','matiere')->findOrFail($cour->id);
+        $classes = Classe::with('professors','matieres')->orderBy('id', 'DESC')->get();
+        $professors = Professor::with('user')->orderBy('id', 'DESC')->get();
+        $matieres = Matiere::orderBy('id', 'DESC')->get();
+        return Inertia::render('dashboard/cours/cour-edit-form-page', [
+            'cour' => $cour,
+            'classes' => $classes,
+            'professors' => $professors,
+            'matieres' => $matieres
+        ]);
     }
 
     /**
