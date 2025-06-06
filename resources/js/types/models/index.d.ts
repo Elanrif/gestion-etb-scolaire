@@ -3,6 +3,8 @@ import { User } from "..";
 export interface Classe { 
     id: number;
     name: string;
+    students: Students[];
+    matieres: Matieres[];
     [key: string]: unknown;
 }
 
@@ -81,6 +83,18 @@ export interface Matiere {
     [key: string]: string | Professor[];
 }
 
+export interface Note {
+    id: number;
+    note: string;
+    trimestre: string;
+    classe: Classe;
+    student: Student;
+    matiere: Matiere;
+    created_at?: string;
+    updated_at?: string;
+    [key: string]: string | Matiere| Student;
+}
+
 export interface Cour {
     id: number;
     name: string;
@@ -97,4 +111,3 @@ export enum StagiaireStatus {
     STAGIAIRE = 'STAGIAIRE',
     CONTRACTUEL = 'CONTRACTUEL',
 }
-

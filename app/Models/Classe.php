@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Matiere;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -41,5 +42,13 @@ class Classe extends Model
     public function matieres(): HasMany
     {
         return $this->hasMany(Matiere::class);
+    }
+
+     /**
+     * The roles that belong to the user.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
     }
 }

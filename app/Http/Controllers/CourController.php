@@ -86,33 +86,26 @@ class CourController extends Controller
      */
     public function update(UpdateCourRequest $request, Cour $cour)
     {
-          /* Validate the request */
-          $request->validate([
-              'name' => 'required|string|max:255',
-              'classe_id' => 'required|exists:classes,id',
-              'professor_id' => 'required|exists:professors,id',
-              'matiere_id' => 'required|exists:matieres,id',
-          ]);
-         /* Get validated data */
-          $validated_data = $request->validated();
+        /* Get validated data */
+        $validated_data = $request->validated();
 
-          $classe = Classe::findOrFail($validated_data['classe_id']);
-          $professor = Professor::findOrFail($validated_data['professor_id']);
-          $matiere = Matiere::findOrFail($validated_data['matiere_id']);
- 
-          /* Update the cour account */
-          $cour->update([
-              'name' => $validated_data['name']
-             ]);
- 
-          // Association
-          $cour->classe()->associate($classe);
-          $cour->professor()->associate($professor);
-          $cour->matiere()->associate($matiere);
-          $cour->save();
+        $classe = Classe::findOrFail($validated_data['classe_id']);
+        $professor = Professor::findOrFail($validated_data['professor_id']);
+        $matiere = Matiere::findOrFail($validated_data['matiere_id']);
 
-          $request->session()->flash('success', 'Succès!');
-          return to_route('dashboard.cours.index');
+        /* Update the cour account */
+        $cour->update([
+            'name' => $validated_data['name']
+            ]);
+
+        // Association
+        $cour->classe()->associate($classe);
+        $cour->professor()->associate($professor);
+        $cour->matiere()->associate($matiere);
+        $cour->save();
+
+        $request->session()->flash('success', 'Succès!');
+        return to_route('dashboard.cours.index');
     }
 
     /**

@@ -64,7 +64,7 @@ export function MatiereCreateForm() {
                             name="name"
                             value={data.name}
                             onChange={handleChange}
-                            placeholder="Entrez votre prénom"
+                            placeholder="Entrez une matière"
                             required
                             className="w-full"
                         />

@@ -106,9 +106,9 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
         },
         {
             name: 'Notes',
-            href: 'dashboard.home',
+            href: 'dashboard.notes.index',
             icon: FileText,
-            active: pathname.startsWith('/admin/grades'),
+            active: pathname.startsWith('/dashboard/notes'),
         },
         {
             name: 'Emploi du temps',
