@@ -72,15 +72,12 @@ class CourController extends Controller
      */
     public function edit(Cour $cour)
     {
-        $cour = Cour::with('professor.user','classe','matiere')->findOrFail($cour->id);
         $classes = Classe::with('professors','matieres')->orderBy('id', 'DESC')->get();
-        $professors = Professor::with('user')->orderBy('id', 'DESC')->get();
-        $matieres = Matiere::orderBy('id', 'DESC')->get();
-        return Inertia::render('dashboard/cours/cour-edit-form-page', [
-            'cour' => $cour,
-            'classes' => $classes,
-            'professors' => $professors,
-            'matieres' => $matieres
+        $cour_ = Cour::with(['classe','professor','matiere'])->find($cour->id);
+        return Inertia::render('dashboard/cours/cour-edit-form-page', 
+        [
+         'cour' => $cour_,
+         'classes' => $classes
         ]);
     }
 
@@ -89,7 +86,32 @@ class CourController extends Controller
      */
     public function update(UpdateCourRequest $request, Cour $cour)
     {
-         $request->session()->flash('success', 'Succès!');
+          /* Validate the request */
+          $request->validate([
+              'name' => 'required|string|max:255',
+              'classe_id' => 'required|exists:classes,id',
+              'professor_id' => 'required|exists:professors,id',
+              'matiere_id' => 'required|exists:matieres,id',
+          ]);
+         /* Get validated data */
+          $validated_data = $request->validated();
+
+          $classe = Classe::findOrFail($validated_data['classe_id']);
+          $professor = Professor::findOrFail($validated_data['professor_id']);
+          $matiere = Matiere::findOrFail($validated_data['matiere_id']);
+ 
+          /* Update the cour account */
+          $cour->update([
+              'name' => $validated_data['name']
+             ]);
+ 
+          // Association
+          $cour->classe()->associate($classe);
+          $cour->professor()->associate($professor);
+          $cour->matiere()->associate($matiere);
+          $cour->save();
+
+          $request->session()->flash('success', 'Succès!');
           return to_route('dashboard.cours.index');
     }
 

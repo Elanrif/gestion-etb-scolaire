@@ -100,7 +100,7 @@ export default function AppAdminLayout({ children }: { children: React.ReactNode
         },
         {
             name: 'Cours',
-            href: 'dashboard.cours.create',
+            href: 'dashboard.cours.index',
             icon: BookOpen,
             active: pathname.startsWith('/dashboard/cours'),
         },

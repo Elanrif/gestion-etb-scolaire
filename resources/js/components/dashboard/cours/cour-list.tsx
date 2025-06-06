@@ -89,6 +89,12 @@ const CourList: React.FC<CourTableProps > = ({ cours,  onViewCour, onDeleteCour 
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
                                     >
+                                        Nom du matiere
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap text-gray-500 uppercase"
+                                    >
                                         Classe
                                     </th>
                                     <th
@@ -112,6 +118,9 @@ const CourList: React.FC<CourTableProps > = ({ cours,  onViewCour, onDeleteCour 
                                             <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{index + 1}</td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                                                 {cour.name}
+                                            </td>
+                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
+                                                {cour.matiere?.name}
                                             </td>
                                             <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
                                                 {cour.classe?.name}

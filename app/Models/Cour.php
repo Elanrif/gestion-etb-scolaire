@@ -13,6 +13,7 @@ class Cour extends Model
      * @var list<string>
      */
     protected $guarded = [ ];
+    
      public function professor(): BelongsTo
     {
         return $this->belongsTo(Professor::class);

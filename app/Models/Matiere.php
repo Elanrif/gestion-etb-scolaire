@@ -15,7 +15,7 @@ class Matiere extends Model
     protected $guarded = [];
 
 
-      public function cours() {
+    public function cour() {
         return $this->hasMany(Cour::class);
     }
     /**

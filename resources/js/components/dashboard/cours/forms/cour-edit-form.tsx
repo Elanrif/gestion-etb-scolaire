@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Classe, Matiere, Professor } from '@/types/models';
+import { Classe } from '@/types/models';
 import { CourFormType } from '@/types/models/forms';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
@@ -13,18 +13,13 @@ import { toast } from 'react-toastify';
 export function CourEditForm({
         cour,
         classes,
-        matieres,
-        professors
        }: {
         cour: CourFormType;
         classes: Classe[];
-        matieres: Matiere[];
-        professors: Professor[];
         
-      })
-     {
+      }){
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, post, errors, processing, reset } = useForm<CourFormType>('edit-cour', {
+    const { data, setData, put, errors, processing, reset } = useForm<CourFormType>('edit-cour', {
         id: cour.id,
         name: cour.name,
         classe_id: cour.classe_id,
@@ -32,9 +27,20 @@ export function CourEditForm({
         matiere_id: cour.matiere_id,
     });
 
+    const selectedClasse = classes.find(classe => classe.id === Number(data.classe_id));
+    const filteredProfessors = selectedClasse ? selectedClasse.professors : [];
+    const filteredMatieres = selectedClasse ? selectedClasse.matieres : [];
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setData(name as keyof typeof data, value);
+    };
+
+    // Réinitialise les champs dépendants si la classe change
+    const handleClasseChange = (value: string) => {
+        setData('classe_id', Number(value));
+        setData('professor_id', null);
+        setData('matiere_id', null);
     };
 
     const handleSelectChange = (name: keyof typeof data, value: string) => {
@@ -47,7 +53,7 @@ export function CourEditForm({
             toast.error("ID du cours manquant.");
             return;
         }
-        post(route('dashboard.cours.update',cour.id), {
+        put(route('dashboard.cours.update',cour.id), {
             onSuccess: () => {
                 console.log("matière mise à jour avec succès!!")
             },
@@ -79,22 +85,26 @@ export function CourEditForm({
                         />
                         <InputError message={errors.name} />
                     </div>
-                      <div className="space-y-2">
-                       <Label htmlFor="classes" className="after:ms-1 after:text-red-500 after:content-['*']">
-                        Classe
-                    </Label>
-                    <Select value={data.classe_id?.toString()} onValueChange={(value) => setData('classe_id', Number(value))}
-                        required>
-                        <SelectTrigger id="classes" className="w-full">
-                            <SelectValue placeholder="Sélectionnez une classe" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {classes?.map((classe,index) => (
-                                <SelectItem key={index} value={classe.id?.toString()}>
-                                    {classe.name} </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                    <div className="space-y-2">
+                        <Label htmlFor="classes" className="after:ms-1 after:text-red-500 after:content-['*']">
+                            Classe
+                        </Label>
+                        <Select 
+                            value={data.classe_id?.toString()} 
+                            onValueChange={handleClasseChange}
+                            required
+                        >
+                            <SelectTrigger id="classes" className="w-full">
+                                <SelectValue placeholder="Sélectionnez une classe" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {classes?.map((classe,index) => (
+                                    <SelectItem key={index} value={classe.id?.toString()}>
+                                        {classe.name} 
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>  
             </div>
@@ -115,9 +125,11 @@ export function CourEditForm({
                             <SelectValue placeholder="Sélectionnez un professeur" />
                         </SelectTrigger> 
                          <SelectContent>
-                            {professors.map((professor,index) => (
-                                        <SelectItem key={index} value={professor.id?.toString()}>{professor.first_name} {professor.last_name}</SelectItem>
-                                    ))}
+                             {filteredProfessors?.map(professor => (
+                        <SelectItem key={professor.id} value={professor.id.toString()}>
+                            {professor.first_name} {professor.last_name}
+                        </SelectItem>
+                        ))}
                         </SelectContent>    
                     </Select>
                 </div>
@@ -125,7 +137,7 @@ export function CourEditForm({
                     <Label htmlFor="matiere" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Matière
                     </Label>
-                    <Select
+                   <Select
                     value={data.matiere_id?.toString()}
                     onValueChange={value => setData('matiere_id', Number(value))}
                     required
@@ -134,9 +146,11 @@ export function CourEditForm({
                         <SelectValue placeholder="Sélectionnez une matière" />
                     </SelectTrigger>
                     <SelectContent>
-                       {matieres.map((matieres,index) => (
-                                        <SelectItem key={index} value={matieres.id?.toString()}>{matieres.name}</SelectItem>
-                                    ))}
+                        {filteredMatieres?.map(matiere => (
+                        <SelectItem key={matiere.id} value={matiere.id.toString()}>
+                            {matiere.name}
+                        </SelectItem>
+                        ))}
                     </SelectContent>
                     </Select>
                 </div>

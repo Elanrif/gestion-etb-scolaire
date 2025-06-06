@@ -13,8 +13,7 @@ interface PageProps {
     [key: string]: unknown;
   }
 export default function CourEditFormPage() {
-  const { cour, professors, classes, matieres } = usePage<PageProps>().props;
-
+  const { cour, classes } = usePage<PageProps>().props;
   const cour_form = {
     id: cour.id,
     name: cour.name,
@@ -22,14 +21,15 @@ export default function CourEditFormPage() {
     matiere_id: cour.matiere?.id,
     professor_id: cour.professor?.id,
   }
+
+  console.log("CourEditFormPage cour_form: ", cour_form);
   return (
 <AdminLayout>
     <HeaderDashboard title='Modifier les informations du cours'/>
      <CourEditForm 
         cour={cour_form}
-        professors={professors}
         classes={classes}
-        matieres={matieres} />
+        />
     </AdminLayout>
   )
 }

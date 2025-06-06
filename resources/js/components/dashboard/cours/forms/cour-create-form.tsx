@@ -73,23 +73,20 @@ export function CourCreateForm() {
                         <InputError message={errors.name} />
                     </div>
                       <div className="space-y-2">
-                       <Label htmlFor="classes" className="after:ms-1 after:text-red-500 after:content-['*']">
-                        Classe
+                    <Label htmlFor="discipline" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        Classes
                     </Label>
-                    <Select value={data.classe_id?.toString()} onValueChange={(value) => setData('classe_id', Number(value))}
-                        required>
-                        <SelectTrigger id="classes" className="w-full">
+                    <Select value={data.classe_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
+                        <SelectTrigger id="classee" className="w-full">
                             <SelectValue placeholder="Sélectionnez une classe" />
                         </SelectTrigger>
                         <SelectContent>
-                            {classes?.map((classe,index) => (
-                                <SelectItem key={index} value={classe.id?.toString()}>
-                                    {classe.name} </SelectItem>
+                        {classes?.map((classes,index) => (
+                                <SelectItem key={index} value={classes.id?.toString()}>{classes.name}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
-                     <InputError message={errors.classe_id} />
-                    </div>
+                </div>
                 </div>  
             </div>
             <Separator className="my-4" />
@@ -109,7 +106,7 @@ export function CourCreateForm() {
                             <SelectValue placeholder="Sélectionnez un professeur" />
                         </SelectTrigger> 
                          <SelectContent>
-                             {filteredProfessors.map(professor => (
+                             {filteredProfessors?.map(professor => (
                         <SelectItem key={professor.id} value={professor.id.toString()}>
                             {professor.first_name} {professor.last_name}
                         </SelectItem>
@@ -132,7 +129,7 @@ export function CourCreateForm() {
                         <SelectValue placeholder="Sélectionnez une matière" />
                     </SelectTrigger>
                     <SelectContent>
-                        {filteredMatieres.map(matiere => (
+                        {filteredMatieres?.map(matiere => (
                         <SelectItem key={matiere.id} value={matiere.id.toString()}>
                             {matiere.name}
                         </SelectItem>

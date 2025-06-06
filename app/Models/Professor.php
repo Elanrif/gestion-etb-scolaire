@@ -34,7 +34,7 @@ class Professor extends Model
      *
      * @return user
      */
-    public function cours() {
+    public function cour() {
         return $this->hasMany(Cour::class);
     }
 
