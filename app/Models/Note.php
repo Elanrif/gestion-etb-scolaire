@@ -24,10 +24,17 @@ class Note extends Model
         return $this->belongsTo(Student::class);
     }
       /**
-     * Get the students for the blog post.
+     * Get the matieres for the blog post.
      */
     public function matiere(): BelongsTo
     {
         return $this->belongsTo(Matiere::class);
+    }
+    /**
+     * Get the classes for the blog post.
+     */
+     public function classe()
+    {
+        return $this->belongsTo(Classe::class);
     }
 }

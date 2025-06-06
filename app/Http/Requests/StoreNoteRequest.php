@@ -26,8 +26,8 @@ class StoreNoteRequest extends FormRequest
         return [
            'note' => 'required|string|max:255',
            'classe_id'=> 'nullable|integer|max:255|exists:classes,id', 
-           'matiere_id'=> 'nullable|string|max:255|exists:matieres,id',
-           'student_id'=> 'nullable|integer|max:255|exists:studens,id',
+           'matiere_id'=> 'nullable|integer|max:255|exists:matieres,id',
+           'student_id'=> 'nullable|integer|max:255|exists:students,id',
            'trimestre' => 'required|string|max:255',
           
         ];
@@ -38,8 +38,7 @@ class StoreNoteRequest extends FormRequest
         return [
             'note' => 'nom',
             'class_id' => 'classe',
-            'professor_id' => 'responsable de la matière',
-            'matiere_id' => 'nom de la matière de la matière',
+            'matiere_id' => 'nom de la matière',
             'student_id' => 'nom de l\'étudiant',
             'trimestre' => 'trimestre',
             
@@ -52,10 +51,9 @@ class StoreNoteRequest extends FormRequest
          return [
              'note.required' => 'veillez saisir une note.',
              'classe_id.required' => 'La classe est obligatoire.',
-             'professor_id.required' => 'Le professeur est obligatoire.',
-             'matiere_id' => 'le nom de la matière est obligatoire',
-             'student_id' => 'le nom de l\'étudiant est obligatoire',
-             'trimestre' => 'le trimestre est obligatoire',
+             'matiere_id.required' => 'le nom de la matière est obligatoire',
+             'student_id.required' => 'le nom de l\'étudiant est obligatoire',
+             'trimestre.required' => 'le trimestre est obligatoire',
          ];
      }
 }

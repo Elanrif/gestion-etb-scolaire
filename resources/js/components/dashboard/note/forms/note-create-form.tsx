@@ -48,8 +48,6 @@ export function NoteCreateForm() {
             onFinish: () => {},
         });
     };
-
-
     return (
         <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-lg">
             <div>
@@ -94,9 +92,7 @@ export function NoteCreateForm() {
             </div>
 
             <Separator className="my-4" />
-
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                
                 <div className="space-y-2">
                     <Label htmlFor="student" className="after:ms-1 after:text-red-500 after:content-['*']">
                         Etudiant
@@ -110,7 +106,7 @@ export function NoteCreateForm() {
                         <SelectValue placeholder="Sélectionnez un étudiant" />
                     </SelectTrigger>
                     <SelectContent>
-                        {filteredStudents.map(student => (
+                        {filteredStudents?.map(student => (
                         <SelectItem key={student.id} value={student.id.toString()}>
                             {student.first_name} {student.last_name}
                         </SelectItem>
@@ -132,7 +128,7 @@ export function NoteCreateForm() {
                         <SelectValue placeholder="Sélectionnez une matière" />
                     </SelectTrigger>
                     <SelectContent>
-                        {filteredMatieres.map(matiere => (
+                        {filteredMatieres?.map(matiere => (
                         <SelectItem key={matiere.id} value={matiere.id.toString()}>
                             {matiere.name}
                         </SelectItem>
@@ -151,9 +147,9 @@ export function NoteCreateForm() {
                             <SelectValue placeholder="Sélectionner un trimestre" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="trimestre1">Trimestre1</SelectItem>
-                            <SelectItem value="trimestre2">Trimestre2</SelectItem>
-                            <SelectItem value="trimestre3">Trimestre3</SelectItem>
+                            <SelectItem value="trimestre1">1er Trimestre</SelectItem>
+                            <SelectItem value="trimestre2">2e Trimestre</SelectItem>
+                            <SelectItem value="trimestre3">3e Trimestre</SelectItem>
                         </SelectContent>
                     </Select>
                     <InputError message={errors.trimestre} />

@@ -40,7 +40,7 @@ class UpdateNoteRequest extends FormRequest
             'note' => 'nom',
             'class_id' => 'classe',
             'professor_id' => 'responsable de la matière',
-            'matiere_id' => 'nom de la matière de la matière',
+            'matiere_id' => 'nom de la matière',
             'student_id' => 'nom de l\'étudiant',
             'trimestre' => 'trimestre',
             
@@ -54,9 +54,9 @@ class UpdateNoteRequest extends FormRequest
              'note.required' => 'veillez saisir une note.',
              'classe_id.required' => 'La classe est obligatoire.',
              'professor_id.required' => 'Le professeur est obligatoire.',
-             'matiere_id' => 'le nom de la matière de la matière',
-             'student_id' => 'le nom de l\'étudiant',
-             'trimestre' => 'le trimestre est obligatoire',
+             'matiere_id.required' => 'le nom de la matière est obligatoire',
+             'student_id.required' => 'le nom de l\'étudiant',
+             'trimestre.required' => 'le trimestre est obligatoire',
          ];
      }
 }

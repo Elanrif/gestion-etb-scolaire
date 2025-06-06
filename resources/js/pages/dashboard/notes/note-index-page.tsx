@@ -54,7 +54,7 @@ export default function NoteIndexPage() {
     return (
         <AdminLayout>
             <div className="min-h-screen bg-gray-100">
-                <HeaderDashboard title='Gestion des professeurs'/>
+                <HeaderDashboard title='Gestion des Notes'/>
 
 
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">

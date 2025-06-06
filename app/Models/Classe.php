@@ -38,4 +38,12 @@ class Classe extends Model
     {
         return $this->hasMany(Matiere::class);
     }
+
+     /**
+     * The roles that belong to the user.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
 }
