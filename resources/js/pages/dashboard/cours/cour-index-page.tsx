@@ -41,7 +41,7 @@ export default function CourIndexPage() {
 
     const handleDeleteCour = () => {
         if (courToDelete) {
-            router.delete(route('dashboard.cours.destory',courToDelete))
+            router.delete(route('dashboard.cours.destroy',courToDelete))
             setShowDeleteModal(false);
             setCourToDelete(null);
         }
