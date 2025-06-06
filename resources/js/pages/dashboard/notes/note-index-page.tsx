@@ -7,6 +7,7 @@ import { Note } from '@/types/models';
 import HeaderDashboard from '@/components/dashboard/header-dashboard';
 import ConfirmationModal from '@/components/dashboard/confirmation-modal';
 import NoteList from '@/components/dashboard/note/note-list';
+import NoteDetail from '@/components/dashboard/note/note-detail';
 interface PageProps {
     notes: Note[];
     [key: string]: Note[] ; // Signature d'index requise
@@ -46,9 +47,9 @@ export default function NoteIndexPage() {
     };
 
 
-   /*  const handleBackToList = () => {
+    const handleBackToList = () => {
         setSelectedNote(null);
-    }; */
+    }; 
 
 
     return (
@@ -60,7 +61,7 @@ export default function NoteIndexPage() {
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
                     {selectedNote ? (
                        <> 
-                       {/* <NoteDetail note={selectedNote} onBack={handleBackToList} /> */}
+                       {<NoteDetail note={selectedNote} onBack={handleBackToList} /> }
                        </>
                     ) : (
                         <NoteList

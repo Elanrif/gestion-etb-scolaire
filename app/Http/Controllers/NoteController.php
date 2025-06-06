@@ -18,7 +18,7 @@ class NoteController extends Controller
      */
     public function index()
     {   
-        $notes = Note::with(['student','matiere.classe'])->orderBy('id', 'DESC')->get();
+        $notes = Note::with(['student.user','matiere','matiere.classe'])->orderBy('id', 'DESC')->get();
         return Inertia::render('dashboard/notes/note-index-page',['notes'=> $notes]);
     }
 
@@ -70,32 +70,37 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        $students = Student::all();
-        $classes = Classe::all();
-        $note_ = Note::with(['student', 'matiere.classe'])->findOrFail($note->id);
-        return Inertia::render('dashboard/notes/note-edit-form-page',
-        ['note'=> $note_, 'students' => $students ,'classes' => $classes]);
+        $classes = Classe::with('students', 'matieres')->orderBy('id', 'DESC')->get();
+        $note_ = Note::with(['student', 'matiere.classe','matiere'])->findOrFail($note->id);
+        return Inertia::render('dashboard/notes/note-edit-form-page',[
+            'note'=> $note_ ,
+            'classes' => $classes
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateNoteRequest $request, Note $note)
-    {
-       /* Get validated data */
+    {        
+    /* Get validated data */
     $validated_data = $request->validated();
 
+    $classe = Classe::findOrFail($validated_data['classe_id']);
     $student = Student::findOrFail($validated_data['student_id']);
     $matiere = Matiere::findOrFail($validated_data['matiere_id']);
-
-    // Mise à jour des champs simples
-    $note->note = $validated_data['note'];
-    $note->trimestre = $validated_data['trimestre'];
+    
+    /* Update the note */
+    $note->update([
+        'note' => $validated_data['note'],
+        'trimestre' => $validated_data['trimestre']
+    ]);
 
     // Associations
+    $note->classe()->associate($classe);
     $note->student()->associate($student);
     $note->matiere()->associate($matiere);
-
+    /* $note->classe()->associate($classe); */
     $note->save();
 
     $request->session()->flash('success', 'Note mise à jour avec succès !');

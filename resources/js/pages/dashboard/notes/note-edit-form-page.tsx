@@ -12,12 +12,12 @@ interface PageProps {
     [key: string]: unknown;
   }
 export default function NoteEditFormPage() {
-  const { note, students, classes, matieres } = usePage<PageProps>().props;
+  const { note, classes } = usePage<PageProps>().props;
 
   const note_form = {
     id: note.id,
     note: note.note,
-    classe_id: note.matiere?.classe?.id,
+    classe_id: note.classe?.id,
     student_id: note.student?.id,
     matiere_id: note.matiere?.id,
     trimestre: note.trimestre
@@ -27,9 +27,8 @@ export default function NoteEditFormPage() {
     <HeaderDashboard title='Modifier les informations de la note'/>
      <NoteEditForm 
         note={note_form}
-        students={students}
         classes={classes}
-         matieres={matieres} />
+      />
     </AdminLayout>
   )
 }

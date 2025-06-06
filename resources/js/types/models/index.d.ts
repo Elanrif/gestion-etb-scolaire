@@ -87,6 +87,7 @@ export interface Note {
     id: number;
     note: string;
     trimestre: string;
+    classe: Classe;
     student: Student;
     matiere: Matiere;
     created_at?: string;

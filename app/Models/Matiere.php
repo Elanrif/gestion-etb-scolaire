@@ -38,7 +38,7 @@ class Matiere extends Model
     /**
      * The roles that belong to the user.
      */
-    public function notes(): HasMany
+    public function note(): HasMany
     {
         return $this->hasMany(Note::class);
     }
