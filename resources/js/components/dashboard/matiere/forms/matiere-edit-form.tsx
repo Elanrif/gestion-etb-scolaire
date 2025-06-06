@@ -20,7 +20,6 @@ export function MatiereEditForm({
     classes: Classe[];
   }) {
   
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, put, errors, processing, reset } = useForm<MatiereFormType>('edit-matiere',{
         id: matiere.id,

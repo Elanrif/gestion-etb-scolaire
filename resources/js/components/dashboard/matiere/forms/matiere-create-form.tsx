@@ -86,7 +86,7 @@ export function MatiereCreateForm() {
                             <SelectValue placeholder="Sélectionnez un professeur" />
                         </SelectTrigger>
                         <SelectContent>
-                            {professors.map((professor,index) => (
+                            {professors?.map((professor,index) => (
                                 <SelectItem key={index} value={professor.id?.toString()}>{professor.first_name} {professor.last_name}</SelectItem>
                             ))}
                         </SelectContent>
@@ -101,7 +101,7 @@ export function MatiereCreateForm() {
                             <SelectValue placeholder="Sélectionnez une classe" />
                         </SelectTrigger>
                         <SelectContent>
-                        {classes.map((classes,index) => (
+                        {classes?.map((classes,index) => (
                                 <SelectItem key={index} value={classes.id?.toString()}>{classes.name}</SelectItem>
                             ))}
                         </SelectContent>

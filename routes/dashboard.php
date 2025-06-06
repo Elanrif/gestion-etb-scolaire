@@ -5,10 +5,11 @@ use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\CourController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
    
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
     
@@ -19,7 +20,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
        /*  Route::get('/teachers', function () {
             return Inertia::render('dashboard/teacher-page');
         })->name('teachers'); */
-    
+         
+
+        /* COURS */
+        Route::get('/cours', [CourController::class, 'index'])->name('cours.index');
+        Route::get('/cours/create', [CourController::class, 'create'])->name('cours.create');
+        Route::post('/cours', [CourController::class, 'store'])->name('cours.store');
+        Route::get('/cours/{cour}/edit', [CourController::class, 'edit'])->name('cours.edit');
+        Route::put('/cours/{cour}', [CourController::class, 'update'])->name('cours.update');
+        Route::delete('/cours/{cour}', [CourController::class, 'destroy'])->name('cours.destroy');
     
         /* CLASS */
         Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');

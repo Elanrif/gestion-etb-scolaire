@@ -15,6 +15,10 @@ class Matiere extends Model
      */
     protected $guarded = [];
 
+
+    public function cour() {
+        return $this->hasMany(Cour::class);
+    }
     /**
      * The roles that belong to the user.
      */

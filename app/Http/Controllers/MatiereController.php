@@ -57,7 +57,6 @@ class MatiereController extends Controller
          return to_route('dashboard.matieres.index');
 
     }
-
     /**
      * Display the specified resource.
      */
@@ -65,7 +64,6 @@ class MatiereController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
