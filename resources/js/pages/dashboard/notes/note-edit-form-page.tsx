@@ -17,10 +17,11 @@ export default function NoteEditFormPage() {
   const note_form = {
     id: note.id,
     note: note.note,
-    classe_id: note.classe?.id,
+    trimestre: note.trimestre,
+     classe_id: note.matiere?.classe?.id,
     student_id: note.student?.id,
     matiere_id: note.matiere?.id,
-    trimestre: note.trimestre
+    
   }
   return (
 <AdminLayout>

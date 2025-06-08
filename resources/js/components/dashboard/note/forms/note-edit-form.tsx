@@ -36,12 +36,14 @@ export function NoteEditForm({
         const { name, value } = e.target;
         setData(name as keyof typeof data, value);
     };
-      // Réinitialise les champs dépendants si la classe changeAdd commentMore actions
+      // Réinitialise les champs dépendants si la classe change
     const handleClasseChange = (value: string) => {
+    if (Number(value) !== data.classe_id) {
         setData('classe_id', Number(value));
         setData('student_id', null);
         setData('matiere_id', null);
-    };
+    }
+};
    const handleSelectChange = (name: keyof typeof data, value: string) => {
         setData(name, value);
     };
@@ -81,7 +83,7 @@ export function NoteEditForm({
                                     name="note"
                                     value={data.note}
                                     onChange={handleChange}
-                                    placeholder="Entrez votre prénom"
+                                    placeholder="Entrez la note"
                                     required
                                     className="w-full"
                                 />
