@@ -105,6 +105,7 @@ export function CourEditForm({
                                 ))}
                             </SelectContent>
                         </Select>
+                         <InputError message={errors.classe_id} />
                     </div>
                 </div>  
             </div>
@@ -132,6 +133,7 @@ export function CourEditForm({
                         ))}
                         </SelectContent>    
                     </Select>
+                     <InputError message={errors.professor_id} />
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="matiere" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -153,6 +155,7 @@ export function CourEditForm({
                         ))}
                     </SelectContent>
                     </Select>
+                     <InputError message={errors.matiere_id} />
                 </div>
             </div>
 

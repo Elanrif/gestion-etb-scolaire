@@ -86,6 +86,7 @@ export function CourCreateForm() {
                             ))}
                         </SelectContent>
                     </Select>
+                     <InputError message={errors.classe_id} />
                 </div>
                 </div>  
             </div>
