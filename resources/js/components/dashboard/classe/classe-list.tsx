@@ -45,7 +45,7 @@ export default function ClasseList() {
                     Ajouter une classe
                 </Button> 
                 <Button 
-                    onClick={() => setAddDialogOpen(true)}
+                    onClick={() => window.location.href = '/dashboard/notes/create'}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1e8a7c] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <NotebookPen className="mr-2 h-5 w-5" />
