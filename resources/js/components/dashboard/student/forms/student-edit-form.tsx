@@ -140,7 +140,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                         <Input id="birthday" type="date" required name="" value={data.birthday} onChange={handleChange} />
                          <InputError message={errors.birthday} />
                     </div>
-                    <div className="space-y-2">birthday
+                    <div className="space-y-2">
                         <Label htmlFor="gender" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Genre
                         </Label>
@@ -153,6 +153,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                                 <SelectItem value="female">Féminin</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.gender} />
                     </div>
                 </div>
             </div>
@@ -190,6 +191,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                                 <SelectItem value="terminale">Terminale</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.level} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="classe_id" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -207,6 +209,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                                 ))}
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.classe_id} />
                     </div>
                 </div>
             </div>
@@ -288,6 +291,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                                 <SelectItem value="autre">Autre</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.relationship} />
                     </div>
                 </div>
             </div>

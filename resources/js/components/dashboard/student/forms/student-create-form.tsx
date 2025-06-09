@@ -141,6 +141,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
                             placeholder="Mot de passe"
                             className="w-full"
                         />
+                        <InputError message={errors.password} />
                         <button
                                 type="button"
                                 onClick={togglePasswordVisibility}
@@ -198,7 +199,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
                             Date de naissance
                         </Label>
                         <Input id="birthday" type="date" required name="birthday" value={data.birthday} onChange={handleChange} />
-                         <InputError message={errors.password} />
+                         <InputError message={errors.birthday} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="gender" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -213,6 +214,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
                                 <SelectItem value="female">Féminin</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.gender} />
                     </div>
                 </div>
             </div>
@@ -250,6 +252,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
                                 <SelectItem value="terminale">Terminale</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.level} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="classe_id" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -267,6 +270,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
                                 ))}
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.classe_id} />
                     </div>
                 </div>
             </div>
@@ -348,6 +352,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
                                 <SelectItem value="autre">Autre</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.relationship} />
                     </div>
                 </div>
             </div>
