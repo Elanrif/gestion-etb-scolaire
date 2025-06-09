@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
@@ -25,7 +26,6 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
     
-
     /**
      * Get the classes for the blog post.
      */
@@ -33,5 +33,13 @@ class Student extends Model
     {
         return $this->belongsTo(Classe::class);
     }
-
+    
+    /**
+     * The roles that belong to the user.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
 }
+
