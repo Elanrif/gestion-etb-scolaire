@@ -160,7 +160,7 @@ export function ProfessorForm() {
                             required
                             className="w-full"
                         />
-                        <InputError message={errors.first_name} />
+                        <InputError message={errors.address} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -294,13 +294,10 @@ export function ProfessorForm() {
                                 <SelectItem value="physique">Physique-Chimie</SelectItem>
                                 <SelectItem value="svt">SVT</SelectItem>
                                 <SelectItem value="anglais">Anglais</SelectItem>
-                                <SelectItem value="espagnol">Espagnol</SelectItem>
-                                <SelectItem value="allemand">Allemand</SelectItem>
-                                <SelectItem value="ses">SES</SelectItem>
+                                <SelectItem value="anglais">Arabe</SelectItem>
+                                <SelectItem value="philosophie">Education Religieuse</SelectItem>
                                 <SelectItem value="philosophie">Philosophie</SelectItem>
                                 <SelectItem value="eps">EPS</SelectItem>
-                                <SelectItem value="nsi">NSI</SelectItem>
-                                <SelectItem value="arts">Arts</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
