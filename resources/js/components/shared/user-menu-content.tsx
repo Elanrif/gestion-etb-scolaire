@@ -3,7 +3,7 @@ import { UserInfo } from '@/components/shared/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
 import { SharedData, type User } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { Home, LogOut, Settings } from 'lucide-react';
+import { LogOut, Settings, UserCheck } from 'lucide-react';
 import { UserRole } from '@/types/enums';
 
 interface UserMenuContentProps {
@@ -25,9 +25,9 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuGroup>
 
                 { (auth.user.role != UserRole.USER && auth.user.role != UserRole.STUDENT ) && <DropdownMenuItem asChild>
-                    <Link className="block w-full" href={route('dashboard.home')} as="button" prefetch onClick={cleanup}>
-                        <Home className="mr-2" />
-                        Dashboard 
+                    <Link className="block w-full" href={route('account.user.index')} as="button" prefetch onClick={cleanup}>
+                        <UserCheck className="mr-2" />
+                        Mon compte
                     </Link>
                 </DropdownMenuItem>
                 }
