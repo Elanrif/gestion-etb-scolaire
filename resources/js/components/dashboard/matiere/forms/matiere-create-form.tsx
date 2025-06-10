@@ -64,7 +64,7 @@ export function MatiereCreateForm() {
                             name="name"
                             value={data.name}
                             onChange={handleChange}
-                            placeholder="Entrez votre prénom"
+                            placeholder="Entrez une matière"
                             required
                             className="w-full"
                         />
@@ -91,6 +91,7 @@ export function MatiereCreateForm() {
                             ))}
                         </SelectContent>
                     </Select>
+                    <InputError message={errors.professor_id} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="discipline" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -106,6 +107,7 @@ export function MatiereCreateForm() {
                             ))}
                         </SelectContent>
                     </Select>
+                       <InputError message={errors.classe_id} />
                 </div>
             </div>
 

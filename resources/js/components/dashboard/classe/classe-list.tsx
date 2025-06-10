@@ -7,7 +7,7 @@ import { usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Pencil, School, Search, Trash2 } from 'lucide-react';
+import { Pencil, School, Search, Trash2, NotebookPen  } from 'lucide-react';
 import { useState } from 'react';
 import AddClassDialog from './add-class-dialog';
 import DeleteConfirmDialog from './delete-confirm-dialog';
@@ -36,13 +36,22 @@ export default function ClasseList() {
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
                 <h1 className="text-2xl font-bold text-gray-900">Liste des Classes</h1>
+                <div className="flex justify-end gap-2">
                 <Button 
                     onClick={() => setAddDialogOpen(true)}
                     className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
                 >
                     <School className="mr-2 h-5 w-5" />
                     Ajouter une classe
+                </Button> 
+                <Button 
+                    onClick={() =>  window.location.href = '/dashboard/notes/create'}
+                    className="mt-4 inline-flex items-center rounded-md bg-[#1e8a7c] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
+                >
+                    <NotebookPen className="mr-2 h-5 w-5" />
+                    Ajouter une note
                 </Button>
+                 </div>
             </div>
             <div className="mb-5 relative w-full rounded-md sm:w-64">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
