@@ -15,7 +15,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 
-export default function Dashboard() {
+export default function Home() {
     const { flash, data } = usePage<SharedData>().props;
     const [showNotification, setShowNotification] = useState(!!data?.student?.message);
     useEffect(() => {

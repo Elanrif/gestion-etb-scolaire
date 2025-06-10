@@ -7,6 +7,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
    
     Route::prefix('account')->name('account.')->group(function () {
         Route::get('/users', [AccountUser::class, 'index'])->name('user.index');
+        
+        Route::get('/users/cours', [AccountUser::class, 'index_cour'])->name('user.index_cour');
+        
     });
     
+
 });

@@ -21,7 +21,27 @@ class AccountUser extends Controller
             'secretary'
         ])->find($user->id);
         
-        return Inertia::render('account/dashboard',['data' => $data]);
+        return Inertia::render('account/home',['data' => $data]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index_cour()
+    {
+        $user = Auth::user();
+        $data = User::with([
+            'student.classe.cours.professor.user',
+            'student.classe.cours.classe',
+            'student.classe.cours.matiere',
+        ])->find($user->id);
+
+        if (!$data || !$data->student || !$data->student->classe || !$data->student->classe->cours) {
+            return Inertia::render('account/cour-index-page', ['cours' => []]);
+        }
+
+        $cours = $data->student->classe->cours;
+        return Inertia::render('account/cour-index-page',['cours' => $cours]);
     }
 
     /**
