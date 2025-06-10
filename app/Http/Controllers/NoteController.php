@@ -18,7 +18,7 @@ class NoteController extends Controller
      */
     public function index()
     {   
-        $notes = Note::with(['student.user','matiere','matiere.classe'])->orderBy('id', 'DESC')->get();
+        $notes = Note::with(['student.user','matiere','classe'])->orderBy('id', 'DESC')->get();
         return Inertia::render('dashboard/notes/note-index-page',['notes'=> $notes]);
     }
 
@@ -41,6 +41,7 @@ class NoteController extends Controller
 
          $student = Student::findOrFail($validated_data['student_id']);
          $matiere = Matiere::findOrFail($validated_data['matiere_id']);
+         $classe = Classe::findOrFail($validated_data['classe_id']);
 
          /* Create the matiere account */
          $note = Note::create([
@@ -51,6 +52,7 @@ class NoteController extends Controller
          // Association
          $note->student()->associate($student);
          $note->matiere()->associate($matiere);
+         $note->classe()->associate($classe);
          $note->save();
 
          $request->session()->flash('success', 'Succès!');

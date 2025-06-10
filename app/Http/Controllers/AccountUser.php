@@ -47,21 +47,23 @@ class AccountUser extends Controller
      /**
      * Display a listing of the resource.
      */
-    public function index_matiere()
+    public function index_note()
     {
         $user = Auth::user();
         $data = User::with([
-            'student.classe.matieres.professor.user',
-            'student.classe.matieres.classe',
+            'student.notes.student.user',
+            'student.notes.matiere',
+            'student.notes.classe',
         ])->find($user->id);
 
-        if (!$data || !$data->student || !$data->student->classe || !$data->student->classe->matieres) {
-            return Inertia::render('account/matiere-index-page', ['matieres' => []]);
+        if (!$data || !$data->student || !$data->student->notes) {
+            return Inertia::render('account/note-index-page', ['notes' => []]);
         }
 
-        $matieres = $data->student->classe->matieres;
-        return Inertia::render('account/matiere-index-page',['matieres' => $matieres]);
+        $notes = $data->student->notes;
+        return Inertia::render('account/note-index-page',['notes' => $notes]);
     }
+   
     /**
      * Show the form for creating a new resource.
      */
