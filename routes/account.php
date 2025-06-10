@@ -9,6 +9,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/users', [AccountUser::class, 'index'])->name('user.index');
         
         Route::get('/users/cours', [AccountUser::class, 'index_cour'])->name('user.index_cour');
+
+         Route::get('/users/notes', [AccountUser::class, 'index_note'])->name('user.index_note');
         
     });
     
