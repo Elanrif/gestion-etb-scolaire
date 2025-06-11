@@ -4,7 +4,7 @@ import { NavUser } from '@/components/shared/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, FileDigit, Folder, GraduationCap, Landmark, LayoutGrid, NotebookPen } from 'lucide-react';
+import { BookOpen, FileDigit, Folder, GraduationCap, LayoutGrid, NotebookPen } from 'lucide-react';
 import AppLogo from './app-logo';
 
 
@@ -16,20 +16,14 @@ const mainNavItems: NavItem[] = [
     },
 
      {
-        title: 'Ma Classe',
-        href: 'account.user.index',
-        icon: Landmark,
-    },
-
-     {
         title: 'Mes Cours',
-        href: 'account.user.index',
+        href: 'account.user.index_cour',
         icon: NotebookPen,
     },
 
      {
         title: 'Mes matières',
-        href: 'account.user.index',
+        href: 'account.user.index_matiere',
         icon: GraduationCap ,
     },
 
