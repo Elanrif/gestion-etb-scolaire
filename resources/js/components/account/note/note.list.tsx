@@ -1,15 +1,13 @@
 import { Note } from '@/types/models';
-import { Link } from '@inertiajs/react';
-import { Edit, Eye, Search, Trash2, UserPlus } from 'lucide-react';
+import { Eye, Search } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface NoteTableProps {
     notes: Note[];
     onViewNote: (note: Note) => void;
-    onDeleteNote: (matieretId: number) => void;
 }
 
-const NoteList: React.FC<NoteTableProps > = ({ notes,  onViewNote, onDeleteNote }) => {
+const NoteList: React.FC<NoteTableProps > = ({ notes,  onViewNote }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedClass, setSelectedClass] = useState<string>('');
 
@@ -30,13 +28,6 @@ const NoteList: React.FC<NoteTableProps > = ({ notes,  onViewNote, onDeleteNote 
         <div className="w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="mb-6 justify-between sm:flex sm:items-center">
                 <h1 className="text-2xl font-bold text-gray-900">Liste des Notes</h1>
-                <Link
-                    href={route('dashboard.notes.create')}
-                    className="mt-4 inline-flex items-center rounded-md bg-[#1E3A8A] px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-[#1e3a8a]/90 focus:ring-2 focus:ring-[#1E3A8A] focus:ring-offset-2 focus:outline-none sm:mt-0"
-                >
-                    <UserPlus className="mr-2 h-5 w-5" />
-                    Ajouter une note
-                </Link>
             </div>
 
             <div className="mb-6 flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
@@ -147,20 +138,6 @@ const NoteList: React.FC<NoteTableProps > = ({ notes,  onViewNote, onDeleteNote 
                                                         className="text-gray-600 transition-colors duration-150 hover:text-[#0D9488]"
                                                         aria-label="Voir détails">
                                                         <Eye className="h-5 w-5" />
-                                                    </button>
-                                                    <Link
-                                                        href={route('dashboard.notes.edit',note.id)}
-                                                        className="text-gray-600 transition-colors duration-150 hover:text-blue-600"
-                                                        aria-label="Modifier"
-                                                    >
-                                                        <Edit className="h-5 w-5" />
-                                                    </Link>
-                                                    <button
-                                                        onClick={() => onDeleteNote(note.id)}
-                                                        className="text-gray-600 transition-colors duration-150 hover:text-red-600"
-                                                        aria-label="Supprimer"
-                                                    >
-                                                        <Trash2 className="h-5 w-5" />
                                                     </button>
                                                 </div>
                                             </td>
