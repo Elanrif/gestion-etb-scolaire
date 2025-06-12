@@ -70,25 +70,14 @@ export function StudentForm({classes}: {classes: Classe[]}) {
         });
     };
 
-    // Fonctions pour la gestion des photos
     const handlecinPhotoUpload = (file: File) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const result = reader.result as string;
-            setCinPhoto(result);
-            setData((prev) => ({ ...prev, cin_photo: file }));
-        };
-        reader.readAsDataURL(file);
+        setCinPhoto(URL.createObjectURL(file));
+        setData('cin_photo', file);
     };
 
     const handleCardPhotoUpload = (file: File) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const result = reader.result as string;
-            setCardPhoto(result);
-            setData((prev) => ({ ...prev, card_photo: file }));
-        };
-        reader.readAsDataURL(file);
+        setCardPhoto(URL.createObjectURL(file));
+        setData('card_photo', file);
     };
 
     const handleRemovecinPhoto = () => {

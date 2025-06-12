@@ -9,9 +9,12 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\StoreProfessorRequest;
 use App\Models\Classe;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -65,9 +68,24 @@ class RegisterController extends Controller
      */
     public function storeStudent(StoreStudentRequest $request): RedirectResponse
     {
-     
        /* Get validated data */
         $validated_data = $request->validated();
+        /* CIN PHOTO */
+        if ($request->hasFile('cin_photo')) {
+            $cin_photo = $request->file('cin_photo');
+            $times_cin_photo = Carbon::now()->format('Ymd_His'); // Format : AnnéeMoisJour_HeureMinuteSeconde
+            $image_cin_photo = $times_cin_photo . '_' . Str::random(5) . '.' . $cin_photo->getClientOriginalExtension();
+            $image_cin = $cin_photo->storeAs('images', $image_cin_photo, 'public');
+            $imageUrl_cin_photo = Storage::url($image_cin);
+        }
+        /* CARD PHOTO */
+        if ($request->hasFile('card_photo')) {
+            $card_photo = $request->file('card_photo');
+            $times_card_photo = Carbon::now()->format('Ymd_His'); // Format : AnnéeMoisJour_HeureMinuteSeconde
+            $image_card_photo = $times_card_photo . '_' . Str::random(5) . '.' . $card_photo->getClientOriginalExtension();
+            $image_card = $card_photo->storeAs('images', $image_card_photo, 'public');
+            $imageUrl_card_photo = Storage::url($image_card);
+        }
         $classe_id = $validated_data['classe_id'];
         $classe = Classe::findOrFail($classe_id);
         /* Create the user account */
@@ -87,6 +105,8 @@ class RegisterController extends Controller
             'last_name' => $validated_data['last_name'],
             'gender' => $validated_data['gender'],
             'level' => $validated_data['level'],
+            'cin_photo' =>$imageUrl_cin_photo,
+            'card_photo' =>$imageUrl_card_photo,
             'relationship' => $validated_data['relationship'],
             'guardian_phone_number' => $validated_data['guardian_phone_number'],
             'guardian_email' => $validated_data['guardian_email'],

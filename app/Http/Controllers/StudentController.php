@@ -94,6 +94,7 @@ class StudentController extends Controller
              //'classe_id' => $classe_id,
          ]);
  
+         Log::info('Student controller', ['card photo' => $imageUrl_card_photo, 'request card photo' => $request->file('card_photo')]);
         // Associer la classe via la relation
          $student->classe()->associate($classe);
          $student->save();
