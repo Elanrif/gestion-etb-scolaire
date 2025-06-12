@@ -22,7 +22,7 @@ export type userFormType = {
 
 export type StudentFormType = {
     id?: number;
-    id_photo?: File | null;
+    cin_photo?: File | null;
     card_photo?: File | null;
     first_name: string;
     last_name: string;

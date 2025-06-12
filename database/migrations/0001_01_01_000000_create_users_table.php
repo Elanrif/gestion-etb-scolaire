@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('id_photo')->nullable(); 
+            $table->string('cin_photo')->nullable(); 
             $table->longText('address');
             $table->string('phone_number')->unique();
             $table->string('image_url')->nullable();

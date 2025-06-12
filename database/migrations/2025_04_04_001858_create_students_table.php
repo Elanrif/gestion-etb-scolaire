@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('gender');
             $table->string('card_photo')->nullable();
+            $table->string('cin_photo')->nullable();
             $table->string('matricule')->unique();
             $table->string('level');
             $table->boolean('is_validated')->default(false);

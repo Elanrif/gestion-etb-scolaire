@@ -32,7 +32,7 @@ export function StudentEditForm({
 }) {
 
     const { data, setData, put, errors, processing } = useForm<StudentFormType>('edit-settings-student',{
-    id_photo: student.id_photo ,
+    cin_photo: student.cin_photo ,
     card_photo: student.card_photo,
     first_name: student.first_name,
     last_name: student.last_name,
@@ -51,7 +51,7 @@ export function StudentEditForm({
     matricule: student.matricule,
     });
 
-    const [idPhoto, setIdPhoto] = useState<string | null>(typeof student.id_photo === 'string' ? student.id_photo : null);
+    const [cinPhoto, setCinPhoto] = useState<string | null>(typeof student.cin_photo === 'string' ? student.cin_photo : null);
     const [cardPhoto, setCardPhoto] = useState<string | null>(typeof student.card_photo === 'string' ? student.card_photo : null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -70,7 +70,7 @@ export function StudentEditForm({
 
     // Ajouter toutes les données sauf les fichiers
     Object.entries(data).forEach(([key, value]) => {
-        if (key !== 'id_photo' && key !== 'card_photo' && value !== null && value !== undefined) {
+        if (key !== 'cin_photo' && key !== 'card_photo' && value !== null && value !== undefined) {
             // Convert numbers to strings before appending
             if (typeof value === 'number') {
                 formData.append(key, value.toString());
@@ -81,8 +81,8 @@ export function StudentEditForm({
     });
 
     // Ajouter les fichiers séparément
-    if (data.id_photo instanceof File) {
-        formData.append('id_photo', data.id_photo);
+    if (data.cin_photo instanceof File) {
+        formData.append('cin_photo', data.cin_photo);
     }
     if (data.card_photo instanceof File) {
         formData.append('card_photo', data.card_photo);
@@ -103,12 +103,12 @@ export function StudentEditForm({
     };
 
     // Fonctions pour la gestion des photos
-    const handleIdPhotoUpload = (file: File) => {
+    const handlecinPhotoUpload = (file: File) => {
         const reader = new FileReader();
         reader.onload = () => {
             const result = reader.result as string;
-            setIdPhoto(result);
-            setData((prev) => ({ ...prev, id_photo: file }));
+            setCinPhoto(result);
+            setData((prev) => ({ ...prev, cin_photo: file }));
         };
         reader.readAsDataURL(file);
     };
@@ -123,9 +123,9 @@ export function StudentEditForm({
         reader.readAsDataURL(file);
     };
 
-    const handleRemoveIdPhoto = () => {
-        setIdPhoto(null);
-        setData((prev) => ({ ...prev, id_photo: undefined }));
+    const handleRemovecinPhoto = () => {
+        setCinPhoto(null);
+        setData((prev) => ({ ...prev, cin_photo: undefined }));
     };
 
     const handleRemoveCardPhoto = () => {
@@ -154,15 +154,15 @@ export function StudentEditForm({
                                     </TabsList>
                                     <TabsContent value="id-photo" className="space-y-4 pt-4">
                                         <div className="flex flex-col items-center space-y-4">
-                                            {idPhoto ? (
+                                            {cinPhoto ? (
                                                 <div className="relative">
                                                     <img
-                                                        src={idPhoto || '/placeholder.svg'}
+                                                        src={cinPhoto || '/placeholder.svg'}
                                                         alt="Photo d'identité"
                                                         className="border-primary h-48 w-36 rounded-md border-2 object-cover"
                                                     />
                                                     <div className="mt-2 flex justify-center space-x-2">
-                                                        <Button type="button" variant="destructive" size="sm" onClick={handleRemoveIdPhoto}>
+                                                        <Button type="button" variant="destructive" size="sm" onClick={handleRemovecinPhoto}>
                                                             <Trash2 className="mr-2 h-4 w-4" />
                                                             Supprimer
                                                         </Button>
@@ -170,7 +170,7 @@ export function StudentEditForm({
                                                 </div>
                                             ) : (
                                                 <ImageUpload
-                                                    onUpload={handleIdPhotoUpload}
+                                                    onUpload={handlecinPhotoUpload}
                                                     label="Photo d'identité"
                                                     description="Format 3.5 x 4.5 cm, fond uni"
                                                     maxSize={5}
