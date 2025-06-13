@@ -11,10 +11,10 @@ import { toast } from 'react-toastify';
 import InputError from '@/components/shared/input-error';
 import { StudentFormType } from '@/types/models/forms';
 import { Classe } from '@/types/models';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { Button } from '@/components/ui/button';
-import { ImageUpload } from '../account/settings/form/image-upload';
+import { ImageUpload } from '@/components/account/settings/form/image-upload';
 
 export function StudentForm({classes}: {classes: Classe[]}) {
     const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
