@@ -28,7 +28,7 @@ export type StudentFormType = {
     last_name: string;
     gender: string;
     matricule: string;
-    classe_id: number;
+    classe_id: number | null
     level: string;
     relationship: string;
     guardian_first_name: string;

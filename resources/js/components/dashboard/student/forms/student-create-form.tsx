@@ -32,7 +32,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
     birthday: '',
     gender: '',
     level:'',
-    classe_id: 0,
+    classe_id: null,
     relationship:'',
     guardian_phone_number:'',
     guardian_email:'',
