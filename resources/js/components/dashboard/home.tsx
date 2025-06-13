@@ -6,9 +6,20 @@ import CardData from './card-data';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Classe, Cour, Matiere, Professor, Student } from '@/types/models';
+
+interface HomeProps {
+    students: Student[];
+    professors: Professor[];
+    matieres: Matiere[];
+    cours: Cour[];
+    classes: Classe[];
+    [key: string]: Student[] | Professor[] | Matiere[] | Cour[] | Classe[];
+
+}
 
 
-export default function Home() {
+export default function Home({students, professors, matieres, cours, classes}: HomeProps) {
 
     // Données d'exemple pour les professeurs
     const teachers = [
@@ -33,7 +44,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <CardData
                         title="Total Élèves"
-                        value={452}
+                        value={students.length}
                         description="+5 depuis la semaine dernière"
                         icon={<GraduationCap className="h-6 w-6 text-[#6366f1]" />}
                         gradientFrom="#6366f1"
@@ -41,7 +52,7 @@ export default function Home() {
                     />
                     <CardData
                         title="Total Professeurs"
-                        value={38}
+                        value={professors.length}
                         description="+2 depuis le mois dernier"
                         icon={<BookOpen className="h-6 w-6 text-[#ec4899]" />}
                         gradientFrom="#ec4899"
@@ -49,7 +60,7 @@ export default function Home() {
                     />
                     <CardData
                         title="Classes"
-                        value={12}
+                        value={classes.length}
                         description="4 par niveau"
                         icon={<Users className="h-6 w-6 text-[#10b981]" />}
                         gradientFrom="#10b981"
@@ -57,7 +68,7 @@ export default function Home() {
                     />
                     <CardData
                         title="Matières"
-                        value={24}
+                        value={matieres.length}
                         description="Réparties sur tous les niveaux"
                         icon={<BookText className="h-6 w-6 text-[#f59e0b]" />}
                         gradientFrom="#f59e0b"
@@ -65,7 +76,7 @@ export default function Home() {
                     />
                     <CardData
                         title="Total Cours"
-                        value={64}
+                        value={cours.length}
                         description="Depuis le mois dernier"
                         icon={<BookText className="h-6 w-6 text-[#f59e0b]" />}
                         gradientFrom="#f19e12"
