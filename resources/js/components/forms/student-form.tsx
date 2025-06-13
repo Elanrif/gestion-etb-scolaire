@@ -37,7 +37,7 @@ export function StudentForm({classes}: {classes: Classe[]}) {
     level:'',
     cin_photo: null,
     card_photo: null,  
-    classe_id: 0,
+    classe_id: null,
     relationship:'',
     guardian_phone_number:'',
     guardian_email:'',
@@ -70,25 +70,14 @@ export function StudentForm({classes}: {classes: Classe[]}) {
         });
     };
 
-    // Fonctions pour la gestion des photos
     const handlecinPhotoUpload = (file: File) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const result = reader.result as string;
-            setCinPhoto(result);
-            setData((prev) => ({ ...prev, cin_photo: file }));
-        };
-        reader.readAsDataURL(file);
+        setCinPhoto(URL.createObjectURL(file));
+        setData('cin_photo', file);
     };
 
     const handleCardPhotoUpload = (file: File) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const result = reader.result as string;
-            setCardPhoto(result);
-            setData((prev) => ({ ...prev, card_photo: file }));
-        };
-        reader.readAsDataURL(file);
+        setCardPhoto(URL.createObjectURL(file));
+        setData('card_photo', file);
     };
 
     const handleRemovecinPhoto = () => {
@@ -117,8 +106,12 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                                 <CardContent>
                                     <Tabs defaultValue="id-photo" className="w-full">
                                         <TabsList className="grid w-full gap-7 grid-cols-2">
-                                            <TabsTrigger value="cin-photo" className="bg-blue-100 rounded-2xl p-2 hover:cursor-pointer">Photo d'identité</TabsTrigger>
-                                            <TabsTrigger value="card-photo" className="bg-blue-100 rounded-2xl p-2 hover:cursor-pointer">Photo de carte</TabsTrigger>
+                                            <TabsTrigger value="cin-photo" className="bg-blue-100 rounded-2xl p-2 hover:cursor-pointer"><span>Photo d'identité</span>
+                                            <InputError message={errors.cin_photo} />
+                                            </TabsTrigger>
+                                            <TabsTrigger value="card-photo" className="bg-blue-100 rounded-2xl p-2 hover:cursor-pointer"><span>Photo de carte</span>
+                                            <InputError message={errors.card_photo} />
+                                            </TabsTrigger>
                                         </TabsList>
                                         <TabsContent value="cin-photo" className="space-y-4 pt-4">
                                             <div className="flex flex-col items-center space-y-4">
@@ -147,7 +140,6 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                                                 )}
                                             </div>
                                         </TabsContent>
-                                        <InputError message={errors.cin_photo} />
                                         <TabsContent value="card-photo" className="space-y-4 pt-4">
                                             <div className="flex flex-col items-center space-y-4">
                                                 {cardPhoto ? (
@@ -175,7 +167,6 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                                                 )}
                                             </div>
                                         </TabsContent>
-                                        <InputError message={errors.card_photo} />
                                     </Tabs>
                                 </CardContent>
                             </Card>
@@ -309,10 +300,10 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="birthday" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Date de naissance
+                            Date de Naissance 
                         </Label>
                         <Input id="birthday" type="date" required name="birthday" value={data.birthday} onChange={handleChange} />
-                         <InputError message={errors.password} />
+                         <InputError message={errors.birthday} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="gender" className="after:ms-1 after:text-red-500 after:content-['*']">
@@ -320,13 +311,14 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                         </Label>
                         <Select value={data.gender} onValueChange={(value) => handleSelectChange('gender', value)}>
                             <SelectTrigger id="gender">
-                                <SelectValue placeholder="Sélectionnez votre genre" />
+                                <SelectValue placeholder="Sélectionnez votre genre"/>
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="male">Masculin</SelectItem>
                                 <SelectItem value="female">Féminin</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.gender} />
                     </div>
                 </div>
             </div>
@@ -364,13 +356,14 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                                 <SelectItem value="terminale">Terminale</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.level} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="class" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="classe" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Classe
                         </Label>
                         <Select value={data.classe_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
-                            <SelectTrigger id="class">
+                            <SelectTrigger id="classe">
                                 <SelectValue placeholder="Sélectionnez votre classe" />
                             </SelectTrigger>
                             <SelectContent>
@@ -381,12 +374,12 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                                 ))}
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.classe_id} />
                     </div>
                 </div>
             </div>
 
             <Separator className="my-4" />
-
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Responsable légal</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -462,6 +455,7 @@ export function StudentForm({classes}: {classes: Classe[]}) {
                                 <SelectItem value="autre">Autre</SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.relationship} />
                     </div>
                 </div>
             </div>

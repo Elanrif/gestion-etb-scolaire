@@ -147,12 +147,12 @@ export function StudentEditForm({
                                 <CardDescription>Ajoutez les photos nécessaires</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <Tabs defaultValue="id-photo" className="w-full">
+                                <Tabs defaultValue="cin-photo" className="w-full">
                                     <TabsList className="grid w-full grid-cols-2">
-                                        <TabsTrigger value="id-photo">Photo d'identité</TabsTrigger>
+                                        <TabsTrigger value="cin-photo">Photo d'identité</TabsTrigger>
                                         <TabsTrigger value="card-photo">Photo de carte</TabsTrigger>
                                     </TabsList>
-                                    <TabsContent value="id-photo" className="space-y-4 pt-4">
+                                    <TabsContent value="cin-photo" className="space-y-4 pt-4">
                                         <div className="flex flex-col items-center space-y-4">
                                             {cinPhoto ? (
                                                 <div className="relative">
