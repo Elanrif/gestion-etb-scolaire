@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Settings\PasswordController;
-use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -32,10 +30,3 @@ Route::get('/history', function () {
 Route::get('/team', function () {
     return Inertia::render('team-page');
 })->name('team');
-
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-});

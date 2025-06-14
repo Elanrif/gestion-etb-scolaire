@@ -9,7 +9,6 @@ Route::get('/', function () {
 
 
 require __DIR__.'/account.php';
-require __DIR__.'/admin.php';
 require __DIR__.'/credentials.php';
 require __DIR__.'/dashboard.php';
 require __DIR__.'/settings.php';
