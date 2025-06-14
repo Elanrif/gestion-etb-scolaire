@@ -44,8 +44,8 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
         matricule: student.matricule,
     });
 
-    const [cinPhoto, setCinPhoto] = useState<string | null>(student.cin_photo ? student.cin_photo as string : null);
-    const [cardPhoto, setCardPhoto] = useState<string | null>(student.card_photo ? student.card_photo as string : null);
+    const [cinPhoto, setCinPhoto] = useState<string | null>(student.cin_photo ? String(student.cin_photo) : null);
+    const [cardPhoto, setCardPhoto] = useState<string | null>(student.card_photo ? String(student.card_photo) : null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
