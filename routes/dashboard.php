@@ -6,21 +6,16 @@ use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\CourController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
    
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
-    
-        Route::get('/home', function () {
-            return Inertia::render('dashboard/home-page');
-        })->name('home');
-    
-       /*  Route::get('/teachers', function () {
-            return Inertia::render('dashboard/teacher-page');
-        })->name('teachers'); */
          
+        Route::get('/home', [DashboardController::class, 'index'])->name('home');       
 
         /* COURS */
         Route::get('/cours', [CourController::class, 'index'])->name('cours.index');
