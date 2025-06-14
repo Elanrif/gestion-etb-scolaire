@@ -45,7 +45,6 @@ class StoreStudentRequest extends FormRequest
             'guardian_first_name'=> 'required|string|max:255',
             'matricule'=> 'required|string|max:255|unique:'.Student::class,
             'birthday' => 'required|date|before_or_equal:' . Carbon::now()->subYears(12)->format('Y-m-d'),
-            
         ];
     }
 

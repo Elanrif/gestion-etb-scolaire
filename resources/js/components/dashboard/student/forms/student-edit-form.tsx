@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { FormEventHandler, useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import { CreditCard, Eye, EyeOff, LoaderCircle, Trash2 } from 'lucide-react';
+import { CreditCard, LoaderCircle, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import InputError from '@/components/shared/input-error';
 import { StudentFormType } from '@/types/models/forms';
@@ -17,12 +17,6 @@ import { Button } from '@/components/ui/button';
 import { ImageUpload } from '@/components/account/settings/form/image-upload';
 
 export function StudentEditForm({student, classes}: {student: StudentFormType, classes: Classe[]}) {
-    const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
-    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
-
-    const togglePasswordVisibility = () => setShowPassword(!showPassword);
-    const togglePasswordConfirmationVisibility = () => setShowPasswordConfirmation(!showPasswordConfirmation);
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>({
         first_name: student.first_name,
@@ -58,6 +52,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
+        console.log('handleSubmit data : ', data);
         put(route('dashboard.students.update',student.id), {
             onSuccess: () => {
                 toast.success('Succès');
@@ -228,62 +223,6 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                             className="w-full"
                         />
                         <InputError message={errors.address} />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="password" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Mot de passe
-                        </Label>
-                        <div className="relative">
-                        <Input
-                            id="password"
-                            type={showPassword ?
-                            'text' :'password'}
-                            name="password"
-                            value={data.password}
-                            onChange={handleChange}
-                            disabled={processing}
-                            autoComplete="new-password"
-                            placeholder="Mot de passe"
-                            className="w-full"
-                        />
-                        <button
-                                type="button"
-                                onClick={togglePasswordVisibility}
-                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                                tabIndex={-1}
-                            >
-                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
-                        </div>
-                        <InputError message={errors.password} />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="password_confirmation" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Confirmez le mot de passe
-                        </Label>
-                           <div className='relative'>
-                           <Input
-                                id="password_confirmation"
-                                type={showPasswordConfirmation ? 'text' : 'password'}
-                                name="password_confirmation"
-                                required
-                                autoComplete="new-password"
-                                value={data.password_confirmation}
-                                onChange={handleChange}
-                                disabled={processing}
-                                placeholder="Confirmez le mot de passe"
-                                className="w-full"
-                            />
-                            <button
-                                type="button"
-                                onClick={togglePasswordConfirmationVisibility}
-                                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                                tabIndex={-1}
-                            >
-                                {showPasswordConfirmation ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
-                           </div>
-                        <InputError message={errors.password} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="phone_number" className="after:ms-1 after:text-red-500 after:content-['*']">

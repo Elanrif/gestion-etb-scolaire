@@ -126,8 +126,6 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //$student = Student::with(['user'])->find($student->id);
-        Log::info('Je suis dans la méthode update', ['student' => $student]);
         $validated_data = $request->validated();
         $classe_id = $validated_data['classe_id'];
         $classe = Classe::findOrFail($classe_id);

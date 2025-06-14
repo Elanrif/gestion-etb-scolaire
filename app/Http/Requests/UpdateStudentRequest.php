@@ -29,8 +29,6 @@ class UpdateStudentRequest extends FormRequest
         $student = $this->route('student');
         Log::info('Upload student rules : ', ['student' => $this->all()]);
         return [
-            'cin_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'card_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255',Rule::unique(User::class)->ignore($student->user_id)],
@@ -41,6 +39,8 @@ class UpdateStudentRequest extends FormRequest
             'address' => 'required|string|max:255',
             'gender' => 'required|string|max:255',
             'level'=> 'required|string|max:255',
+            'cin_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'card_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'classe_id'=> 'required|integer|max:255|exists:classes,id',
             'relationship'=> 'required|string|max:255',
             'guardian_phone_number'=> 'required|string|max:255',
@@ -58,8 +58,6 @@ class UpdateStudentRequest extends FormRequest
 public function attributes(): array
 {
     return [
-        'cin_photo'  => 'photo d\'identité',
-        'card_photo'  =>'photo de la carte d\'étudiant',
         'first_name' => 'prénom',
         'last_name' => 'nom',
         'email' => 'adresse e-mail',
@@ -67,6 +65,8 @@ public function attributes(): array
         'address' => 'addresse',
         'gender' => "le genre de l'etudiant",
         'level' => 'le niveau de l\'etudiant',
+        'cin_photo'  => 'photo d\'identité',
+        'card_photo'  =>'photo de la carte d\'étudiant',
         'classe_id' => 'classe de l\'etudiant',
         'relationship' => 'lieu de parenté de l\'etudiant',
         'guardian_phone_number' => 'le telephone du responsable l\'etudiant',
