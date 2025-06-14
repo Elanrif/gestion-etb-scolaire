@@ -59,6 +59,9 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
         put(route('dashboard.students.update',student.id), {
+            onSuccess: () => {
+                toast.success('Succès');
+            },
             onError: (e) => {
                 console.log('handleSubmit error : ', e);
                 toast.error("Une erreur s'est produite");

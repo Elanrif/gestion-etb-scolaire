@@ -27,33 +27,31 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         $student = $this->route('student');
-
-    Log::info('Upload student rules : ', ['student' => $this->all()]);
-    return [
-        'cin_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'card_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
-        'email' => ['required', 'string', 'email', 'max:255',Rule::unique(User::class)->ignore($student->user_id)],
-        'phone_number' => [
-            'required', 'string', 'max:255',
-            Rule::unique(User::class)->ignore($student->user_id),
-        ],
-        'address' => 'required|string|max:255',
-        'gender' => 'required|string|max:255',
-        'level'=> 'required|string|max:255',
-        'classe_id'=> 'required|integer|max:255|exists:classes,id',
-        'relationship'=> 'required|string|max:255',
-        'guardian_phone_number'=> 'required|string|max:255',
-        'guardian_email'=> 'required|string|max:255',
-        'guardian_last_name'=> 'required|string|max:255',
-        'guardian_first_name'=> 'required|string|max:255',
-        'matricule' => [
-            'required', 'string', 'max:255',
-            Rule::unique(Student::class)->ignore($student->id),
-        ],
-        'birthday' => 'required|date|before_or_equal:' . Carbon::now()->subYears(12)->format('Y-m-d'),
-        
+        Log::info('Upload student rules : ', ['student' => $this->all()]);
+        return [
+            'cin_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'card_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => ['required', 'string', 'email', 'max:255',Rule::unique(User::class)->ignore($student->user_id)],
+            'phone_number' => [
+                'required', 'string', 'max:255',
+                Rule::unique(User::class)->ignore($student->user_id),
+            ],
+            'address' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
+            'level'=> 'required|string|max:255',
+            'classe_id'=> 'required|integer|max:255|exists:classes,id',
+            'relationship'=> 'required|string|max:255',
+            'guardian_phone_number'=> 'required|string|max:255',
+            'guardian_email'=> 'required|string|max:255',
+            'guardian_last_name'=> 'required|string|max:255',
+            'guardian_first_name'=> 'required|string|max:255',
+            'matricule' => [
+                'required', 'string', 'max:255',
+                Rule::unique(Student::class)->ignore($student->id),
+            ],
+            'birthday' => 'required|date|before_or_equal:'.Carbon::now()->subYears(12)->format('Y-m-d'), 
     ];
 }
 
