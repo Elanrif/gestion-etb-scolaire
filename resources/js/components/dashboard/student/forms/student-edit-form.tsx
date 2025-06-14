@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { Button } from '@/components/ui/button';
 import { ImageUpload } from '@/components/account/settings/form/image-upload';
 
-export function StudentEditForm({classes}: {classes: Classe[]}) {
+export function StudentEditForm({student, classes}: {student: StudentFormType, classes: Classe[]}) {
     const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
@@ -25,31 +25,28 @@ export function StudentEditForm({classes}: {classes: Classe[]}) {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>({
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    phone_number: '',
-    address: '',
-    birthday: '',
-    gender: '',
-    level:'',
-    cin_photo: null,
-    card_photo: null,  
-    classe_id: null,
-    relationship:'',
-    guardian_phone_number:'',
-    guardian_email:'',
-    guardian_last_name:'',
-    guardian_first_name:'',
-    matricule:'',
-   
+        first_name: student.first_name,
+        last_name: student.last_name,
+        email: student.email,
+        phone_number: student.phone_number,
+        address: student.address,
+        birthday: student.birthday,
+        gender: student.gender,
+        level: student.level,
+        cin_photo: null,
+        card_photo: null,
+        classe_id: student.classe_id,
+        relationship: student.relationship,
+        guardian_phone_number: student.guardian_phone_number,
+        guardian_email: student.guardian_email,
+        guardian_last_name: student.last_name,
+        guardian_first_name: student.guardian_first_name,
+        matricule: student.matricule,
     });
 
-    const [cinPhoto, setCinPhoto] = useState<string | null>(null);
-    const [cardPhoto, setCardPhoto] = useState<string | null>(null);
-    
+    const [cinPhoto, setCinPhoto] = useState<string | null>(student.cin_photo ? student.cin_photo as string : null);
+    const [cardPhoto, setCardPhoto] = useState<string | null>(student.card_photo ? student.card_photo as string : null);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setData(name as keyof typeof data, value);
@@ -61,7 +58,7 @@ export function StudentEditForm({classes}: {classes: Classe[]}) {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('dashboard.students.update'), {
+        put(route('dashboard.students.update',student.id), {
             onError: (e) => {
                 console.log('handleSubmit error : ', e);
                 toast.error("Une erreur s'est produite");

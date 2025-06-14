@@ -93,8 +93,7 @@ class StudentController extends Controller
              'matricule' => $validated_data['matricule'],
              //'classe_id' => $classe_id,
          ]);
- 
-         Log::info('Student controller', ['card photo' => $imageUrl_card_photo, 'request card photo' => $request->file('card_photo')]);
+
         // Associer la classe via la relation
          $student->classe()->associate($classe);
          $student->save();
@@ -130,45 +129,32 @@ class StudentController extends Controller
         //$student = Student::with(['user'])->find($student->id);
         Log::info('Je suis dans la méthode update', ['student' => $student]);
         $validated_data = $request->validated();
-        $imageIdPhotoUrl = null;
-        $imageCardPhotoUrl = null;
         $classe_id = $validated_data['classe_id'];
         $classe = Classe::findOrFail($classe_id);
-
-        /* ID PHOTO */
-        if ($request->hasFile('id_photo')) {
-            /* Delete old images on udate */
-            if ($student->user->id_photo) {                  
-                $oldImagePath = str_replace('/storage', '', $student->user->id_photo);
-                Storage::disk('public')->delete($oldImagePath);
-            }
-            /* Manage Images  */
-            $image = $request->file('id_photo');
-            $timestamp = Carbon::now()->format('Ymd_His');
-            $imageName = $timestamp . '_' . Str::random(5) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('images', $imageName, 'public');
-            $imageIdPhotoUrl = Storage::url($imagePath);
+        $imageUrl_cin_photo = $student->cin_photo;
+        $imageUrl_card_photo = $student->card_photo;
+        /* CIN PHOTO */
+        if ($request->hasFile('cin_photo')) {
+            $cin_photo = $request->file('cin_photo');
+            $times_cin_photo = Carbon::now()->format('Ymd_His'); // Format : AnnéeMoisJour_HeureMinuteSeconde
+            $image_cin_photo = $times_cin_photo . '_' . Str::random(5) . '.' . $cin_photo->getClientOriginalExtension();
+            $image_cin = $cin_photo->storeAs('images', $image_cin_photo, 'public');
+            $imageUrl_cin_photo = Storage::url($image_cin);
         }
-
         /* CARD PHOTO */
         if ($request->hasFile('card_photo')) {
-            if ($student->card_photo) {                  
-                $oldImagePath = str_replace('/storage', '', $student->card_photo);
-                Storage::disk('public')->delete($oldImagePath);
-            }
-            /* Manage Images  */
-            $image = $request->file('card_photo');
-            $timestamp = Carbon::now()->format('Ymd_His');
-            $imageName = $timestamp . '_' . Str::random(5) . '.' . $image->getClientOriginalExtension();
-            $imagePath = $image->storeAs('images', $imageName, 'public');
-            $imageCardPhotoUrl = Storage::url($imagePath);
+            $card_photo = $request->file('card_photo');
+            $times_card_photo = Carbon::now()->format('Ymd_His'); // Format : AnnéeMoisJour_HeureMinuteSeconde
+            $image_card_photo = $times_card_photo . '_' . Str::random(5) . '.' . $card_photo->getClientOriginalExtension();
+            $image_card = $card_photo->storeAs('images', $image_card_photo, 'public');
+            $imageUrl_card_photo = Storage::url($image_card);
         }
 
         // Mise à jour du compte utilisateur associé
         $student->user->update([
             'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
             'email' => $validated_data['email'],
-            'id_photo' => $imageIdPhotoUrl,
+            'cin_photo' =>$imageUrl_cin_photo,
             'address' => $validated_data['address'],
             'phone_number' => $validated_data['phone_number'],
             'birthday' => $validated_data['birthday'],
@@ -178,9 +164,10 @@ class StudentController extends Controller
         $student->update([
             'first_name' => $validated_data['first_name'],
             'last_name' => $validated_data['last_name'],
-            'card_photo' => $imageCardPhotoUrl,
             'gender' => $validated_data['gender'],
             'level' => $validated_data['level'],
+            'cin_photo' =>$imageUrl_cin_photo,
+            'card_photo' =>$imageUrl_card_photo,
             'relationship' => $validated_data['relationship'],
             'guardian_phone_number' => $validated_data['guardian_phone_number'],
             'guardian_email' => $validated_data['guardian_email'],
@@ -191,8 +178,8 @@ class StudentController extends Controller
             ]);
  
         // Associer la classe via la relation
-            $student->classe()->associate($classe);
-            $student->save();
+        $student->classe()->associate($classe);
+        $student->save();
     
         $request->session()->flash('success', 'Succès!');
         return to_route('dashboard.students.index');

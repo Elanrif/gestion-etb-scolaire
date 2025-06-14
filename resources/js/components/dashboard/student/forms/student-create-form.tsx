@@ -61,7 +61,7 @@ export function StudentCreateForm({classes}: {classes: Classe[]}) {
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('dashboard.students.store'), {
+        post(route('credentials.students'), {
             onError: (e) => {
                 console.log('handleSubmit error : ', e);
                 toast.error("Une erreur s'est produite");
