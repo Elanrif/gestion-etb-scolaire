@@ -22,12 +22,13 @@ export default function StudentEditFormPage() {
     matricule:student.matricule,
     classe_id: student.classe?.id,
     level: student.level,
+    cin_photo: student.cin_photo,
+    card_photo: student.card_photo,
     relationship: student.relationship,
     guardian_first_name: student.guardian_first_name,
     guardian_last_name: student.guardian_last_name,
     guardian_email: student.guardian_email,
     guardian_phone_number: student.guardian_phone_number,
-    
     /* user info */
     email: student.user?.email,
     birthday: student.user?.birthday,

@@ -1,10 +1,12 @@
 import { Student } from '@/types/models';
 import { router } from '@inertiajs/react';
-import { CheckCircle, GraduationCap, Mail, MapPin as MapPinHouse, MessageCircleIcon, Phone, Trash2, UserCircle, Users } from 'lucide-react';
+import { CheckCircle, CreditCard, GraduationCap, Mail, MapPin as MapPinHouse, MessageCircleIcon, Phone, Trash2, UserCircle, Users } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import ActiveAccountModal from './active-account-modal';
 import MessageStudentModal from './message-student-modal';
 import { student_key } from '@/types/models/shared.data';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface StudentDetailProps {
     student: Student;
@@ -120,6 +122,50 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ student }) => {
                         </div>
                     </div>
                 </div>
+                  <div className='col-span-2'>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <CreditCard className="h-5 w-5" /> Photos
+                                </CardTitle>
+                                <CardDescription>Ajoutez les photos nécessaires</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Tabs defaultValue="id-photo" className="w-full">
+                                    <TabsList className="grid w-full grid-cols-2">
+                                        <TabsTrigger value="id-photo">Photo d'identité</TabsTrigger>
+                                        <TabsTrigger value="card-photo">Photo de carte</TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent value="id-photo" className="space-y-4 pt-4">
+                                        <div className="flex flex-col items-center space-y-4">
+                                            {
+                                                <div className="relative">
+                                                    <img
+                                                        src={`${student.cin_photo}` || '/placeholder.svg'}
+                                                        alt="Photo d'identité"
+                                                        className="border-primary h-48 w-auto rounded-md border-2 object-cover"
+                                                    />
+                                                </div>
+                                            }
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent value="card-photo" className="space-y-4 pt-4">
+                                        <div className="flex flex-col items-center space-y-4">
+                                            {
+                                                <div className="relative">
+                                                    <img
+                                                        src={`${student.card_photo}` || '/placeholder.svg'}
+                                                        alt="Photo de carte"
+                                                        className="border-primary h-48 w-auto rounded-md border-2 object-cover"
+                                                    />
+                                                </div> 
+                                            }
+                                        </div>
+                                    </TabsContent>
+                                </Tabs>
+                            </CardContent>
+                        </Card>
+                    </div>
 
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
