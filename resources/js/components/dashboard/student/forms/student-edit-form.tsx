@@ -4,34 +4,42 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import InputError from '@/components/shared/input-error';
+import { CreditCard, LoaderCircle, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
+import InputError from '@/components/shared/input-error';
 import { StudentFormType } from '@/types/models/forms';
 import { Classe } from '@/types/models';
-
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
+import { Button } from '@/components/ui/button';
+import { ImageUpload } from '@/components/account/settings/form/image-upload';
 
 export function StudentEditForm({student, classes}: {student: StudentFormType, classes: Classe[]}) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>('edit-student',{
-    first_name: student.first_name,
-    last_name: student.last_name,
-    email: student.email,
-    phone_number: student.phone_number,
-    address: student.address,
-    birthday: student.birthday,
-    gender: student.gender,
-    level: student.level,
-    classe_id: student.classe_id,
-    relationship: student.relationship,
-    guardian_phone_number: student.guardian_phone_number,
-    guardian_email: student.guardian_email,
-    guardian_last_name: student.last_name,
-    guardian_first_name: student.guardian_first_name,
-    matricule: student.matricule,
+    const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>({
+        first_name: student.first_name,
+        last_name: student.last_name,
+        email: student.email,
+        phone_number: student.phone_number,
+        address: student.address,
+        birthday: student.birthday,
+        gender: student.gender,
+        level: student.level,
+        cin_photo: null,
+        card_photo: null,
+        classe_id: student.classe_id,
+        relationship: student.relationship,
+        guardian_phone_number: student.guardian_phone_number,
+        guardian_email: student.guardian_email,
+        guardian_last_name: student.last_name,
+        guardian_first_name: student.guardian_first_name,
+        matricule: student.matricule,
     });
+
+    const [cinPhoto, setCinPhoto] = useState<string | null>(student.cin_photo ? String(student.cin_photo) : null);
+    const [cardPhoto, setCardPhoto] = useState<string | null>(student.card_photo ? String(student.card_photo) : null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -44,24 +52,120 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
 
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        //router.put(route('dashboard.students.edit',student.id), data)
+        console.log('handleSubmit data : ', data);
         put(route('dashboard.students.update',student.id), {
-                    onSuccess: () => {
-                        toast.success("Succes !");
-                    },
-                    onError: (e) => {
-                        console.log('handleSubmit error : ', e);
-                        toast.error("Une erreur s'est produite");
-                    },
-                    onFinish: () => {},
-                });
+            onSuccess: () => {
+                toast.success('Succès');
+            },
+            onError: (e) => {
+                console.log('handleSubmit error : ', e);
+                toast.error("Une erreur s'est produite");
+            },
+            onFinish: () => {},
+        });
+    };
+
+    const handlecinPhotoUpload = (file: File) => {
+        setCinPhoto(URL.createObjectURL(file));
+        setData('cin_photo', file);
+    };
+
+    const handleCardPhotoUpload = (file: File) => {
+        setCardPhoto(URL.createObjectURL(file));
+        setData('card_photo', file);
+    };
+
+    const handleRemovecinPhoto = () => {
+        setCinPhoto(null);
+        setData((prev) => ({ ...prev, cin_photo: undefined }));
+    };
+
+    const handleRemoveCardPhoto = () => {
+        setCardPhoto(null);
+        setData((prev) => ({ ...prev, card_photo: undefined }));
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-6 shadow-sm">
+        <form onSubmit={handleSubmit} className="space-y-6">
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className='col-span-2'>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2">
+                                        <CreditCard className="h-5 w-5" /> Photos
+                                    </CardTitle>
+                                    <CardDescription>Ajoutez les photos nécessaires</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <Tabs defaultValue="id-photo" className="w-full">
+                                        <TabsList className="grid w-full gap-7 grid-cols-2">
+                                            <TabsTrigger value="cin-photo" className="bg-blue-100 rounded-2xl p-2 hover:cursor-pointer"><span>Photo d'identité</span>
+                                            <InputError message={errors.cin_photo} />
+                                            </TabsTrigger>
+                                            <TabsTrigger value="card-photo" className="bg-blue-100 rounded-2xl p-2 hover:cursor-pointer"><span>Photo de carte</span>
+                                            <InputError message={errors.card_photo} />
+                                            </TabsTrigger>
+                                        </TabsList>
+                                        <TabsContent value="cin-photo" className="space-y-4 pt-4">
+                                            <div className="flex flex-col items-center space-y-4">
+                                                {cinPhoto ? (
+                                                    <div className="relative">
+                                                        <img
+                                                            src={cinPhoto || '/placeholder.svg'}
+                                                            alt="Photo d'identité"
+                                                            className="border-primary h-48 w-36 rounded-md border-2 object-cover"
+                                                        />
+                                                        <div className="mt-2 flex justify-center space-x-2">
+                                                            <Button type="button" variant="destructive" size="sm" onClick={handleRemovecinPhoto}>
+                                                                <Trash2 className="mr-2 h-4 w-4" />
+                                                                Supprimer
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <ImageUpload
+                                                        onUpload={handlecinPhotoUpload}
+                                                        label="Photo d'identité"
+                                                        description="Format 3.5 x 4.5 cm, fond uni"
+                                                        maxSize={5}
+                                                        acceptedTypes={['image/jpeg', 'image/png']}
+                                                    />
+                                                )}
+                                            </div>
+                                        </TabsContent>
+                                        <TabsContent value="card-photo" className="space-y-4 pt-4">
+                                            <div className="flex flex-col items-center space-y-4">
+                                                {cardPhoto ? (
+                                                    <div className="relative">
+                                                        <img
+                                                            src={cardPhoto || '/placeholder.svg'}
+                                                            alt="Photo de carte"
+                                                            className="border-primary h-48 w-auto rounded-md border-2 object-cover"
+                                                        />
+                                                        <div className="mt-2 flex justify-center space-x-2">
+                                                            <Button type="button" variant="destructive" size="sm" onClick={handleRemoveCardPhoto}>
+                                                                <Trash2 className="mr-2 h-4 w-4" />
+                                                                Supprimer
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <ImageUpload
+                                                        onUpload={handleCardPhotoUpload}
+                                                        label="Photo de carte"
+                                                        description="Format paysage recommandé"
+                                                        maxSize={5}
+                                                        acceptedTypes={['image/jpeg', 'image/png']}
+                                                    />
+                                                )}
+                                            </div>
+                                        </TabsContent>
+                                    </Tabs>
+                                </CardContent>
+                            </Card>
+                    </div>
                     <div className="space-y-2">
                         <Label htmlFor="first_name" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Prénom
@@ -135,9 +239,9 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="birthday" className="after:ms-1 after:text-red-500 after:content-['*']">
-                            Date de naissance :
+                            Date de Naissance 
                         </Label>
-                        <Input id="birthday" type="date" required name="" value={data.birthday} onChange={handleChange} />
+                        <Input id="birthday" type="date" required name="birthday" value={data.birthday} onChange={handleChange} />
                          <InputError message={errors.birthday} />
                     </div>
                     <div className="space-y-2">
@@ -146,7 +250,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                         </Label>
                         <Select value={data.gender} onValueChange={(value) => handleSelectChange('gender', value)}>
                             <SelectTrigger id="gender">
-                                <SelectValue placeholder="Sélectionnez votre genre" />
+                                <SelectValue placeholder="Sélectionnez votre genre"/>
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="male">Masculin</SelectItem>
@@ -194,16 +298,16 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                         <InputError message={errors.level} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="classe_id" className="after:ms-1 after:text-red-500 after:content-['*']">
+                        <Label htmlFor="classe" className="after:ms-1 after:text-red-500 after:content-['*']">
                             Classe
                         </Label>
                         <Select value={data.classe_id?.toString()} onValueChange={(value) => handleSelectChange('classe_id', value)}>
-                            <SelectTrigger id="classe_id">
+                            <SelectTrigger id="classe">
                                 <SelectValue placeholder="Sélectionnez votre classe" />
                             </SelectTrigger>
                             <SelectContent>
-                                {classes.map((cls,index) => (
-                                    <SelectItem key={index} value={cls.id?.toString()}>
+                                {classes.map((cls) => (
+                                    <SelectItem key={cls.id} value={cls.id?.toString()}>
                                         {cls.name}
                                     </SelectItem>
                                 ))}
@@ -215,7 +319,6 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
             </div>
 
             <Separator className="my-4" />
-
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Responsable légal</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -300,10 +403,10 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
                 <button
                     type="submit"
                     disabled={processing}
-                    className="flex items-center gap-2 rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
+                    className="flex items-center justify-center gap-3 rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:opacity-50"
                 >
-                   <span> Modifier</span>
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                    Enregistrer
                 </button>
             </div>
         </form>

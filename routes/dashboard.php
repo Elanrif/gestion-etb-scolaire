@@ -4,12 +4,10 @@ use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\NoteController;
 use App\Http\Controllers\CourController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
    
@@ -60,8 +58,6 @@ Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
         Route::put('/matieres/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
         Route::delete('/matieres/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destory');
         
-
-        
         /* NOTE */
         Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
         Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
@@ -70,6 +66,4 @@ Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
         Route::put('/notes/{note}', [NoteController::class, 'update'])->name('notes.update');
         Route::delete('/notes/{note}', [NoteController::class, 'destroy'])->name('notes.destory');
     });
-    
-
 });

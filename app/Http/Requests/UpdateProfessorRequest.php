@@ -28,24 +28,24 @@ class UpdateProfessorRequest extends FormRequest
     {
         $professor = $this->route('professor');
             
-            Log::info('Professor rules : ', ['professor' => $this->all()]) ;
-            return [
-                'first_name' =>'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => ['required', 'string', 'email', 'max:255',Rule::unique(User::class)->ignore($professor->user_id)],
-                'phone_number' => [
-                    'required', 'string', 'max:255',
-                    Rule::unique(User::class)->ignore($professor->user_id),
-                ],
-                'employee_number' =>['required', 'string', 'max:255',Rule::unique(Professor::class)->ignore($professor->id)],
-                'status' => 'required|string|max:255',
-                'discipline' => 'required|string|max:255',
-                'address' => 'required|string|max:255',
-                'experience_years' => 'required|integer|min:0|max:50',
-                'level_taught' => 'required|string|max:255',
-                'additional_info' => 'nullable|string|max:255',
-                'birthday' => 'required|date|before_or_equal:' . Carbon::now()->subYears(12)->format('Y-m-d'),
-            ];
+        Log::info('Professor rules : ', ['professor' => $this->all()]) ;
+        return [
+            'first_name' =>'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => ['required', 'string', 'email', 'max:255',Rule::unique(User::class)->ignore($professor->user_id)],
+            'phone_number' => [
+                'required', 'string', 'max:255',
+                Rule::unique(User::class)->ignore($professor->user_id),
+            ],
+            'employee_number' =>['required', 'string', 'max:255',Rule::unique(Professor::class)->ignore($professor->id)],
+            'status' => 'required|string|max:255',
+            'discipline' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'experience_years' => 'required|integer|min:0|max:50',
+            'level_taught' => 'required|string|max:255',
+            'additional_info' => 'nullable|string|max:255',
+            'birthday' => 'required|date|before_or_equal:' . Carbon::now()->subYears(12)->format('Y-m-d'),
+        ];
     }
      /* Custom attributes names */
 
