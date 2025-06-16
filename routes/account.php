@@ -13,6 +13,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/users/notes', [AccountUser::class, 'index_note'])->name('user.index_note');
         Route::get('/users/matieres', [AccountUser::class, 'index_matiere'])->name('user.index_matiere');
-        
+        Route::get('/users/student/{student}/index_student', [AccountUser::class, 'index_student'])->name('user.index_student');
+
     });
 });

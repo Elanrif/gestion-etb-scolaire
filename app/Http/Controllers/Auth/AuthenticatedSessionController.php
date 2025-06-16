@@ -29,16 +29,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        /* authenticate user */
-        $request->authenticate();
+    /* authenticate user */
+    $request->authenticate();
 
-        /* generate session */
-        $request->session()->regenerate();
-        
-         // Define flash message
-        $request->session()->flash('success', 'Bienvenue!');
-        
-        $user = $request->user();
+    /* generate session */
+    $request->session()->regenerate();
+    
+        // Define flash message
+    $request->session()->flash('success', 'Bienvenue!');
+    
+    $user = $request->user();
     if ($user->role === 'STUDENT' || $user->role === 'USER' ) {
         return redirect()->route('account.user.index');
     } 

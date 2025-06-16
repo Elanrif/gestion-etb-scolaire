@@ -2,18 +2,17 @@ import { NavFooter } from '@/components/shared/nav-footer';
 import { NavMain } from '@/components/shared/nav-main';
 import { NavUser } from '@/components/shared/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
+import { SharedData, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, FileDigit, Folder, GraduationCap, LayoutGrid, NotebookPen } from 'lucide-react';
+import { FileDigit, Folder, GraduationCap, LayoutGrid, NotebookPen } from 'lucide-react';
 import AppLogo from './app-logo';
-
-
 
 
 export function AppSidebar() {
 
-     const { url: pathname } = usePage();
-
+    const { url: pathname } = usePage();
+    const { auth } = usePage<SharedData>().props;
+    
     const mainNavItems: NavItem[] = [
         {
             title: 'Accueil',
@@ -46,15 +45,12 @@ export function AppSidebar() {
 
     const footerNavItems: NavItem[] = [
         {
-            title: 'Repository',
-            href: 'https://github.com/laravel/react-starter-kit',
+            title: 'Modifier mes informations',
+            href: 'account.user.index_student',
+            params: auth.user?.student?.id,
+            active: pathname.startsWith('/account/users/students'),
             icon: Folder,
-        },
-        {
-            title: 'Documentation',
-            href: 'https://laravel.com/docs/starter-kits',
-            icon: BookOpen,
-        },
+        }
     ];
     return (
         <Sidebar collapsible="icon" variant="inset">
