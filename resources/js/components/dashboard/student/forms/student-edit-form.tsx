@@ -18,7 +18,7 @@ import { ImageUpload } from '@/components/account/settings/form/image-upload';
 
 export function StudentEditForm({student, classes}: {student: StudentFormType, classes: Classe[]}) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, setData, put, errors, processing, reset } = useForm<StudentFormType>({
+    const { data, setData, post, errors, processing, reset } = useForm<StudentFormType>({
         first_name: student.first_name,
         last_name: student.last_name,
         email: student.email,
@@ -53,7 +53,8 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
     const handleSubmit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
         console.log('handleSubmit data : ', data);
-        put(route('dashboard.students.update',student.id), {
+        post(route('dashboard.students.update',student.id), {
+            forceFormData: true,
             onSuccess: () => {
                 toast.success('Succès');
             },
@@ -86,7 +87,7 @@ export function StudentEditForm({student, classes}: {student: StudentFormType, c
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
             <div>
                 <h3 className="mb-4 text-lg font-medium text-indigo-800">Informations personnelles</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

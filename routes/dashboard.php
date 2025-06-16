@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
         Route::post('/students', [StudentController::class, 'store'])->name('students.store');
         Route::get('/students/{student}/show', [StudentController::class, 'show'])->name('students.show');
         Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
-        Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
+        Route::post('/students/{student}', [StudentController::class, 'update'])->name('students.update');
         Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destory');
         Route::put('/students/{student}/validated', [StudentController::class, 'is_validated'])->name('students.is_validated');
         Route::post('/students/{student}/reject_account', [StudentController::class, 'reject_account'])->name('students.reject_account');
