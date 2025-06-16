@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -79,6 +81,14 @@ class AccountUser extends Controller
         return Inertia::render('account/note-index-page',['notes' => $notes]);
     }
    
+    public function index_student(Student $student)
+    {
+        $classes = Classe::all();
+        $student_ = Student::with(['user','classe'])->find($student->id);
+        return Inertia::render('account/student-edit-form-page',
+        ['student'=> $student_, 'classes' => $classes]);
+        
+    }
     /**
      * Show the form for creating a new resource.
      */
