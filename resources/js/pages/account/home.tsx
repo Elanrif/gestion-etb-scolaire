@@ -5,7 +5,7 @@ import SkeletonAccount from '@/components/account/skeleton-account';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -14,19 +14,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
 export default function Home() {
     const { flash, data } = usePage<SharedData>().props;
-    const [showNotification, setShowNotification] = useState(!!data?.student?.message);
     useEffect(() => {
         if (flash.success) {
             toast.success(flash.success);
         }
     }, [flash.success]);
-
-    const handleDismissNotification = () => {
-        setShowNotification(false);
-    };
 
     const showNotificationBanner = () => {
 
@@ -47,8 +41,7 @@ export default function Home() {
             case 'rejected':
                 return (
                     <NotificationBannerRejected
-                        message={message || 'Veuillez corriger les informations de votre compte'}
-                        onDismiss={handleDismissNotification}
+                        message={message || 'Les informations que vous avez fournies sont erronées'}
                         student= {data.student}
                     />
                 );
@@ -62,7 +55,7 @@ export default function Home() {
             <Head title="Accueil" />
 
             <div className="px-3">
-                {showNotification && showNotificationBanner()}
+                {showNotificationBanner()}
 
                 {!data?.student?.is_validated && <SkeletonAccount />}
             </div>

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Classe;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AccountUser extends Controller
 {
@@ -89,44 +93,67 @@ class AccountUser extends Controller
         ['student'=> $student_, 'classes' => $classes]);
         
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        $validated_data = $request->validated();
+        $classe_id = $validated_data['classe_id'];
+        $classe = Classe::findOrFail($classe_id);
+        $imageUrl_cin_photo = $student->cin_photo;
+        $imageUrl_card_photo = $student->card_photo;
+        /* CIN PHOTO */
+        if ($request->hasFile('cin_photo')) {
+            $cin_photo = $request->file('cin_photo');
+            $times_cin_photo = Carbon::now()->format('Ymd_His'); // Format : AnnéeMoisJour_HeureMinuteSeconde
+            $image_cin_photo = $times_cin_photo . '_' . Str::random(5) . '.' . $cin_photo->getClientOriginalExtension();
+            $image_cin = $cin_photo->storeAs('images', $image_cin_photo, 'public');
+            $imageUrl_cin_photo = Storage::url($image_cin);
+        }
+        /* CARD PHOTO */
+        if ($request->hasFile('card_photo')) {
+            $card_photo = $request->file('card_photo');
+            $times_card_photo = Carbon::now()->format('Ymd_His'); // Format : AnnéeMoisJour_HeureMinuteSeconde
+            $image_card_photo = $times_card_photo . '_' . Str::random(5) . '.' . $card_photo->getClientOriginalExtension();
+            $image_card = $card_photo->storeAs('images', $image_card_photo, 'public');
+            $imageUrl_card_photo = Storage::url($image_card);
+        }
+
+        // Mise à jour du compte utilisateur associé
+        $student->user->update([
+            'name' => $validated_data['first_name'] . ' ' . $validated_data['last_name'],
+            'email' => $validated_data['email'],
+            'cin_photo' =>$imageUrl_cin_photo,
+            'address' => $validated_data['address'],
+            'phone_number' => $validated_data['phone_number'],
+            'birthday' => $validated_data['birthday'],
+        ]);
+    
+        // Mise à jour des informations de l'étudiant
+        $student->update([
+            'first_name' => $validated_data['first_name'],
+            'last_name' => $validated_data['last_name'],
+            'gender' => $validated_data['gender'],
+            'level' => $validated_data['level'],
+            'cin_photo' =>$imageUrl_cin_photo,
+            'card_photo' =>$imageUrl_card_photo,
+            'relationship' => $validated_data['relationship'],
+            'guardian_phone_number' => $validated_data['guardian_phone_number'],
+            'guardian_email' => $validated_data['guardian_email'],
+            'guardian_last_name' => $validated_data['guardian_last_name'],
+            'guardian_first_name' => $validated_data['guardian_first_name'],
+            'matricule' => $validated_data['matricule'],
+               //'classe_id' => $classe_id,
+            ]);
+ 
+        // Associer la classe via la relation
+        $student->classe()->associate($classe);
+        $student->save();
+    
+        $request->session()->flash('success', 'Succès!');
+        return to_route('account.user.index');
     }
 
     /**

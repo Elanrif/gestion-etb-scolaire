@@ -48,8 +48,8 @@ Route::middleware(['auth', 'verified', 'checkRole'])->group(function () {
         Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destory');
         Route::put('/students/{student}/validated', [StudentController::class, 'is_validated'])->name('students.is_validated');
         Route::post('/students/{student}/reject_account', [StudentController::class, 'reject_account'])->name('students.reject_account');
-
-
+ 
+        
         /* MATIERE */
         Route::get('/matieres', [MatiereController::class, 'index'])->name('matieres.index');
         Route::get('/matieres/create', [MatiereController::class, 'create'])->name('matieres.create');

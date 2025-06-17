@@ -3,16 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { type NavItem } from '@/types';
-import { Student } from '@/types/models';
 import { Link } from '@inertiajs/react';
 
 const sidebarNavItems: NavItem[] = [
-    {
-        title: 'Gérer compte',
-        isStudent: true,
-        href: 'settings.edit',
-        icon: null,
-    },
     {
         title: 'Profile',
         href: '/settings/profile',
@@ -32,10 +25,9 @@ const sidebarNavItems: NavItem[] = [
 
 interface SettingsLayoutProps {
     children: React.ReactNode;
-    student?: Student;
 }
 
-export default function SettingsLayout({ children, student }: SettingsLayoutProps) {
+export default function SettingsLayout({ children }: SettingsLayoutProps) {
     // When server-side rendering, we only render the layout on the client...
     if (typeof window === 'undefined') {
         return null;
@@ -51,35 +43,19 @@ export default function SettingsLayout({ children, student }: SettingsLayoutProp
                     <nav className="flex flex-col space-y-1 space-x-0">
                         {sidebarNavItems.map((item, index) => (
                             <div key={index}>
-                                {item.isStudent && student?.id ? (
-                                    <Button
-                                        key={item.href}
-                                        size="sm"
-                                        variant="ghost"
-                                        asChild
-                                        className={cn('w-full justify-start', {
-                                            'bg-muted': currentPath === item.href,
-                                        })}
-                                    >
-                                        <Link href={route(item.href, student?.id)} prefetch>
-                                            {item.title}
-                                        </Link>
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        key={item.href}
-                                        size="sm"
-                                        variant="ghost"
-                                        asChild
-                                        className={cn('w-full justify-start', {
-                                            'bg-muted': currentPath === item.href,
-                                        })}
-                                    >
-                                        <Link href={item.href} prefetch>
-                                            {item.title}
-                                        </Link>
-                                    </Button>
-                                )}
+                                <Button
+                                    key={item.href}
+                                    size="sm"
+                                    variant="ghost"
+                                    asChild
+                                    className={cn('w-full justify-start', {
+                                        'bg-muted': currentPath === item.href,
+                                    })}
+                                >
+                                    <Link href={item.href} prefetch>
+                                        {item.title}
+                                    </Link>
+                                </Button>
                             </div>
                         ))}
                     </nav>
