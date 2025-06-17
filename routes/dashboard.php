@@ -40,10 +40,10 @@ Route::middleware(['auth', 'verified', 'abort_role:USER,STUDENT'])->group(functi
         /* Middleware */
         Route::middleware(['abort_role:PROFESSOR'])->group(function () {
            Route::get('/professors/create', [ProfessorController::class, 'create'])->name('professors.create');
-           Route::post('/professor', [ProfessorController::class, 'store'])->name('professors.store');
+           Route::post('/professors', [ProfessorController::class, 'store'])->name('professors.store');
            Route::get('/professors/{professor}/edit', [ProfessorController::class, 'edit'])->name('professors.edit');
-           Route::put('/professor/{professor}', [ProfessorController::class, 'update'])->name('professors.update');
-           Route::delete('/professor-forms/{professor}', [ProfessorController::class, 'destroy'])->name('professors.destroy')->middleware('abort_role:SECRETARY');
+           Route::put('/professors/{professor}', [ProfessorController::class, 'update'])->name('professors.update');
+           Route::delete('/professors/{professor}', [ProfessorController::class, 'destroy'])->name('professors.destroy')->middleware('abort_role:SECRETARY');
        });
 
         /* STUDENT */
@@ -62,18 +62,23 @@ Route::middleware(['auth', 'verified', 'abort_role:USER,STUDENT'])->group(functi
         
         /* MATIERE */
         Route::get('/matieres', [MatiereController::class, 'index'])->name('matieres.index');
-        Route::get('/matieres/create', [MatiereController::class, 'create'])->name('matieres.create');
-        Route::post('/matieres', [MatiereController::class, 'store'])->name('matieres.store');
-        Route::get('/matieres/{matiere}/edit', [MatiereController::class, 'edit'])->name('matieres.edit');
-        Route::put('/matieres/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
-        Route::delete('/matieres/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destory');
-        
+         /* Middleware */
+        Route::middleware(['abort_role:PROFESSOR'])->group(function () {
+            Route::get('/matieres/create', [MatiereController::class, 'create'])->name('matieres.create');
+            Route::post('/matieres', [MatiereController::class, 'store'])->name('matieres.store');
+            Route::get('/matieres/{matiere}/edit', [MatiereController::class, 'edit'])->name('matieres.edit');
+            Route::put('/matieres/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
+            Route::delete('/matieres/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destory')->middleware('abort_role:SECRETARY');
+    }); 
         /* NOTE */
         Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
-        Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
-        Route::post('/notes', [NoteController::class, 'store'])->name('notes.store');
-        Route::get('/notes/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
-        Route::put('/notes/{note}', [NoteController::class, 'update'])->name('notes.update');
-        Route::delete('/notes/{note}', [NoteController::class, 'destroy'])->name('notes.destory');
+             /* Middleware */
+        Route::middleware(['abort_role:PROFESSOR'])->group(function () {
+            Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
+            Route::post('/notes', [NoteController::class, 'store'])->name('notes.store');
+            Route::get('/notes/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
+            Route::put('/notes/{note}', [NoteController::class, 'update'])->name('notes.update');
+            Route::delete('/notes/{note}', [NoteController::class, 'destroy'])->name('notes.destory')->middleware('abort_role:SECRETARY');
     });
+    }); 
 });
