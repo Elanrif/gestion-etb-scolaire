@@ -15,10 +15,9 @@ const defaultMessage = 'Votre compte a été approuvé. Vous pouvez maintenant a
 export default function NotificationBannerApproved({ message = defaultMessage }: NotificationBannerProps) {
     const [isVisible, setIsVisible] = useState(false);
 
-    console.log('banner keys : ', localStorage.getItem(student_key));
     useEffect(() => {
         const isDismissed = localStorage.getItem(student_key) === 'true';
-        setIsVisible(!isDismissed);
+        setIsVisible(!isDismissed); //=====> pour le test : true
     }, []);
 
     const handleDismiss = () => {

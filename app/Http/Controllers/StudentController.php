@@ -12,7 +12,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -226,4 +225,5 @@ class StudentController extends Controller
         $request->session()->flash('success', 'Message envoyé avec succès!');
         return to_route('dashboard.students.show', $student->id); 
     }
+     
 }
