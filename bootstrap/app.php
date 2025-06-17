@@ -23,7 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->alias([
-            'checkRole' => \App\Http\Middleware\CheckDashboardRole::class,
+            'abort_role' => \App\Http\Middleware\RoleRequest::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
