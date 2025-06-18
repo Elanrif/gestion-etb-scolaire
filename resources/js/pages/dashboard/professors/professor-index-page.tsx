@@ -40,7 +40,7 @@ export default function ProfessorIndexPage() {
 
     const handleDeleteProfessor = () => {
         if (professorToDelete) {
-            router.delete(route('dashboard.professors.destory',professorToDelete))
+            router.delete(route('dashboard.professors.destroy',professorToDelete))
             setShowDeleteModal(false);
             setProfessorToDelete(null);
         }
