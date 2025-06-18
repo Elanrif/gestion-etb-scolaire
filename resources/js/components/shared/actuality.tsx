@@ -43,7 +43,7 @@ export default function Actuality() {
             title: 'Journée portes ouvertes 2023',
             description: 'Venez découvrir notre établissement le 18 mars',
             excerpt:
-                'Le Lycée Saint-Exupéry ouvre ses portes le samedi 18 mars de 9h à 17h. Une occasion unique de découvrir nos installations, de rencontrer nos équipes et de vous informer sur nos formations.',
+                'Le Lycée Said Mohamed Cheickh ouvre ses portes le samedi 18 mars de 9h à 17h. Une occasion unique de découvrir nos installations, de rencontrer nos équipes et de vous informer sur nos formations.',
             image: '/images/porte-ouverte.jpg',
             date: '5 mars 2023',
             category: 'Événements',

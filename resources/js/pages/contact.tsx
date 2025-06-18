@@ -93,7 +93,7 @@ export default function ContactPage() {
                                             </div>
                                             <div className='text-sm'>
                                                 <h3 className="font-medium">Adresse</h3>
-                                                <p className="text-gray-600">123 Avenue de l'Éducation, 75001 Paris</p>
+                                                <p className="text-gray-600">Avenue Cosep, Moroni</p>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-4">

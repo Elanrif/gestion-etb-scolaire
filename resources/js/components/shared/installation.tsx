@@ -78,7 +78,7 @@ export default function Installation() {
                             <div className="mb-4 inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-800">Notre campus</div>
                             <h2 className="mb-4 text-3xl font-bold tracking-tighter">Des équipements de qualité pour une éducation d'excellence</h2>
                             <p className="text-gray-600">
-                                Le Lycée Saint-Exupéry dispose d'installations modernes et adaptées pour offrir à nos élèves les meilleures conditions
+                                Le  Lycée Said Mohamed Cheickh dispose d'installations modernes et adaptées pour offrir à nos élèves les meilleures conditions
                                 d'apprentissage et d'épanouissement.
                             </p>
                         </div>

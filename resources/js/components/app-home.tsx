@@ -19,7 +19,7 @@ export default function AppHome() {
                         <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
                             <div className="space-y-6">
                                 <div className="inline-block rounded-lg bg-blue-600 px-3 py-1 text-sm text-white">
-                                    Bienvenue au Lycée Saint-Exupéry
+                                    Bienvenue au Lycée Said Mohamed Cheickh
                                 </div>
                                 <h1 className="text-4xl font-bold tracking-tighter text-white sm:text-5xl md:text-6xl">
                                     Construisez votre avenir avec nous

@@ -30,7 +30,7 @@ export default function Formations() {
                                 <div className="mb-4 inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-800">Notre offre éducative</div>
                                 <h2 className="mb-4 text-3xl font-bold tracking-tighter">Une formation complète et exigeante</h2>
                                 <p className="mb-6 text-gray-600">
-                                    Le Lycée Saint-Exupéry propose un large éventail de formations pour répondre aux aspirations et aux talents de
+                                    Le Lycée Said Mohamed Cheikh propose un large éventail de formations pour répondre aux aspirations et aux talents de
                                     chaque élève. Notre projet pédagogique vise l'excellence académique tout en favorisant l'épanouissement personnel
                                     et le développement de compétences transversales essentielles.
                                 </p>
@@ -350,7 +350,7 @@ export default function Formations() {
                                 <div className="mb-4 inline-block rounded-lg bg-orange-100 px-3 py-1 text-sm text-orange-800">Orientation</div>
                                 <h2 className="mb-4 text-3xl font-bold tracking-tighter">Un accompagnement personnalisé vers la réussite</h2>
                                 <p className="mb-6 text-gray-600">
-                                    Au Lycée Saint-Exupéry, nous accordons une importance particulière à l'orientation de nos élèves. Notre équipe
+                                    Au Lycéé Said Mohamed Cheickh, nous accordons une importance particulière à l'orientation de nos élèves. Notre équipe
                                     pédagogique et nos conseillers d'orientation accompagnent chaque élève dans la construction de son projet d'études
                                     et professionnel.
                                 </p>

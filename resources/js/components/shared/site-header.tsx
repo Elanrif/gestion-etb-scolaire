@@ -73,7 +73,7 @@ export function SiteHeader() {
                     <div className="rounded-full bg-blue-600 p-1.5">
                         <GraduationCap className="h-5 w-5 text-white" />
                     </div>
-                    <span className="text-xl font-bold text-black">Lycée Saint-Exupéry</span>
+                    <span className="text-xl font-bold text-black">Lycée Said Mohamed Checkh</span>
                 </Link>
                 <nav className="hidden gap-6 md:flex">
                     {links.map((link) =>

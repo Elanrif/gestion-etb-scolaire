@@ -6,7 +6,7 @@ export default function History() {
         {
             year: '1970',
             title: 'Fondation du lycée',
-            description: "Inauguration du Lycée Saint-Exupéry par le ministre de l'Éducation nationale, avec une première promotion de 120 élèves.",
+            description: "Inauguration du Lycée Said Mohamed Cheickh par le ministre de l'Éducation nationale, avec une première promotion de 120 élèves.",
         },
         {
             year: '1975',
@@ -75,7 +75,7 @@ export default function History() {
                                 <div className="mb-4 inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-800">Notre héritage</div>
                                 <h2 className="mb-4 text-3xl font-bold tracking-tighter">Un demi-siècle d'engagement pour l'éducation</h2>
                                 <p className="mb-6 text-gray-600">
-                                    Depuis sa création en 1970, le Lycée Saint-Exupéry s'est imposé comme un établissement de référence dans le
+                                    Depuis sa création en 1970, le Lycée Said Mohamed Cheickh s'est imposé comme un établissement de référence dans le
                                     paysage éducatif français. Nommé en hommage à l'écrivain et aviateur Antoine de Saint-Exupéry, notre lycée incarne
                                     les valeurs d'humanisme, de courage et d'excellence qui ont caractérisé cet homme remarquable.
                                 </p>
@@ -182,7 +182,7 @@ export default function History() {
                             </div>
                             <div className="rounded-xl bg-white p-6 shadow-md">
                                 <p className="mb-6 text-gray-600 italic">
-                                    "Les années passées au Lycée Saint-Exupéry ont été déterminantes dans mon parcours. J'y ai développé non seulement
+                                    "Les années passées au Lycée Said Mohamed Cheickh ont été déterminantes dans mon parcours. J'y ai développé non seulement
                                     des connaissances académiques solides, mais aussi des compétences humaines et une ouverture d'esprit qui m'ont été
                                     précieuses."
                                 </p>

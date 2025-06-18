@@ -14,7 +14,7 @@ export function SiteFooter() {
                             <div className="rounded-full bg-blue-600 p-1.5">
                                 <GraduationCap className="h-5 w-5 text-white" />
                             </div>
-                            <span className="text-xl font-bold text-black">Lycée Saint-Exupéry</span>
+                            <span className="text-xl font-bold text-black">Lycée Said Mohamed Cheikh</span>
                         </Link>
                         <p className="max-w-xs text-sm text-gray-600">
                             Un établissement d'excellence dédié à la réussite de chaque élève et à la préparation de leur avenir.
@@ -22,15 +22,15 @@ export function SiteFooter() {
                         <div className="space-y-2">
                             <div className="flex items-center gap-2 text-sm text-gray-600">
                                 <MapPin className="h-4 w-4 text-blue-600" />
-                                <span>123 Avenue de l'Éducation, 75001 Paris</span>
+                                <span>Avenue Cosep, Moroni</span>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-gray-600">
                                 <Phone className="h-4 w-4 text-blue-600" />
-                                <span>+33 1 23 45 67 89</span>
+                                <span>+269 353 41 51</span>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-gray-600">
                                 <Mail className="h-4 w-4 text-blue-600" />
-                                <span>contact@lycee-saintexupery.fr</span>
+                                <span>contact@lycee-saidmohamedcheikh.fr</span>
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,7 @@ export function SiteFooter() {
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-between border-t border-gray-200 pt-8 md:flex-row">
-                    <p className="text-xs text-gray-500">© {new Date().getFullYear()} Lycée Saint-Exupéry. Tous droits réservés.</p>
+                    <p className="text-xs text-gray-500">© {new Date().getFullYear()} Lycée Said Mohamed Cheikh. Tous droits réservés.</p>
                     <div className="mt-4 flex items-center gap-4 md:mt-0">
                         <Link href="/privacy" className="text-xs text-gray-500 transition-colors hover:text-blue-600">
                             Politique de confidentialité
