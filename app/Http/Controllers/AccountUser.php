@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Classe;
+use App\Models\Cour;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -163,4 +164,17 @@ class AccountUser extends Controller
     {
         //
     }
+
+ 
+
+public function homeStudent()
+{
+    $cours = Cour::all();
+    $classes = Classe::all();
+
+    return Inertia::render('account/home_student', [
+        'cours' => $cours,
+        'classes' => $classes,
+    ]);
+}
 }
