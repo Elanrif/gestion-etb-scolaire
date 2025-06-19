@@ -130,7 +130,7 @@ export default function LoginForm() {
 
                                 <div className="grid gap-2">
                                     <div className="flex items-center">
-                                        <Label htmlFor="password">Password</Label>
+                                        <Label htmlFor="password">Mot de passe</Label>
                                         <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
                                             Mode de passe oublié?
                                         </TextLink>
@@ -156,7 +156,7 @@ export default function LoginForm() {
                                         onClick={() => setData('remember', !data.remember)}
                                         tabIndex={3}
                                     />
-                                    <Label htmlFor="remember">Remember me</Label>
+                                    <Label htmlFor="remember">Se souvenir de moi</Label>
                                 </div>
 
                                 <div className="space-y-1">

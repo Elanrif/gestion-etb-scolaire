@@ -9,7 +9,7 @@ export default function AppLogo() {
             </div>
             <div className="ml-1 grid flex-1 text-left text-sm">
                 <Link href='/'>
-                <span className="mb-0.5 truncate leading-none font-semibold">ÉTABLISSEMENT</span>
+                <span className="mb-0.5 truncate leading-none font-semibold">ESPACE ETUDIANT</span>
                 </Link>
             </div>
         </>

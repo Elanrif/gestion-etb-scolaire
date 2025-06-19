@@ -18,12 +18,12 @@ Route::middleware(['auth', 'verified', 'abort_role:USER,STUDENT'])->group(functi
         /* COURS */
         Route::get('/cours', [CourController::class, 'index'])->name('cours.index');
         /* Middleware */
-        Route::middleware(['abort_role:PROFESSOR'])->group(function () {
+        Route::middleware(['abort_role:SECRETARY'])->group(function () {
             Route::get('/cours/create', [CourController::class, 'create'])->name('cours.create');
             Route::post('/cours', [CourController::class, 'store'])->name('cours.store');
             Route::get('/cours/{cour}/edit', [CourController::class, 'edit'])->name('cours.edit');
             Route::put('/cours/{cour}', [CourController::class, 'update'])->name('cours.update');
-            Route::delete('/cours/{cour}', [CourController::class, 'destroy'])->name('cours.destroy')->middleware('abort_role:SECRETARY');
+            Route::delete('/cours/{cour}', [CourController::class, 'destroy'])->name('cours.destroy');
         });
     
         /* CLASS */
@@ -73,12 +73,12 @@ Route::middleware(['auth', 'verified', 'abort_role:USER,STUDENT'])->group(functi
         /* NOTE */
         Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
              /* Middleware */
-        Route::middleware(['abort_role:PROFESSOR'])->group(function () {
+        Route::middleware(['abort_role:SECRETARY'])->group(function () {
             Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
             Route::post('/notes', [NoteController::class, 'store'])->name('notes.store');
             Route::get('/notes/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
             Route::put('/notes/{note}', [NoteController::class, 'update'])->name('notes.update');
-            Route::delete('/notes/{note}', [NoteController::class, 'destroy'])->name('notes.destory')->middleware('abort_role:SECRETARY');
+            Route::delete('/notes/{note}', [NoteController::class, 'destroy'])->name('notes.destory');
     });
     }); 
 });
