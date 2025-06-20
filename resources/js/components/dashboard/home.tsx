@@ -1,12 +1,12 @@
-import AdminLayout from '@/layouts/admin-layout';
+
 import { Link } from '@inertiajs/react';
 import { ArrowRight, BookOpen, BookText, ChevronRight, GraduationCap, LineChart, Plus, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import CardData from './card-data';
-import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Classe, Cour, Matiere, Professor, Student } from '@/types/models';
+import AdminLayout from '@/layouts/admin-layout';
 
 interface HomeProps {
     students: Student[];
@@ -17,7 +17,6 @@ interface HomeProps {
     [key: string]: Student[] | Professor[] | Matiere[] | Cour[] | Classe[];
 
 }
-
 
 export default function Home({students, professors, matieres, cours, classes}: HomeProps) {
 
@@ -59,7 +58,7 @@ export default function Home({students, professors, matieres, cours, classes}: H
                         gradientTo="#f43f5e"
                     />
                     <CardData
-                        title="Classes"
+                        title="Total classes"
                         value={classes.length}
                         description="4 par niveau"
                         icon={<Users className="h-6 w-6 text-[#10b981]" />}
@@ -67,7 +66,7 @@ export default function Home({students, professors, matieres, cours, classes}: H
                         gradientTo="#059669"
                     />
                     <CardData
-                        title="Matières"
+                        title="Total matières"
                         value={matieres.length}
                         description="Réparties sur tous les niveaux"
                         icon={<BookText className="h-6 w-6 text-[#f59e0b]" />}
@@ -211,10 +210,14 @@ export default function Home({students, professors, matieres, cours, classes}: H
                             </div>
 
                             <div className="border-t border-gray-100 bg-gray-50 p-4 text-center">
-                                <Button variant="link" className="text-[#6366f1] hover:text-[#4f46e5]">
-                                    Voir tous les professeurs
-                                    <ChevronRight className="ml-1 h-4 w-4" />
-                                </Button>
+                                <Link 
+                                   href={route('dashboard.professors.index')} 
+                                   className="text-[#6366f1] hover:text-[#4f46e5] inline-flex items-center"
+                                   title="Voir la liste complète des professeurs">
+                                 <Users className="inline-block mr-2 h-4 w-4" />
+                                   <span>Voir la liste complète des professeurs</span>
+                                 <ChevronRight className="inline-block ml-2 h-4 w-4" />
+                                </Link>
                             </div>
                         </Card>
                     </div>
@@ -227,10 +230,13 @@ export default function Home({students, professors, matieres, cours, classes}: H
                                     <h2 className="text-lg font-semibold text-gray-800">Matières</h2>
                                     <p className="text-sm text-gray-500">Aperçu des matières enseignées</p>
                                 </div>
-                                <Button size="sm" className="bg-[#6366f1] hover:bg-[#4f46e5]">
-                                    <Plus className="mr-1 h-4 w-4" />
-                                    Ajouter
-                                </Button>
+                                <Link 
+                                   href={route('dashboard.matieres.create')} className="inline-flex items-center px-2 py-2 bg-[#6366f1] text-white hover:bg-[#4f46e5] rounded-md shadow-sm transition duration-150"
+                                   title="Ajouter une nouvelle matière">
+                                    <Plus className="inline-block mr-2 h-4 w-4" />
+                                    <span>Ajouter une matière</span>
+                                 <ChevronRight className="inline-block ml-2 h-4 w-4" />
+                                </Link>
                             </div>
 
                             <div className="grid grid-cols-1 divide-y divide-gray-100 md:grid-cols-2 md:divide-y-0">
@@ -254,10 +260,14 @@ export default function Home({students, professors, matieres, cours, classes}: H
                             </div>
 
                             <div className="border-t border-gray-100 bg-gray-50 p-4 text-center">
-                                <Button variant="link" className="text-[#6366f1] hover:text-[#4f46e5]">
-                                    Voir toutes les matières
-                                    <ChevronRight className="ml-1 h-4 w-4" />
-                                </Button>
+                                <Link 
+                                   href={route('dashboard.matieres.index')} 
+                                   className="text-[#6366f1] hover:text-[#4f46e5] inline-flex items-center"
+                                   title="Voir toutes les matières">
+                                    <BookText className="inline-block mr-2 h-4 w-4" />
+                                   <span>Voir toutes les matières</span>
+                                 <ChevronRight className="inline-block ml-2 h-4 w-4" />
+                                </Link>
                             </div>
                         </Card>
                     </div>
