@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'abort_role' => \App\Http\Middleware\RoleRequest::class,
+            'activation_status' => \App\Http\Middleware\ActivatedStatus::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -46,18 +46,14 @@ export default function ProfessorIndexPage() {
         }
     };
 
-
     const handleBackToList = () => {
         setSelectedProfessor(null);
     };
-
-
+    // Vérification si l'utilisateur est connecté
     return (
         <AdminLayout>
             <div className="min-h-screen bg-gray-100">
                 <HeaderDashboard title='Gestion des professeurs'/>
-
-
                 <main className="mx-auto max-w-7xl  sm:px-2 lg:px-4">
                     {selectedProfessor ? (
                         <ProfessorDetail professor={selectedProfessor} onBack={handleBackToList} />
