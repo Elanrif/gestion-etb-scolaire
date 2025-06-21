@@ -17,9 +17,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-         $students = Student::all();
+         $students = Student::with('classe')->take(5)->get();
          $professors = Professor::all();
-         $classes = Classe::all();
+         $classes = Classe::with('students')->take(5)->get();
          $matieres = Matiere::take(5)->get();
          $cours = Cour::take(5)->get();
          return Inertia::render('dashboard/home-page', 

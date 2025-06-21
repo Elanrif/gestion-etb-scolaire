@@ -1,6 +1,6 @@
 
 import { Link } from '@inertiajs/react';
-import { ArrowRight, BookOpen, BookText, ChevronRight, GraduationCap, LineChart, Plus, Users } from 'lucide-react';
+import {  BookOpen, BookText, ChevronRight, GraduationCap, Plus, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import CardData from './card-data';
 import { Badge } from '../ui/badge';
@@ -19,21 +19,6 @@ interface HomeProps {
 }
 
 export default function Home({students, professors, matieres, cours, classes}: HomeProps) {
-
-    // Données d'exemple pour les professeurs
-    const teachers = [
-        { id: 1, name: 'Martin Dupont', subject: 'Mathématiques', avatar: '', initials: 'MD' },
-        { id: 2, name: 'Sophie Martin', subject: 'Français', avatar: '', initials: 'SM' },
-        { id: 3, name: 'Jean Lefebvre', subject: 'Histoire-Géo', avatar: '', initials: 'JL' },
-    ];
-
-    // Données d'exemple pour les matières
-    const subjects = [
-        { id: 1, name: 'Mathématiques', teachers: 4, color: 'bg-green-100 text-green-600' },
-        { id: 2, name: 'Français', teachers: 3, color: 'bg-yellow-100 text-yellow-600' },
-        { id: 3, name: 'Histoire-Géo', teachers: 2, color: 'bg-red-100 text-red-600' },
-        { id: 4, name: 'Physique-Chimie', teachers: 2, color: 'bg-indigo-100 text-indigo-600' },
-    ];
     return (
         <AdminLayout>
             <div className="space-y-6">
@@ -89,14 +74,6 @@ export default function Home({students, professors, matieres, cours, classes}: H
                         gradientFrom="#f5000b"
                         gradientTo="#d102706"
                     />
-                    <CardData
-                        title="Moyenne générale"
-                        value={'14.2/20'}
-                        description="Depuis le trimestre dernier"
-                        icon={<LineChart className="h-6 w-6 text-[#f59e0b]" />}
-                        gradientFrom="#f51647e"
-                        gradientTo="#812706"
-                    />
                 </div>
 
                 {/* Résumé des notes */}
@@ -105,41 +82,40 @@ export default function Home({students, professors, matieres, cours, classes}: H
                     <div className="rounded-lg bg-white p-6 shadow">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-900">Résumé des notes par classe</h2>
-                            <Link href="/admin/grades" className="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
-                                Voir tout <ArrowRight className="ml-1 h-4 w-4" />
-                            </Link>
+                             <Link 
+                                   href={route('dashboard.classes.index')} 
+                                   className="text-[#6366f1] hover:text-[#4f46e5] inline-flex items-center"
+                                   title="Voir tout">
+                                 <Users className="inline-block mr-2 h-4 w-4" />
+                                   <span>Voir tout</span>
+                                 <ChevronRight className="inline-block ml-2 h-4 w-4" />
+                                </Link>
                         </div>
-                        <div className="space-y-4">
-                            {[
-                                { classe: 'Seconde A', moyenne: 13.8, tendance: '+0.5', eleves: 32 },
-                                { classe: 'Seconde B', moyenne: 12.5, tendance: '-0.2', eleves: 30 },
-                                { classe: 'Première S', moyenne: 14.2, tendance: '+0.7', eleves: 28 },
-                                { classe: 'Première L', moyenne: 13.9, tendance: '+0.3', eleves: 25 },
-                                { classe: 'Terminale S', moyenne: 15.1, tendance: '+1.2', eleves: 30 },
-                            ].map((classe, index) => (
-                                <div key={index} className="flex items-center justify-between rounded-lg border border-gray-200 p-4">
-                                    <div>
-                                        <h3 className="font-medium text-gray-900">{classe.classe}</h3>
-                                        <p className="text-sm text-gray-500">{classe.eleves} élèves</p>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-lg font-semibold text-gray-900">{classe.moyenne}/20</p>
-                                        <p className={`text-sm ${classe.tendance.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
-                                            {classe.tendance} pts
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                       <div className="space-y-4">
+  {classes.map((classe) => (
+    <div key={classe.id} className="flex items-center justify-between rounded-lg border border-gray-200 p-4">
+      <div>
+        <h3 className="font-medium text-gray-900">{classe.name}</h3>
+        <p className="text-sm text-gray-500">{classe.students?.length} élève{classe.students?.length > 1 ? 's' : ''}</p>
+      </div>
+      {/* Si tu veux afficher la moyenne ou autre info, adapte ici */}
+    </div>
+  ))}
+</div>
                     </div>
 
                     {/* Meilleures performances */}
                     <div className="rounded-lg bg-white p-6 shadow">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-gray-900">Meilleures performances</h2>
-                            <Link href="/admin/students" className="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
-                                Voir tout <ArrowRight className="ml-1 h-4 w-4" />
-                            </Link>
+                             <Link 
+                                   href={route('dashboard.notes.index')} 
+                                   className="text-[#6366f1] hover:text-[#4f46e5] inline-flex items-center"
+                                   title="Voir tout">
+                                 <Users className="inline-block mr-2 h-4 w-4" />
+                                   <span>Voir tout</span>
+                                 <ChevronRight className="inline-block ml-2 h-4 w-4" />
+                                </Link>
                         </div>
                         <div className="overflow-hidden rounded-lg border border-gray-200">
                             <table className="min-w-full divide-y divide-gray-200">
@@ -156,27 +132,27 @@ export default function Home({students, professors, matieres, cours, classes}: H
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-200 bg-white">
-                                    {[
-                                        { nom: 'Sophie Martin', classe: 'Terminale S', moyenne: 18.5 },
-                                        { nom: 'Lucas Dubois', classe: 'Première S', moyenne: 17.8 },
-                                        { nom: 'Emma Bernard', classe: 'Terminale S', moyenne: 17.6 },
-                                        { nom: 'Thomas Petit', classe: 'Première L', moyenne: 17.2 },
-                                        { nom: 'Léa Richard', classe: 'Seconde A', moyenne: 16.9 },
-                                    ].map((eleve, index) => (
-                                        <tr key={index}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm font-medium text-gray-900">{eleve.nom}</div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-500">{eleve.classe}</div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm font-semibold text-gray-900">{eleve.moyenne}/20</div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
+                               <tbody className="divide-y divide-gray-200 bg-white">
+                        {students.map((eleve) => (
+                            <tr key={eleve.id}>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm font-medium text-gray-900">
+                                        {eleve.first_name} {eleve.last_name}
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm text-gray-500">
+                                        {eleve.classe?.name || 'Non affecté'}
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm font-semibold text-gray-900">
+                                        {Array.isArray(eleve.notes) && eleve.notes[0]?.value !== undefined ? eleve.notes[0].value : 'N/A'}/20
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+</tbody>
                             </table>
                         </div>
                     </div>
@@ -193,20 +169,22 @@ export default function Home({students, professors, matieres, cours, classes}: H
                             </div>
 
                             <div className="divide-y divide-gray-100">
-                                {teachers.map((teacher) => (
-                                    <div key={teacher.id} className="p-4 transition-colors hover:bg-gray-50">
-                                        <div className="flex items-center">
-                                            <Avatar className="h-10 w-10 border border-gray-200">
-                                                <AvatarImage src={teacher.avatar || '/placeholder.svg'} alt={teacher.name} />
-                                                <AvatarFallback className="bg-[#f0e7ff] text-[#8b5cf6]">{teacher.initials}</AvatarFallback>
-                                            </Avatar>
-                                            <div className="ml-3">
-                                                <p className="font-medium text-gray-800">{teacher.name}</p>
-                                                <p className="text-xs text-gray-500">{teacher.subject}</p>
-                                            </div>
-                                        </div>
+                              {professors.map((prof) => (
+                            <div key={prof.id} className="p-4 transition-colors hover:bg-gray-50">
+                                <div className="flex items-center">
+                                    <Avatar className="h-10 w-10 border border-gray-200">
+                                        <AvatarImage src={'/placeholder.svg'} alt={prof.first_name + ' ' + prof.last_name} />
+                                        <AvatarFallback className="bg-[#f0e7ff] text-[#8b5cf6]">
+                                            {prof.first_name?.[0]}{prof.last_name?.[0]}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <div className="ml-3">
+                                        <p className="font-medium text-gray-800">{prof.first_name} {prof.last_name}</p>
+                                        <p className="text-xs text-gray-500">{'Spécialité inconnue'}</p>
                                     </div>
-                                ))}
+                                </div>
+                            </div>
+))}
                             </div>
 
                             <div className="border-t border-gray-100 bg-gray-50 p-4 text-center">
@@ -240,23 +218,24 @@ export default function Home({students, professors, matieres, cours, classes}: H
                             </div>
 
                             <div className="grid grid-cols-1 divide-y divide-gray-100 md:grid-cols-2 md:divide-y-0">
-                                {subjects.map((subject) => (
-                                    <div
-                                        key={subject.id}
-                                        className="border-b border-gray-100 p-4 transition-colors hover:bg-gray-50 md:border-b-0 md:even:border-l"
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                <p className="font-medium text-gray-800">{subject.name}</p>
-                                                <div className="mt-1 flex items-center">
-                                                    <BookOpen className="mr-1 h-3.5 w-3.5 text-gray-400" />
-                                                    <p className="text-xs text-gray-500">{subject.teachers} professeurs</p>
-                                                </div>
-                                            </div>
-                                            <Badge className={subject.color}>{subject.name.substring(0, 3)}</Badge>
-                                        </div>
+                               {matieres.map((matiere) => (
+                            <div
+                                key={matiere.id}
+                                className="border-b border-gray-100 p-4 transition-colors hover:bg-gray-50 md:border-b-0 md:even:border-l"
+                            >
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <p className="font-medium text-gray-800">{matiere.name}</p>
+                                        {/* Si tu as le nombre de professeurs pour chaque matière, affiche-le ici */}
+                                        {/* <div className="mt-1 flex items-center">
+                                            <BookOpen className="mr-1 h-3.5 w-3.5 text-gray-400" />
+                                            <p className="text-xs text-gray-500">{matiere.professors_count} professeurs</p>
+                                        </div> */}
                                     </div>
-                                ))}
+                                    <Badge className="bg-indigo-100 text-indigo-600">{matiere.name.substring(0, 3)}</Badge>
+                                </div>
+                            </div>
+))}
                             </div>
 
                             <div className="border-t border-gray-100 bg-gray-50 p-4 text-center">
