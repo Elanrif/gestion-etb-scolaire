@@ -20,8 +20,8 @@ class DashboardController extends Controller
          $students = Student::all();
          $professors = Professor::all();
          $classes = Classe::all();
-         $matieres = Classe::all();
-         $cours = Classe::all();
+         $matieres = Matiere::take(5)->get();
+         $cours = Cour::take(5)->get();
          return Inertia::render('dashboard/home-page', 
          ['students' => $students, 
          'professors' => $professors,

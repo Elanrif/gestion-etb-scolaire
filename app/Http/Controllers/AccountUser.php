@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Classe;
 use App\Models\Cour;
+use App\Models\Matiere;
+use App\Models\Note;
+use App\Models\Professor;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,15 +23,28 @@ class AccountUser extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $user = Auth::user();
-        $data = User::with([
+    {   
+
+         $students = Student::all();
+         $professors = Professor::all();
+         $classes = Classe::all();
+         $matieres = Matiere::all();
+         $cours = Cour::all();
+         $user = Auth::user();
+         $data = User::with([
             'student', 
             'professor', 
             'secretary'
         ])->find($user->id);
         
-        return Inertia::render('account/home',['data' => $data]);
+        return Inertia::render('account/home',
+        ['data' => $data,
+        'students' => $students,
+        'professors' => $professors,
+        'classes' => $classes,
+        'matieres' => $matieres,
+        'cours' => $cours
+        ]);
     }
 
     /**
@@ -175,6 +191,7 @@ public function homeStudent()
     return Inertia::render('account/home_student', [
         'cours' => $cours,
         'classes' => $classes,
+        'notes' => Note::where('student_id', Auth::user()->student->id ?? null)->get()
     ]);
 }
 }
